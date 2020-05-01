@@ -1,0 +1,27 @@
+.post-container {
+  position: relative;
+  border: 3px solid black;
+  margin-bottom: 10px;
+  padding: 5px;
+  min-height: 40%;
+  background-image: url('../images/post.png');
+  background-repeat: no-repeat;
+  background-position: 99% 5%;
+
+}
+
+.post-title {
+  margin-top: 2px;
+}
+
+.post-content {
+  margin-top: -10px;
+  margin-right: 32%;
+  font-size: small;
+}
+
+.published-time {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+}
