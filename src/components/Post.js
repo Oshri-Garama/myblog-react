@@ -1,16 +1,28 @@
 import React from "react";
 import '../styles/post.css'
 
-const Post = (props) => {
-  return (
-    <div className="post-container">
-      <h4 class="post-title">Blog post #{props.id}</h4>
-      <div class="post-content">
-        {props.content}
+class Post extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      id: props.id || '',
+      content: props.content || '',
+      activity: props.activity || ''
+    }
+  }
+  
+  render() {
+    const { id, content, activity } = this.props;
+    return (
+      <div className="post-container">
+        <h4 class="post-title">Blog post #{id}</h4>
+        <div class="post-content">
+          {content}
+        </div>
+        <div class="published-time">{activity}</div>
       </div>
-      <div class="published-time">Published 1 days ago by Israel</div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Post;
