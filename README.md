@@ -7,6 +7,7 @@ At first I was asked to write some HTML + CSS code to implement the home page's 
 https://oshri-garama.github.io/blog/
 
 In this part we were asked convert it into React Application, and deploy it using gh-pages.
+
 This is the results:
 
 
