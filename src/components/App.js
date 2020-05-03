@@ -19,7 +19,7 @@ class App extends React.Component {
             </div>
           ),
           activity: "Published 1 days ago by Israel",
-          link: ''
+          link: "",
         },
         post2: {
           id: 2,
@@ -30,7 +30,7 @@ class App extends React.Component {
             </div>
           ),
           activity: "Published 2 days ago by Joe",
-          link: ''
+          link: "",
         },
         post3: {
           id: 3,
@@ -40,8 +40,8 @@ class App extends React.Component {
               post.
             </div>
           ),
-          activity: 'Published 3 days ago by Israel',
-          link: ''
+          activity: "Published 3 days ago by Israel",
+          link: "",
         },
       },
     };
@@ -58,9 +58,24 @@ class App extends React.Component {
             <header>
               <h1 id="blog-title">This is my blog</h1>
             </header>
-            <Post id={post1.id} content={post1.content} activity={post1.activity} />
-            <Post id={post2.id} content={post2.content} activity={post2.activity} />
-            <Post id={post3.id} content={post3.content} activity={post3.activity} />
+            <Post
+              id={post1.id}
+              content={post1.content}
+              activity={post1.activity}
+              link={post1.link}
+            />
+            <Post
+              id={post2.id}
+              content={post2.content}
+              activity={post2.activity}
+              link={post2.link}
+            />
+            <Post
+              id={post3.id}
+              content={post3.content}
+              activity={post3.activity}
+              link={post3.link}
+            />
           </div>
           <div className="sidebar-container">
             <div className="latest-container">
