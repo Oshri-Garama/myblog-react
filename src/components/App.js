@@ -11,6 +11,7 @@ class App extends React.Component {
       posts: {
         post1: {
           id: 1,
+          author: 'Israel',
           content: (
             <div>
               My <mark class="bold">first blog post</mark> is all about my
@@ -18,29 +19,31 @@ class App extends React.Component {
               my blog, you can find it <a href="">here</a>
             </div>
           ),
-          activity: "Published 1 days ago by Israel",
+          published: "Published 1 days ago by ",
           link: "",
         },
         post2: {
           id: 2,
+          author: 'Joe',
           content: (
             <div>
               My <mark class="bold">second blog post</mark> is all about my blog
               post.
             </div>
           ),
-          activity: "Published 2 days ago by Joe",
+          published: "Published 2 days ago by ",
           link: "",
         },
         post3: {
           id: 3,
+          author: 'Israel',
           content: (
             <div>
               My <mark class="bold">third blog post</mark> is all about my blog
               post.
             </div>
           ),
-          activity: "Published 3 days ago by Israel",
+          published: "Published 3 days ago by ",
           link: "",
         },
       },
@@ -60,20 +63,23 @@ class App extends React.Component {
             </header>
             <Post
               id={post1.id}
+              author={post1.author}
               content={post1.content}
-              activity={post1.activity}
+              published={post1.published}
               link={post1.link}
             />
             <Post
               id={post2.id}
+              author={post2.author}
               content={post2.content}
-              activity={post2.activity}
+              published={post2.published}
               link={post2.link}
             />
             <Post
               id={post3.id}
+              author={post3.author}
               content={post3.content}
-              activity={post3.activity}
+              published={post3.published}
               link={post3.link}
             />
           </div>
