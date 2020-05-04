@@ -4,10 +4,12 @@
   margin-bottom: 10px;
   padding: 5px;
   min-height: 40%;
-  background-image: url('../images/post.png');
-  background-repeat: no-repeat;
-  background-position: 99% 5%;
+}
 
+.image-container {
+  position: absolute;
+  right: 0.9%;
+  top: 2%;
 }
 
 .post-title {

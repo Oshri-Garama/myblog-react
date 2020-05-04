@@ -10,7 +10,6 @@ class App extends React.Component {
   }
 
   render() {
-
     return (
       <div className="page-container">
         <Navbar />
@@ -19,9 +18,9 @@ class App extends React.Component {
             <header>
               <h1 id="blog-title">This is my blog</h1>
             </header>
-            <Posts/>
+            <Posts />
           </div>
-          <Sidebar/>
+          <Sidebar />
         </div>
       </div>
     );

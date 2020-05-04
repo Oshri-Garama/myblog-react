@@ -1,4 +1,5 @@
 import React from "react";
+import image from '../images/post.png'
 
 export default [
   {
@@ -13,6 +14,7 @@ export default [
     ),
     published: "Published 1 days ago by ",
     link: "",
+    image: image
   },
   {
     id: 2,
@@ -24,6 +26,7 @@ export default [
     ),
     published: "Published 2 days ago by ",
     link: "",
+    image: image
   },
   {
     id: 3,
@@ -35,5 +38,6 @@ export default [
     ),
     published: "Published 3 days ago by ",
     link: "",
+    image: image
   },
 ];

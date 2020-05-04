@@ -11,11 +11,12 @@ class Post extends React.Component {
       content: props.content || "",
       published: props.published || "",
       link: props.link || "",
+      image: props.image || "",
     };
   }
 
   render() {
-    const { id, author, content, published } = this.props;
+    const { id, author, content, image, published } = this.props;
     return (
       <div className="post-container">
         <h4 class="post-title">Blog post #{id}</h4>
@@ -23,13 +24,14 @@ class Post extends React.Component {
         <div class="published-time">
           {published} {author}
         </div>
+        <img className="image-container" src={image} alt="" />
       </div>
     );
   }
 }
 
 const Posts = (props) => {
-  const postsJSX = posts.map(post => {
+  const postsJSX = posts.map((post) => {
     return (
       <Post
         id={post.id}
@@ -37,10 +39,11 @@ const Posts = (props) => {
         content={post.content}
         published={post.published}
         link={post.link}
+        image={post.image}
       />
     );
   });
   return postsJSX;
 };
 
-export default Posts
+export default Posts;
