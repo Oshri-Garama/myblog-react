@@ -1,4 +1,5 @@
 import React from "react";
+import posts from "../data/posts";
 
 class SidebarItem extends React.Component {
   constructor(props) {
@@ -38,4 +39,18 @@ class SidebarItem extends React.Component {
   }
 }
 
-export default SidebarItem;
+const Sidebar = (props) => {
+  const [post1, post2, post3] = posts;
+  return (
+    <div className="sidebar-container">
+      <div className="latest-container">
+        <SidebarItem title="Latest" posts={[post1, post2, post3]} />
+      </div>
+      <div className="popular-container">
+        <SidebarItem title="Popular" posts={[post3, post1, post2]} />
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;
