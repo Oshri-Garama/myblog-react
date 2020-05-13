@@ -10,6 +10,7 @@ import posts from "../data/posts";
 import Homepage from '../pages/Homepage/Homepage'
 import AboutMe from '../pages/AboutMe/AboutMe'
 import PostPage from '../pages/PostPage/PostPage'
+import AddNewPost from '../pages/AddPost/AddNewPost'
 
 
 const Navbar = () => {
@@ -32,9 +33,7 @@ const Navbar = () => {
 
       <Switch>
         <Route path='/about' component={AboutMe}></Route>
-        <Route path='/posts/new'>
-          <h1>New Post</h1>
-        </Route>
+        <Route path='/posts/new' render={props => <AddNewPost posts={posts} />}></Route>
         <Route path='/posts/:id' render={props => <PostPage {...props} posts={posts} />}></Route>
         <Route path='login'></Route>
         <Route path='/' render={props => <Homepage {...props} posts={posts}/>}>
