@@ -13,15 +13,6 @@ class App extends React.Component {
     return (
       <div className="page-container">
         <Navbar />
-        <div className="home-container">
-          <div className="blog-container">
-            <header>
-              <h1 id="blog-title">This is my blog</h1>
-            </header>
-            <Posts />
-          </div>
-          <Sidebar />
-        </div>
       </div>
     );
   }

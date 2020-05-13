@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/post.css";
-import posts from "../data/posts";
+import { Link } from 'react-router-dom'
 
 class Post extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Post extends React.Component {
     const { id, author, content, image, published } = this.props;
     return (
       <div className="post-container">
-        <h4 class="post-title">Blog post #{id}</h4>
+        <h4 class="post-title"><Link to={`/posts/${id}`}>Blog post #{id}</Link></h4>
         <div class="post-content">{content}</div>
         <div class="published-time">
           {published} {author}
@@ -31,7 +31,7 @@ class Post extends React.Component {
 }
 
 const Posts = (props) => {
-  const postsJSX = posts.map((post) => {
+  const postsJSX = props.posts.map((post) => {
     return (
       <Post
         id={post.id}
