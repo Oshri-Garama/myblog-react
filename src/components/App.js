@@ -41,7 +41,7 @@ class App extends React.Component {
     const { posts } = this.state;
 
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div className="page-container">
           <Navbar />
 
@@ -59,7 +59,7 @@ class App extends React.Component {
             ></Route>
             <Route path="/login"></Route>
             <Route
-              path={process.env.PUBLIC_URL + '/'}
+              path={"/"}
               render={(props) => <Homepage {...props} posts={posts} />}
             ></Route>
           </Switch>
