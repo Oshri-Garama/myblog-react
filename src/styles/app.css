@@ -30,6 +30,10 @@
   margin-bottom: -15px
 }
 
+.sidebar-container a {
+  color: #196ECF
+}
+
 .latest-container {
   border-bottom: 2px black solid;
   border-radius: 3px;
