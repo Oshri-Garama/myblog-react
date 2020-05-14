@@ -59,7 +59,7 @@ class App extends React.Component {
             ></Route>
             <Route path="login"></Route>
             <Route
-              path="/"
+              path={process.env.PUBLIC_URL + '/'}
               render={(props) => <Homepage {...props} posts={posts} />}
             ></Route>
           </Switch>
