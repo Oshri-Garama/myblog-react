@@ -12,34 +12,34 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: postsList.reverse()
-    }
+      posts: postsList.reverse(),
+    };
   }
 
-  handleAddPost = post => {
-    const { posts } = this.state
+  handleAddPost = (post) => {
+    const { posts } = this.state;
     post.id = posts.length + 1;
     posts.unshift(post);
     this.setState({
-      posts: posts
-    })
-    localStorage.setItem('posts', JSON.stringify(this.state.posts))
-  }
+      posts: posts,
+    });
+    localStorage.setItem("posts", JSON.stringify(this.state.posts));
+  };
 
   componentDidMount() {
-    const posts = localStorage.getItem('posts') || this.state.posts;
+    const posts = localStorage.getItem("posts") || this.state.posts;
     this.setState({
-      posts: JSON.parse(posts)
-    })
+      posts: JSON.parse(posts),
+    });
   }
 
   componentWillUnmount() {
-    localStorage.setItem('posts', JSON.stringify(this.state.posts))
+    localStorage.setItem("posts", JSON.stringify(this.state.posts));
   }
 
   render() {
     const { posts } = this.state;
-    
+
     return (
       <Router>
         <div className="page-container">
@@ -49,7 +49,9 @@ class App extends React.Component {
             <Route path="/about" component={AboutMe}></Route>
             <Route
               path="/posts/new"
-              render={(props) => <AddNewPost {...props} handleAddPost={this.handleAddPost} />}
+              render={(props) => (
+                <AddNewPost {...props} handleAddPost={this.handleAddPost} />
+              )}
             ></Route>
             <Route
               path="/posts/:id"

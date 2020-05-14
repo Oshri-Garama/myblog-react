@@ -1,6 +1,6 @@
 import React from "react";
 import "./AddNewPost.css";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 
 class AddNewPost extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class AddNewPost extends React.Component {
         content: "",
         title: "",
       },
-      saved: false
+      saved: false,
     };
   }
   handleTitleChange = (event) => {
@@ -32,17 +32,16 @@ class AddNewPost extends React.Component {
   };
 
   onSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     const { post } = this.state;
     if (post.title && post.content) {
-      this.props.handleAddPost(post)
-      alert('Post saved successfully')
-      this.props.history.push('/')
+      this.props.handleAddPost(post);
+      alert("Post saved successfully");
+      this.props.history.push("/");
+    } else {
+      alert("Title and Content are required");
     }
-    else {
-      alert('Title and Content are required')
-    }
-  }
+  };
 
   render() {
     return (
