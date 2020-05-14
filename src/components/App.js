@@ -41,12 +41,12 @@ class App extends React.Component {
     const { posts } = this.state;
 
     return (
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router basename={process.env.PUBLIC_URL + '/'}>
         <div className="page-container">
           <Navbar />
 
           <Switch>
-            <Route path="/about" component={AboutMe}></Route>
+            <Route path='/about' component={AboutMe}></Route>
             <Route
               path="/posts/new"
               render={(props) => (
