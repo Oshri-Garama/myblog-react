@@ -16,6 +16,10 @@
   margin-top: 2px;
 }
 
+.post-title a {
+  color: #F36E51;
+}
+
 .post-content {
   margin-top: -10px;
   margin-right: 32%;
