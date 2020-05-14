@@ -31,7 +31,6 @@ class AddNewPost extends React.Component {
 
   handleSavePost = (event) => {
     const { post } = this.state;
-    console.log(`Title is: ${this.state.post.title} \n Content is: ${this.state.post.content}`)
     this.props.handleAddPost(post);
   }
 

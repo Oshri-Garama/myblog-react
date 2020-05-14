@@ -17,7 +17,8 @@ class App extends React.Component {
   }
 
   handleAddPost = post => {
-    const { posts } = this.state;
+    const { posts } = this.state
+    post.id = posts.length + 1;
     posts.push(post);
     this.setState({
       posts: posts

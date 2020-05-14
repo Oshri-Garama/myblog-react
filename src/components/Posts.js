@@ -16,10 +16,10 @@ class Post extends React.Component {
   }
 
   render() {
-    const { id, author, content, image, published } = this.props;
+    const {id, author, title, content, image, published } = this.props;
     return (
       <div className="post-container">
-        <h4 class="post-title"><Link to={`/posts/${id}`}>Blog post #{id}</Link></h4>
+        <h4 class="post-title"><Link to={`/posts/${id}`}>{title}</Link></h4>
         <div class="post-content">{content}</div>
         <div class="published-time">
           {published} {author}
@@ -36,6 +36,7 @@ const Posts = (props) => {
       <Post
         id={post.id}
         author={post.author}
+        title={post.title}
         content={post.content}
         published={post.published}
         link={post.link}
