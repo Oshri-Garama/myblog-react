@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/app.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import posts from "../data/posts";
+import postsList from "../data/posts";
 import Navbar from "../components/Navbar";
 import Homepage from "../pages/Homepage/Homepage";
 import AboutMe from "../pages/AboutMe/AboutMe";
@@ -11,18 +11,44 @@ import AddNewPost from "../pages/AddPost/AddNewPost";
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      posts: postsList
+    }
+  }
+
+  handleAddPost = post => {
+    const { posts } = this.state;
+    posts.push(post);
+    this.setState({
+      posts: posts
+    })
+    localStorage.setItem('posts', JSON.stringify(this.state.posts))
+  }
+
+  componentDidMount() {
+    const posts = localStorage.getItem('posts') || this.state.posts;
+    this.setState({
+      posts: JSON.parse(posts)
+    })
+  }
+
+  componentWillUnmount() {
+    localStorage.setItem('posts', JSON.stringify(this.state.posts))
   }
 
   render() {
+    const { posts } = this.state;
+    
     return (
-      <div className="page-container">
-        <Router>
+      <Router>
+        <div className="page-container">
           <Navbar />
+
           <Switch>
             <Route path="/about" component={AboutMe}></Route>
             <Route
               path="/posts/new"
-              render={(props) => <AddNewPost {...props} posts={posts} />}
+              render={(props) => <AddNewPost {...props} handleAddPost={this.handleAddPost} />}
             ></Route>
             <Route
               path="/posts/:id"
@@ -34,8 +60,8 @@ class App extends React.Component {
               render={(props) => <Homepage {...props} posts={posts} />}
             ></Route>
           </Switch>
-        </Router>
-      </div>
+        </div>
+      </Router>
     );
   }
 }

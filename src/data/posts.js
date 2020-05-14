@@ -6,13 +6,7 @@ export default [
     id: 1,
     author: "Israel",
     title: "Being first is a pleasure",
-    content: (
-      <div>
-        My <mark className="bold">first blog post</mark> is all about my
-        <mark className="red"> blog post</mark> and how to write a new post in my
-        blog.
-      </div>
-    ),
+    content: 'My first post is all about my first post and how to write a new post in my blog',
     published: "Published 1 days ago by ",
     link: "",
     image: image
@@ -21,11 +15,7 @@ export default [
     id: 2,
     author: "Joe",
     title: "All about my blog post",
-    content: (
-      <div>
-        My <mark className="bold">second blog post</mark> is all about my blog post.
-      </div>
-    ),
+    content: 'My second blog post is all about my blog post',
     published: "Published 2 days ago by ",
     link: "",
     image: image
@@ -34,11 +24,7 @@ export default [
     id: 3,
     author: "Israel",
     title: "This is the best title ever",
-    content: (
-      <div>
-        My <mark className="bold">third blog post</mark> is all about my blog post.
-      </div>
-    ),
+    content: "My third blog post is all about my blog post",
     published: "Published 3 days ago by ",
     link: "",
     image: image
