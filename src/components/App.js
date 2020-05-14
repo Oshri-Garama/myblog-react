@@ -12,14 +12,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: postsList
+      posts: postsList.reverse()
     }
   }
 
   handleAddPost = post => {
     const { posts } = this.state
     post.id = posts.length + 1;
-    posts.push(post);
+    posts.unshift(post);
     this.setState({
       posts: posts
     })

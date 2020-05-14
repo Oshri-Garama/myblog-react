@@ -10,7 +10,6 @@ class Post extends React.Component {
       author: props.author || "",
       content: props.content || "",
       published: props.published || "",
-      link: props.link || "",
       image: props.image || "",
     };
   }
@@ -39,7 +38,6 @@ const Posts = (props) => {
         title={post.title}
         content={post.content}
         published={post.published}
-        link={post.link}
         image={post.image}
       />
     );
