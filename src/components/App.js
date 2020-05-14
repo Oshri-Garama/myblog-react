@@ -57,7 +57,7 @@ class App extends React.Component {
               path="/posts/:id"
               render={(props) => <PostPage {...props} posts={posts} />}
             ></Route>
-            <Route path="login"></Route>
+            <Route path="/login"></Route>
             <Route
               path={process.env.PUBLIC_URL + '/'}
               render={(props) => <Homepage {...props} posts={posts} />}
