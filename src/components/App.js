@@ -27,9 +27,9 @@ class App extends React.Component {
   };
 
   componentWillMount() {
-    const posts = localStorage.getItem("posts") || this.state.posts;
+    const posts = JSON.parse(localStorage.getItem("posts")) || this.state.posts;
     this.setState({
-      posts: JSON.parse(posts),
+      posts: posts,
     });
   }
 
