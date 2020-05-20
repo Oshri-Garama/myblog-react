@@ -1,18 +1,19 @@
 import React from "react";
 import "../styles/app.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import postsList from "../data/posts";
 import Navbar from "../components/Navbar";
 import Homepage from "../pages/Homepage/Homepage";
 import AboutMe from "../pages/AboutMe/AboutMe";
 import PostPage from "../pages/PostPage/PostPage";
 import AddNewPost from "../pages/AddPost/AddNewPost";
+import axios from "axios";
+import humps from 'humps'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: postsList.reverse(),
+      posts: []
     };
   }
 
@@ -27,10 +28,26 @@ class App extends React.Component {
   };
 
   componentWillMount() {
-    const posts = JSON.parse(localStorage.getItem("posts")) || this.state.posts;
-    this.setState({
-      posts: posts,
-    });
+    const port = '5000';
+    const url = `http://localhost:${port}/posts`;
+    axios.get(url).then((res) => {
+      if (res.status === 200) {
+        let data = humps.camelizeKeys(res.data)
+        data = data.map(data => {
+          return {
+            id: data.postId,
+            author: data.fullName,
+            title: data.title,
+            content: data.content,
+            image: data.imageUrl,
+            published: data.createdAt
+          }
+        })
+        this.setState({
+          posts: data
+        });
+      }
+    }).catch(() => console.log("couldn't load data"))
   }
 
   componentWillUnmount() {
@@ -41,12 +58,12 @@ class App extends React.Component {
     const { posts } = this.state;
 
     return (
-      <Router basename={process.env.PUBLIC_URL + '/'}>
+      <Router basename={process.env.PUBLIC_URL + "/"}>
         <div className="page-container">
           <Navbar />
 
           <Switch>
-            <Route path='/about' component={AboutMe}></Route>
+            <Route path="/about" component={AboutMe}></Route>
             <Route
               path="/posts/new"
               render={(props) => (
