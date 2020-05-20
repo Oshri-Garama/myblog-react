@@ -1,6 +1,9 @@
 import React from "react";
 import "../styles/post.css";
 import { Link } from "react-router-dom";
+import Image from 'react-image-resizer';
+import moment from 'moment';
+
 
 class Post extends React.Component {
   constructor(props) {
@@ -23,9 +26,11 @@ class Post extends React.Component {
         </h4>
         <div class="post-content">{content}</div>
         <div class="published-time">
-          {published} {author}
+          {author} {published}
         </div>
-        <img className="image-container" src={image} alt="" />
+        <div className="image-container"> 
+          <Image className="image-container" src={image} alt="" height='130' width='300' />
+        </div>
       </div>
     );
   }
