@@ -1,5 +1,4 @@
 import React from "react";
-import posts from "../data/posts";
 
 class SidebarItem extends React.Component {
   constructor(props) {
@@ -11,11 +10,6 @@ class SidebarItem extends React.Component {
   }
 
   render() {
-    const [
-      firstSidebarPost,
-      secondSidebarPost,
-      thirdSidebarPost,
-    ] = this.props.posts;
 
     return (
       <div>
@@ -23,16 +17,16 @@ class SidebarItem extends React.Component {
           <h1>{this.props.title}</h1>
         </header>
         <h4>
-          Blog post #{firstSidebarPost.id}{" "}
-          <a href={firstSidebarPost.link}>go to page</a>
+          Blog post #1{" "}
+          <a href=''>go to page</a>
         </h4>
         <h4>
-          Blog post #{secondSidebarPost.id}{" "}
-          <a href={secondSidebarPost.link}>go to page</a>
+          Blog post #2{" "}
+          <a href='/'>go to page</a>
         </h4>
         <h4>
-          Blog post #{thirdSidebarPost.id}{" "}
-          <a href={thirdSidebarPost.link}>go to page</a>
+          Blog post #3{" "}
+          <a href='/'>go to page</a>
         </h4>
       </div>
     );
@@ -40,14 +34,14 @@ class SidebarItem extends React.Component {
 }
 
 const Sidebar = (props) => {
-  const [post1, post2, post3] = posts;
+
   return (
     <div className="sidebar-container">
       <div className="latest-container">
-        <SidebarItem title="Latest" posts={[post1, post2, post3]} />
+        <SidebarItem title="Latest" posts={props.posts} />
       </div>
       <div className="popular-container">
-        <SidebarItem title="Popular" posts={[post3, post1, post2]} />
+        <SidebarItem title="Popular" posts={props.posts} />
       </div>
     </div>
   );

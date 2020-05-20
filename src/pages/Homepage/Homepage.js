@@ -11,7 +11,7 @@ const Homepage = (props) => {
         </header>
         <Posts posts={props.posts} />
       </div>
-      <Sidebar />
+      <Sidebar posts={props.posts} />
     </div>
   );
 };
