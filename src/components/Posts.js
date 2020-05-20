@@ -19,6 +19,9 @@ class Post extends React.Component {
 
   render() {
     const { id, author, title, content, image, published } = this.props;
+    const today = new Date();
+    const daysOfPublished = moment(today).diff(published, 'days')
+
     return (
       <div className="post-container">
         <h4 class="post-title">
@@ -26,7 +29,7 @@ class Post extends React.Component {
         </h4>
         <div class="post-content">{content}</div>
         <div class="published-time">
-          {author} {published}
+           Published {daysOfPublished === 0 ? 'today' : `${daysOfPublished} days ago`} by {author}
         </div>
         <div className="image-container"> 
           <Image className="image-container" src={image} alt="" height='130' width='300' />
