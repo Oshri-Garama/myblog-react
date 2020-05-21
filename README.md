@@ -17,7 +17,7 @@ Task #3
 
 we were asked to use react-router-dom and implement multiple pages, also we asked to create new post and add it to static posts array.
 
-The results: 
+The results so far: 
 
 https://oshri-garama.github.io/myblog-react/
 
