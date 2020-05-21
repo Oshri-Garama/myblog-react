@@ -8,6 +8,8 @@ import PostPage from "../pages/PostPage/PostPage";
 import AddNewPost from "../pages/AddPost/AddNewPost";
 import axios from "axios";
 import humps from 'humps'
+import moment from 'moment'
+// moment.locale('he')
 
 class App extends React.Component {
   constructor(props) {
@@ -47,7 +49,7 @@ class App extends React.Component {
           posts: data
         });
       }
-    }).catch(() => console.log("couldn't load data"))
+    }).catch((error) => console.log(error, "Couldn't load posts"))
   }
 
   componentWillUnmount() {
