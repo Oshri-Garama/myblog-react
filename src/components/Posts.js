@@ -16,11 +16,16 @@ class Post extends React.Component {
       image: props.image || "",
     };
   }
+  getFormattedDate = date => {
+    const dateObj = moment.utc(new Date(date)).format('YYYY-MM-DD')
+    return dateObj;
+  }
 
   render() {
     const { id, author, title, content, image, published } = this.props;
-    const today = new Date();
-    const daysOfPublished = moment(today).diff(published, 'days')
+    const publishedDate = this.getFormattedDate(published)
+    const daysOfPublished = moment().diff(publishedDate, 'days')
+    console.log(publishedDate, daysOfPublished)
 
     return (
       <div className="post-container">
@@ -32,7 +37,7 @@ class Post extends React.Component {
            Published {daysOfPublished === 0 ? 'today' : `${daysOfPublished} days ago`} by {author}
         </div>
         <div className="image-container"> 
-          <Image className="image-container" src={image} alt="" height='130' width='300' />
+          <Image src={image} alt="" height='130' width='300' />
         </div>
       </div>
     );
