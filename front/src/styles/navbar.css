@@ -1,0 +1,15 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar a {
+  color: #196ECF;
+}
+
+.vr-line {
+  padding-right: 8px;
+  margin-right: 5px;
+  border-right: 2px black ridge;
+  border-radius: 2px;
+}

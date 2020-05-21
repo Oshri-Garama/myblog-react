@@ -1,0 +1,36 @@
+.post-container {
+  position: relative;
+  border: 3px solid black;
+  margin-bottom: 10px;
+  padding: 5px;
+  min-height: 40%;
+}
+
+.image-container {
+  position: absolute;
+  right: 0.5%;
+  top: 2%;
+  min-height: 150px;
+  min-width: 265px;
+  overflow: auto;
+}
+
+.post-title {
+  margin-top: 2px;
+}
+
+.post-title a {
+  color: #196ECF;
+}
+
+.post-content {
+  margin-top: -10px;
+  margin-right: 32%;
+  font-size: small;
+}
+
+.published-time {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 10px;
+}
