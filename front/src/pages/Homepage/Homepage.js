@@ -9,7 +9,7 @@ const Homepage = (props) => {
         <header>
           <h1 id="blog-title">This is my blog</h1>
         </header>
-        <Posts posts={props.posts} />
+        {props.posts === [] ? <div>Currently there are no posts...</div> : <Posts posts={props.posts} />}
       </div>
       <Sidebar posts={props.posts} />
     </div>
