@@ -1,6 +1,5 @@
 import React from "react";
 import "./AddNewPost.css";
-import { Redirect } from "react-router-dom";
 
 class AddNewPost extends React.Component {
   constructor(props) {
@@ -9,6 +8,7 @@ class AddNewPost extends React.Component {
       post: {
         content: "",
         title: "",
+        imageUrl: ""
       },
       saved: false,
     };
@@ -27,6 +27,15 @@ class AddNewPost extends React.Component {
       post: {
         ...this.state.post,
         content: event.target.value,
+      },
+    });
+  };
+
+  handleImageChange = (event) => {
+    this.setState({
+      post: {
+        ...this.state.post,
+        imageUrl: event.target.value,
       },
     });
   };
@@ -52,6 +61,12 @@ class AddNewPost extends React.Component {
           type="text"
           placeholder="Post title goes here..."
           onChange={this.handleTitleChange}
+        ></input>
+        <input
+          id="input-title"
+          type="url"
+          placeholder="Paste here your image url"
+          onChange={this.handleImageChange}
         ></input>
         <textarea
           id="input-content"

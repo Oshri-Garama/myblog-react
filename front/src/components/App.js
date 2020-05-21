@@ -11,6 +11,9 @@ import humps from 'humps'
 import moment from 'moment'
 // moment.locale('he')
 
+const port = '5000';
+const url = `http://localhost:${port}/posts`;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -21,17 +24,19 @@ class App extends React.Component {
 
   handleAddPost = (post) => {
     const { posts } = this.state;
-    post.id = posts.length + 1;
-    posts.unshift(post);
-    this.setState({
-      posts: posts,
-    });
-    localStorage.setItem("posts", JSON.stringify(this.state.posts));
+    post.authorId = 2;
+    axios.post(url, post).then(res => {
+      let data = humps.camelizeKeys(res.data)
+      post.id = data.postId
+      post.published = data.createdAt
+      posts.unshift(post)
+      this.setState({
+        posts: posts,
+      });
+    })
   };
 
   componentWillMount() {
-    const port = '5000';
-    const url = `http://localhost:${port}/posts`;
     axios.get(url).then((res) => {
       if (res.status === 200) {
         let data = humps.camelizeKeys(res.data)
@@ -50,10 +55,6 @@ class App extends React.Component {
         });
       }
     }).catch((error) => console.log(error, "Couldn't load posts"))
-  }
-
-  componentWillUnmount() {
-    localStorage.setItem("posts", JSON.stringify(this.state.posts));
   }
 
   render() {
