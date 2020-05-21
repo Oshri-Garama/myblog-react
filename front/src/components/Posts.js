@@ -25,15 +25,14 @@ class Post extends React.Component {
     const { id, author, title, content, image, published } = this.props;
     const publishedDate = this.getFormattedDate(published)
     const daysOfPublished = moment().diff(publishedDate, 'days')
-    console.log(publishedDate, daysOfPublished)
 
     return (
       <div className="post-container">
-        <h4 class="post-title">
+        <h4 className="post-title">
           <Link to={`/posts/${id}`}>{title}</Link>
         </h4>
-        <div class="post-content">{content}</div>
-        <div class="published-time">
+        <div className="post-content">{content}</div>
+        <div className="published-time">
            Published {daysOfPublished === 0 ? 'today' : `${daysOfPublished} days ago`} by {author}
         </div>
         <div className="image-container"> 
