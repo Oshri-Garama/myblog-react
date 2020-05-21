@@ -8,8 +8,11 @@
 
 .image-container {
   position: absolute;
-  right: 30%;
+  right: 0.5%;
   top: 2%;
+  min-height: 150px;
+  min-width: 265px;
+  overflow: auto;
 }
 
 .post-title {
