@@ -23,7 +23,7 @@ https://oshri-garama.github.io/myblog-react/
 
 Task #4
 
-we were asked to implement backend using Flask, requests and Jsonify
-then we needed to connect the routes to the frontend - with axios.
+we were asked to create database in mysql and implement backend using Flask, requests and Jsonify
+then we had to connect the routes to the frontend - with axios.
 This time we didn't upload it to gh-pages.
 
