@@ -31,7 +31,6 @@ def get_all_posts():
     cursor = db.cursor()
     cursor.execute(query)
     post_records = cursor.fetchall()
-    print(post_records)
     headers = ['post_id', 'title', 'content', 'image_url', 'created_at', 'full_name']
     for post in post_records:
         data.append(dict(zip(headers, post)))
@@ -39,16 +38,27 @@ def get_all_posts():
     return jsonify(data)
 
 
+def get_post(post_id):
+    query = 'select post_id, author_id, title, content, created_at from posts where post_id= %s'
+    values = (post_id, )
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    post_record = cursor.fetchone()
+    headers = ['post id', 'author_id', 'title', 'content', 'created_at']
+    cursor.close()
+    return jsonify(dict(zip(headers, post_record)))
+
+
 def create_new_post():
     data = request.get_json()
     query = 'insert into posts (author_id, title, content) values (%s, %s, %s)'
-    values = (data['author_id'], data['title'], data['content'])
+    values = (data['authorId'], data['title'], data['content'])
     cursor = db.cursor()
     cursor.execute(query, values)
     db.commit()
     new_post_id = cursor.lastrowid
     cursor.close()
-    return 'hello world'
+    return get_post(new_post_id)
 
 
 if __name__ == "__main__":
