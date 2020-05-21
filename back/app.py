@@ -39,20 +39,20 @@ def get_all_posts():
 
 
 def get_post(post_id):
-    query = 'select post_id, author_id, title, content, created_at from posts where post_id= %s'
+    query = 'select post_id, author_id, title, content, image_url, created_at from posts where post_id= %s'
     values = (post_id, )
     cursor = db.cursor()
     cursor.execute(query, values)
     post_record = cursor.fetchone()
-    headers = ['post id', 'author_id', 'title', 'content', 'created_at']
+    headers = ['post id', 'author_id', 'title', 'content', 'image_url', 'created_at']
     cursor.close()
     return jsonify(dict(zip(headers, post_record)))
 
 
 def create_new_post():
     data = request.get_json()
-    query = 'insert into posts (author_id, title, content) values (%s, %s, %s)'
-    values = (data['authorId'], data['title'], data['content'])
+    query = 'insert into posts (author_id, title, content, image_url) values (%s, %s, %s, %s)'
+    values = (data['authorId'], data['title'], data['content'], data['imageUrl'])
     cursor = db.cursor()
     cursor.execute(query, values)
     db.commit()
