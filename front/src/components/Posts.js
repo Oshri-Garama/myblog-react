@@ -37,7 +37,7 @@ class Post extends React.Component {
           </div>
         </div>
         <div className="image-container"> 
-          <img style={{position: 'absolute', top: 0, right: 0, maxWidth: 150, height: 'auto'}} src={image} alt="" />
+          <img style={{position: 'absolute', top: 0, right: 0, maxWidth: 158, height: 'auto'}} src={image} alt="" />
         </div>
       </div>
     );
