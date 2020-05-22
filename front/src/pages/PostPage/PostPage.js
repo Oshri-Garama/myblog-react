@@ -1,23 +1,38 @@
 import React from "react";
+import axios from "axios";
+import humps from 'humps'
 
 class PostPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       id: props.match.params.id || "",
+      post: ''
     };
   }
 
-  render() {
+  componentDidMount() {
     const { id } = this.state;
-    const { posts } = this.props;
-    const currentPost = posts.find((post) => post.id == id);
+    const port = '5000';
+    const url = `http://localhost:${port}/posts/${id}`;
+    axios.get(url).then((res) => {
+      if (res.status === 200) {
+        let data = humps.camelizeKeys(res.data)
+        this.setState({
+          post: data
+        });
+      }
+    }).catch((error) => console.log(error, "Couldn't load posts"))
+  }
+ 
+  render() {
+    const { post } = this.state;
+
     return (
       <div>
-        {console.log(currentPost)}
-        <h1 style={{marginBottom: '0'}}>{currentPost.title}</h1>
-        <img style={{position: 'relative', top: 20, right: 0, maxWidth: 300, height: 'auto'}} src={currentPost.image} alt="" />
-        <div style={{marginTop: '50px'}}>{currentPost.content}</div>
+        <h1 style={{marginBottom: '0'}}>{post.title}</h1>
+        <img style={{position: 'relative', top: 20, right: 0, maxWidth: 300, height: 'auto'}} src={post.imageUrl} alt="" />
+        <div style={{marginTop: '50px'}}>{post.content}</div>
       </div>
     );
   }
