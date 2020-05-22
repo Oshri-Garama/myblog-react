@@ -1,7 +1,6 @@
 import React from "react";
 import "../styles/post.css";
 import { Link } from "react-router-dom";
-import Image from 'react-image-resizer';
 import moment from 'moment';
 
 
@@ -28,15 +27,17 @@ class Post extends React.Component {
 
     return (
       <div className="post-container">
-        <h4 className="post-title">
-          <Link to={`/posts/${id}`}>{title}</Link>
-        </h4>
-        <div className="post-content">{content}</div>
-        <div className="published-time">
-           Published {daysOfPublished === 0 ? 'today' : `${daysOfPublished} days ago`} by {author}
+        <div className='seperate-image-container'>
+          <h4 className="post-title">
+            <Link to={`/posts/${id}`}>{title}</Link>
+          </h4>
+          <div className="post-content">{content}</div>
+          <div className="published-time">
+            Published {daysOfPublished === 0 ? 'today' : `${daysOfPublished} days ago`} by {author}
+          </div>
         </div>
         <div className="image-container"> 
-          <Image src={image} alt="" height='130' width='300' />
+          <img style={{position: 'absolute', top: 0, right: 0, maxWidth: 150, height: 'auto'}} src={image} alt="" />
         </div>
       </div>
     );
