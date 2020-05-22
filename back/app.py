@@ -22,6 +22,18 @@ def manage_posts():
         return create_new_post()
 
 
+@app.route('/posts/<post_id>', methods=['GET'])
+def get_post(post_id):
+    query = 'select post_id, author_id, title, content, image_url, created_at from posts where post_id= %s'
+    values = (post_id,)
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    post_record = cursor.fetchone()
+    headers = ['post id', 'author_id', 'title', 'content', 'image_url', 'created_at']
+    cursor.close()
+    return jsonify(dict(zip(headers, post_record)))
+
+
 def get_all_posts():
     query_select = 'select post_id, title, content, image_url, created_at, full_name from posts'
     query_join = 'join users on author_id=user_id'
@@ -36,17 +48,6 @@ def get_all_posts():
         data.append(dict(zip(headers, post)))
     cursor.close()
     return jsonify(data)
-
-
-def get_post(post_id):
-    query = 'select post_id, author_id, title, content, image_url, created_at from posts where post_id= %s'
-    values = (post_id, )
-    cursor = db.cursor()
-    cursor.execute(query, values)
-    post_record = cursor.fetchone()
-    headers = ['post id', 'author_id', 'title', 'content', 'image_url', 'created_at']
-    cursor.close()
-    return jsonify(dict(zip(headers, post_record)))
 
 
 def create_new_post():
