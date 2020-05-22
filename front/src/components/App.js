@@ -8,8 +8,6 @@ import PostPage from "../pages/PostPage/PostPage";
 import AddNewPost from "../pages/AddPost/AddNewPost";
 import axios from "axios";
 import humps from 'humps'
-import moment from 'moment'
-// moment.locale('he')
 
 const port = '5000';
 const url = `http://localhost:${port}/posts`;
@@ -24,19 +22,14 @@ class App extends React.Component {
 
   handleAddPost = (post) => {
     const { posts } = this.state;
-    post.authorId = 2;
-    axios.post(url, post).then(res => {
-      let data = humps.camelizeKeys(res.data)
-      post.id = data.postId
-      post.published = data.createdAt
-      posts.unshift(post)
-      this.setState({
-        posts: posts,
-      });
+    posts.unshift(post)
+    this.setState({
+      posts: posts
     })
+    this.getAllPosts()
   };
 
-  componentWillMount() {
+  getAllPosts = () => {
     axios.get(url).then((res) => {
       if (res.status === 200) {
         let data = humps.camelizeKeys(res.data)
@@ -55,6 +48,10 @@ class App extends React.Component {
         });
       }
     }).catch((error) => console.log(error, "Couldn't load posts"))
+  } 
+
+  componentDidMount() {
+    this.getAllPosts()
   }
 
   render() {
@@ -64,7 +61,6 @@ class App extends React.Component {
       <Router basename={process.env.PUBLIC_URL + "/"}>
         <div className="page-container">
           <Navbar />
-
           <Switch>
             <Route path="/about" component={AboutMe}></Route>
             <Route

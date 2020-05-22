@@ -1,11 +1,17 @@
 import React from "react";
 import "./AddNewPost.css";
+import axios from "axios";
+import humps from 'humps'
+
+const port = '5000';
+const url = `http://localhost:${port}/posts`;
 
 class AddNewPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       post: {
+        id: "",
         content: "",
         title: "",
         imageUrl: ""
@@ -43,10 +49,18 @@ class AddNewPost extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
     const { post } = this.state;
+    post.authorId = 2;
     if (post.title && post.content) {
-      this.props.handleAddPost(post);
-      alert("Post saved successfully");
-      this.props.history.push("/");
+      axios.post(url, post).then(res => {
+        if (res.status === 200) {
+          const data = humps.camelizeKeys(res.data)
+          post.published = data.createdAt
+          post.id = data.postId
+          alert("Post saved successfully");
+          this.props.handleAddPost(post);
+          this.props.history.push("/");
+        }
+      })
     } else {
       alert("Title and Content are required");
     }
