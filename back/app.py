@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 import mysql.connector as mysql
-import json
+
 
 db = mysql.connect(
     host = "localhost",
@@ -10,8 +9,14 @@ db = mysql.connect(
     database = "blog"
 )
 
-app = Flask(__name__)
-CORS(app)
+app = Flask(__name__,
+            static_folder='../front/build',
+            static_url_path='/')
+
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 
 @app.route('/posts', methods=['GET', 'POST'])
