@@ -32,7 +32,7 @@ class App extends React.Component {
       ...details,
       isLoggedIn: true,
     })
-    this.getAllPosts(details.userId)
+    this.getAllPosts()
   };
   
   handleLogin = (data) => {
@@ -43,7 +43,8 @@ class App extends React.Component {
       userId: data.userId,
       isAdmin: data.isAdmin
     })
-    this.getAllPosts(data.userId)
+    this.getAllPosts()
+    // localStorage.setItem('session', JSON.stringify(this.state))
   }
 
   handleLogout = () => {
@@ -51,17 +52,16 @@ class App extends React.Component {
   }
 
   handleAddPost = (post) => {
-    const { posts, userId } = this.state;
+    const { posts } = this.state;
     posts.unshift(post)
     this.setState({
       posts: posts
     })
-    this.getAllPosts(userId)
+    this.getAllPosts()
   };
 
-  getAllPosts = (userId) => {
-    const params = {userId: userId}
-    axios.get(`${baseUrl}/posts`, {params: params}).then((res) => {
+  getAllPosts = () => {
+    axios.get(`${baseUrl}/posts`, {withCredentials: true}).then((res) => {
       if (res.status === 200) {
         this.setState({
           posts: res.data
@@ -69,6 +69,12 @@ class App extends React.Component {
       }
     }).catch((error) => console.log(error, "Couldn't load posts"))
   } 
+
+  // componentDidMount() {
+  //   this.getAllPosts()
+  //   const prevState = JSON.parse(localStorage.getItem('session')) || initialState;
+  //   this.state=(prevState)
+  // }
 
   // adminGetAllPosts = () => {
   //   axios.get(`${baseUrl}/posts`).then((res) => {
@@ -85,7 +91,7 @@ class App extends React.Component {
     return (
       <Router basename={process.env.PUBLIC_URL + "/"}>
         <div className="page-container">
-          <Navbar isLoggedIn={isLoggedIn} handleLogout={this.handleLogout} />
+          <Navbar key='bla' isLoggedIn={isLoggedIn} handleLogout={this.handleLogout} />
           <Switch>
             <Route path="/about" component={AboutMe}></Route>
             <Route
