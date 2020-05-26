@@ -9,7 +9,7 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      fullname: "",
+      fullName: "",
       username: "",
       password: "",
     };
@@ -17,47 +17,43 @@ class LoginPage extends React.Component {
 
   handleFullNameChange = (event) => {
     this.setState({
-      username: event.target.value
+      ...this.state,
+      fullName: event.target.value
     })
   };
 
   handleUserNameChange = (event) => {
     this.setState({
+      ...this.state,
       username: event.target.value
     })
   };
 
   handlePasswordChange = (event) => {
     this.setState({
+      ...this.state,
       password: event.target.value
     })
   };
 
   handleSignup = (event) => {
-    // event.preventDefault();
-    // const {username, password} = this.state
-    // if (username === '' || password === '') {
-    //   alert('Please provide a valid input')
-    //   return
-    // }
-    // axios.post(`${baseUrl}/login` ,{username, password }).then(res => {
-    //   if (res.status === 200) {
-        
-    //     this.props.handleLogin()
-    //     this.props.history.push('/')
-    //   }
-    // }).catch(() => {
-    //   alert('The username or the password you provided is incorrect')
-    //     this.setState({
-    //       username: '',
-    //       passowrd: ''
-    //     })
-    // })
+    event.preventDefault();
+    const {fullName, username, password} = this.state
+    if (username === '' || password === '' || fullName === '') {
+      alert('Please provide a valid input')
+      return
+    }
+    axios.post(`${baseUrl}/signup` ,{fullName, username, password }).then(res => {
+      if (res.status === 200) {
+        this.props.handleSignup(res.data)
+        this.props.history.push('/')
+      }
+    })
   }
 
   render() {
     return (
-      <form className="login-container" onSubmit={this.handleSignUp}>
+      <form className="login-container" onSubmit={this.handleSignup}>
         <h1>Sign Up</h1>
         <div id="fullname-container">
           <div>Full Name:</div>

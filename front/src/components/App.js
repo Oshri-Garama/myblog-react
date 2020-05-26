@@ -26,6 +26,14 @@ class App extends React.Component {
     super(props);
     this.state = initialState
   }
+
+  handleSignup = (details) => {
+    this.setState({
+      ...details,
+      isLoggedIn: true,
+    })
+    this.getAllPosts(details.userId)
+  };
   
   handleLogin = (data) => {
     this.setState({
@@ -96,7 +104,7 @@ class App extends React.Component {
             </Route>
             <Route 
               path="/signup"
-              render={(props) => <SignupPage {...props} /> }>
+              render={(props) => <SignupPage {...props} handleSignup={this.handleSignup} /> }>
             </Route>
             <Route
               path={"/"}
