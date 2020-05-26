@@ -19,12 +19,35 @@ def index():
     return app.send_static_file('index.html')
 
 
+@app.route('/signup', methods=['POST'])
+def sign_up():
+    data = request.get_json()
+    query = 'insert into users (full_name, user_name, password, is_admin) values (%s, %s, %s, %s)'
+    values = (data['fullName'], data['username'], data['password'], 0)
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    db.commit()
+    new_user_id = cursor.lastrowid
+    cursor.close()
+    return get_user(new_user_id)
+
+
+def get_user(user_id):
+    query = 'select user_name, user_id, full_name, is_admin from users where user_id= %s'
+    values = (user_id,)
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    post_record = cursor.fetchone()
+    headers = ['username', 'userId', 'fullName', 'isAdmin']
+    cursor.close()
+    return jsonify(dict(zip(headers, post_record)))
+
+
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
     query = 'select user_name, user_id, full_name, is_admin from users where user_name=%s and password=%s'
     values = (data['username'], data['password'])
-    # print(data)
     cursor = db.cursor()
     cursor.execute(query, values)
     record = cursor.fetchone()
