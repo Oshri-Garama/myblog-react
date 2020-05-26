@@ -1,6 +1,6 @@
-from flask import Flask, request, abort, jsonify
+from flask import Flask, request, abort, jsonify, make_response
 import mysql.connector as mysql
-
+import uuid
 
 db = mysql.connect(
     host = "localhost",
@@ -22,8 +22,8 @@ def index():
 @app.route('/signup', methods=['POST'])
 def sign_up():
     data = request.get_json()
-    query = 'insert into users (full_name, user_name, password, is_admin) values (%s, %s, %s, %s)'
-    values = (data['fullName'], data['username'], data['password'], 0)
+    query = 'insert into users (full_name, user_name, password) values (%s, %s, %s)'
+    values = (data['fullName'], data['username'], data['password'])
     cursor = db.cursor()
     cursor.execute(query, values)
     db.commit()
@@ -46,16 +46,24 @@ def get_user(user_id):
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    query = 'select user_name, user_id, full_name, is_admin from users where user_name=%s and password=%s'
+    query = 'select user_id, user_name, full_name, is_admin from users where user_name=%s and password=%s'
     values = (data['username'], data['password'])
     cursor = db.cursor()
     cursor.execute(query, values)
     record = cursor.fetchone()
-    headers = ['username', 'userId', 'fullName', 'isAdmin']
+    headers = ['userId', 'username', 'fullName', 'isAdmin']
     if not record:
         abort(401)
+    user_id = record[0]
+    session_id = str(uuid.uuid4())
+    query = 'insert into sessions (user_id, session_id) values (%s, %s) on duplicate key update session_id=%s'
+    values = (user_id, session_id, session_id)
+    cursor.execute(query, values)
+    db.commit()
+    response = make_response(jsonify(dict(zip(headers, record))))
+    response.set_cookie('session_id', session_id)
     cursor.close()
-    return jsonify(dict(zip(headers, record)))
+    return response
 
 
 @app.route('/posts', methods=['GET', 'POST'])
@@ -78,13 +86,27 @@ def get_post(post_id):
     return jsonify(dict(zip(headers, post_record)))
 
 
+def check_login():
+    session_id = request.cookies.get('session_id')
+    if not session_id:
+        abort(401)
+    query = "select user_id from sessions where session_id = %s"
+    values = (session_id, )
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    record = cursor.fetchone()
+    if not record:
+        abort(401)
+    return record
+
+
 def get_all_posts():
-    user_id = request.args['userId']
-    query_select = 'select post_id, title, content, image_url, created_at, full_name from posts'
-    query_join = 'join users on author_id=user_id where user_id=%s'
+    values = check_login()
+    query_select = 'select post_id, title, content, image_url, created_at, full_name, session_id from users'
+    query_join_sessions = 'join sessions on users.user_id = sessions.user_id'
+    query_join_posts = 'join posts on users.user_id = posts.author_id where users.user_id=%s'
     query_order = 'order by post_id desc;'
-    query = '%s %s %s' % (query_select, query_join, query_order)
-    values = (user_id,)
+    query = '%s %s %s %s' % (query_select, query_join_sessions, query_join_posts, query_order)
     data = []
     cursor = db.cursor()
     cursor.execute(query, values)
