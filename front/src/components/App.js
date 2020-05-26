@@ -8,16 +8,24 @@ import PostPage from "../pages/PostPage/PostPage";
 import AddNewPost from "../pages/AddPost/AddNewPost";
 import axios from "axios";
 import humps from 'humps'
+import LoginPage from "../pages/LoginPage/LoginPage";
 
 const port = '5000';
-const url = `http://localhost:${port}/posts`;
+const baseUrl = `http://localhost:${port}`;
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      isLoggedIn: false
     };
+  }
+  
+  handleLogin = () => {
+    this.setState({
+      isLoggedIn: true
+    })
   }
 
   handleAddPost = (post) => {
@@ -30,7 +38,7 @@ class App extends React.Component {
   };
 
   getAllPosts = () => {
-    axios.get(url).then((res) => {
+    axios.get(`${baseUrl}/posts`).then((res) => {
       if (res.status === 200) {
         let data = humps.camelizeKeys(res.data)
         data = data.map(data => {
@@ -60,7 +68,7 @@ class App extends React.Component {
     return (
       <Router basename={process.env.PUBLIC_URL + "/"}>
         <div className="page-container">
-          <Navbar />
+          <Navbar isLoggedIn={this.state.isLoggedIn} />
           <Switch>
             <Route path="/about" component={AboutMe}></Route>
             <Route
@@ -73,7 +81,10 @@ class App extends React.Component {
               path="/posts/:id"
               render={(props) => <PostPage {...props} />}
             ></Route>
-            <Route path="/login"></Route>
+            <Route 
+              path="/login"
+              render={(props) => <LoginPage {...props} handleLogin={this.handleLogin} />}>
+            </Route>
             <Route
               path={"/"}
               render={(props) => <Homepage {...props} posts={posts} />}
