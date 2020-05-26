@@ -1,0 +1,44 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#username-container, #password-container {
+  display: flex;
+}
+
+#username-container .field-decoration {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+#password-container .field-decoration {
+  margin-left: 19px;
+  margin-bottom: 10px;
+}
+
+.field-decoration {
+  width: 200px;
+  height: 15px;
+  border: 2px solid black;
+}
+
+.field-decoration::placeholder {
+  font-weight: 500;
+  font-size: 13px;
+  color: gray;
+}
+
+.login-button {
+  border: 3px black solid;
+  border-left: 2px black solid;
+  border-top: 2px black solid;
+  box-shadow: 2px 2px 2px black;
+  margin-bottom: 15px;
+  padding-top: 3px;
+  min-height: 20px;
+  margin-top: 10px;
+  width: 90px;
+  font-size: small;
+  font-weight: 600;
+}
