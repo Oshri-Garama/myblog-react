@@ -35,7 +35,7 @@ class LoginPage extends React.Component {
     }
     axios.post(`${baseUrl}/login` ,{username, password }).then(res => {
       if (res.status === 200) {
-        console.log('success')
+        
         this.props.handleLogin()
         this.props.history.push('/')
       }

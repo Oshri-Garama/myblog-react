@@ -28,6 +28,12 @@ class App extends React.Component {
     })
   }
 
+  handleLogout = () => {
+    this.setState({
+      isLoggedIn: false
+    })
+  }
+
   handleAddPost = (post) => {
     const { posts } = this.state;
     posts.unshift(post)
@@ -63,12 +69,12 @@ class App extends React.Component {
   }
 
   render() {
-    const { posts } = this.state;
+    const { posts, isLoggedIn } = this.state;
 
     return (
       <Router basename={process.env.PUBLIC_URL + "/"}>
         <div className="page-container">
-          <Navbar isLoggedIn={this.state.isLoggedIn} />
+          <Navbar isLoggedIn={isLoggedIn} handleLogout={this.handleLogout} />
           <Switch>
             <Route path="/about" component={AboutMe}></Route>
             <Route
@@ -83,11 +89,11 @@ class App extends React.Component {
             ></Route>
             <Route 
               path="/login"
-              render={(props) => <LoginPage {...props} handleLogin={this.handleLogin} />}>
+              render={(props) => <LoginPage {...props} handleLogin={this.handleLogin} /> }>
             </Route>
             <Route
               path={"/"}
-              render={(props) => <Homepage {...props} posts={posts} />}
+              render={(props) => <Homepage {...props} posts={posts} isLoggedIn={isLoggedIn} />}
             ></Route>
           </Switch>
         </div>
