@@ -1,6 +1,7 @@
 from flask import Flask, request, abort, jsonify, make_response
 import mysql.connector as mysql
 import uuid
+import bcrypt
 
 db = mysql.connect(
     host = "localhost",
@@ -23,7 +24,8 @@ def index():
 def sign_up():
     data = request.get_json()
     query = 'insert into users (full_name, user_name, password) values (%s, %s, %s)'
-    values = (data['fullName'], data['username'], data['password'])
+    hashed_password = bcrypt.hashpw(data['password'].encode('utf-8'), bcrypt.gensalt())
+    values = (data['fullName'], data['username'], hashed_password)
     cursor = db.cursor()
     cursor.execute(query, values)
     db.commit()
@@ -46,7 +48,7 @@ def get_user(user_id):
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    query = 'select user_id, user_name, full_name, is_admin from users where user_name=%s and password=%s'
+    query = 'select user_id, user_name, full_name, is_admin, password from users where user_name=%s'
     values = (data['username'], data['password'])
     cursor = db.cursor()
     cursor.execute(query, values)
@@ -55,6 +57,9 @@ def login():
     if not record:
         abort(401)
     user_id = record[0]
+    hashed_password = record[4].encode('utf-8')
+    if bcrypt.hashpw(data['password'].encode('utf-8'), hashed_password) != hashed_password:
+        abort(401)
     session_id = str(uuid.uuid4())
     query = 'insert into sessions (user_id, session_id) values (%s, %s) on duplicate key update session_id=%s'
     values = (user_id, session_id, session_id)
