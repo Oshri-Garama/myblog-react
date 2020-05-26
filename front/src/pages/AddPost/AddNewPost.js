@@ -1,7 +1,6 @@
 import React from "react";
 import "./AddNewPost.css";
 import axios from "axios";
-import humps from 'humps'
 
 const port = '5000';
 const url = `http://localhost:${port}/posts`;
@@ -53,9 +52,8 @@ class AddNewPost extends React.Component {
     if (post.title && post.content) {
       axios.post(url, post).then(res => {
         if (res.status === 200) {
-          const data = humps.camelizeKeys(res.data)
-          post.published = data.createdAt
-          post.id = data.postId
+          post.published = res.data.published
+          post.id = res.data.id
           alert("Post saved successfully");
           this.props.handleAddPost(post);
           this.props.history.push("/");

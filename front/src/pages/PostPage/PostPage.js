@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import humps from 'humps'
 
 class PostPage extends React.Component {
   constructor(props) {
@@ -17,9 +16,8 @@ class PostPage extends React.Component {
     const url = `http://localhost:${port}/posts/${id}`;
     axios.get(url).then((res) => {
       if (res.status === 200) {
-        let data = humps.camelizeKeys(res.data)
         this.setState({
-          post: data
+          post: res.data
         });
       }
     }).catch((error) => console.log(error, "Couldn't load posts"))

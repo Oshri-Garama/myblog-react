@@ -12,7 +12,7 @@ class Post extends React.Component {
       author: props.author || "",
       content: props.content || "",
       published: props.published || "",
-      image: props.image || "",
+      imageUrl: props.imageUrl || "",
     };
   }
   getFormattedDate = date => {
@@ -21,7 +21,7 @@ class Post extends React.Component {
   }
 
   render() {
-    const { id, author, title, content, image, published } = this.props;
+    const { id, author, title, content, imageUrl, published } = this.props;
     const publishedDate = this.getFormattedDate(published)
     const daysOfPublished = moment().diff(publishedDate, 'days')
 
@@ -37,7 +37,7 @@ class Post extends React.Component {
           </div>
         </div>
         <div className="image-container"> 
-          <img style={{position: 'absolute', top: 0, right: 0, maxWidth: 158, height: 'auto'}} src={image} alt="" />
+          <img style={{position: 'absolute', top: 0, right: 0, maxWidth: 158, height: 'auto'}} src={imageUrl} alt="" />
         </div>
       </div>
     );
@@ -53,7 +53,7 @@ const Posts = (props) => {
         title={post.title}
         content={post.content}
         published={post.published}
-        image={post.image}
+        imageUrl={post.imageUrl}
       />
     );
   });

@@ -7,7 +7,6 @@ import AboutMe from "../pages/AboutMe/AboutMe";
 import PostPage from "../pages/PostPage/PostPage";
 import AddNewPost from "../pages/AddPost/AddNewPost";
 import axios from "axios";
-import humps from 'humps'
 import LoginPage from "../pages/LoginPage/LoginPage";
 import SignupPage from "../pages/SignupPage/SignupPage";
 
@@ -19,11 +18,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       posts: [],
-      isLoggedIn: false
+      isLoggedIn: false,
+      fullName: '',
+      isAdmin: false
     };
   }
   
-  handleLogin = () => {
+  handleLogin = (data) => {
     this.setState({
       isLoggedIn: true
     })
@@ -47,19 +48,8 @@ class App extends React.Component {
   getAllPosts = () => {
     axios.get(`${baseUrl}/posts`).then((res) => {
       if (res.status === 200) {
-        let data = humps.camelizeKeys(res.data)
-        data = data.map(data => {
-          return {
-            id: data.postId,
-            author: data.fullName,
-            title: data.title,
-            content: data.content,
-            image: data.imageUrl,
-            published: data.createdAt
-          }
-        })
         this.setState({
-          posts: data
+          posts: res.data
         });
       }
     }).catch((error) => console.log(error, "Couldn't load posts"))
