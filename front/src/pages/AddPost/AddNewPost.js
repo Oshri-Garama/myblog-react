@@ -13,7 +13,8 @@ class AddNewPost extends React.Component {
         id: "",
         content: "",
         title: "",
-        imageUrl: ""
+        imageUrl: "",
+        authorId: props.authorId
       },
       saved: false,
     };
@@ -48,7 +49,6 @@ class AddNewPost extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
     const { post } = this.state;
-    post.authorId = 2;
     if (post.title && post.content) {
       axios.post(url, post).then(res => {
         if (res.status === 200) {

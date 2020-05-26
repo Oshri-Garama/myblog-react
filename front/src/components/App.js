@@ -43,12 +43,12 @@ class App extends React.Component {
   }
 
   handleAddPost = (post) => {
-    const { posts } = this.state;
+    const { posts, userId } = this.state;
     posts.unshift(post)
     this.setState({
       posts: posts
     })
-    this.getAllPosts()
+    this.getAllPosts(userId)
   };
 
   getAllPosts = (userId) => {
@@ -73,8 +73,7 @@ class App extends React.Component {
   // } 
 
   render() {
-    const { posts, isLoggedIn } = this.state;
-    console.log(this.state)
+    const { posts, isLoggedIn, userId } = this.state;
     return (
       <Router basename={process.env.PUBLIC_URL + "/"}>
         <div className="page-container">
@@ -84,7 +83,7 @@ class App extends React.Component {
             <Route
               path="/posts/new"
               render={(props) => (
-                <AddNewPost {...props} handleAddPost={this.handleAddPost} />
+                <AddNewPost {...props} handleAddPost={this.handleAddPost} authorId={userId} />
               )}
             ></Route>
             <Route
