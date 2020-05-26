@@ -12,28 +12,34 @@ import SignupPage from "../pages/SignupPage/SignupPage";
 
 const port = '5000';
 const baseUrl = `http://localhost:${port}`;
+const initialState = {
+  posts: [],
+  isLoggedIn: false,
+  userId: '',
+  fullName: '',
+  username: '',
+  isAdmin: false
+}
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      posts: [],
-      isLoggedIn: false,
-      fullName: '',
-      isAdmin: false
-    };
+    this.state = initialState
   }
   
   handleLogin = (data) => {
     this.setState({
-      isLoggedIn: true
+      isLoggedIn: true,
+      fullName: data.fullName,
+      username: data.username,
+      userId: data.userId,
+      isAdmin: data.isAdmin
     })
+    this.getAllPosts(data.userId)
   }
 
   handleLogout = () => {
-    this.setState({
-      isLoggedIn: false
-    })
+    this.setState(initialState)
   }
 
   handleAddPost = (post) => {
@@ -45,8 +51,9 @@ class App extends React.Component {
     this.getAllPosts()
   };
 
-  getAllPosts = () => {
-    axios.get(`${baseUrl}/posts`).then((res) => {
+  getAllPosts = (userId) => {
+    const params = {userId: userId}
+    axios.get(`${baseUrl}/posts`, {params: params}).then((res) => {
       if (res.status === 200) {
         this.setState({
           posts: res.data
@@ -55,13 +62,19 @@ class App extends React.Component {
     }).catch((error) => console.log(error, "Couldn't load posts"))
   } 
 
-  componentDidMount() {
-    this.getAllPosts()
-  }
+  // adminGetAllPosts = () => {
+  //   axios.get(`${baseUrl}/posts`).then((res) => {
+  //     if (res.status === 200) {
+  //       this.setState({
+  //         posts: res.data
+  //       });
+  //     }
+  //   }).catch((error) => console.log(error, "Couldn't load posts"))
+  // } 
 
   render() {
     const { posts, isLoggedIn } = this.state;
-
+    console.log(this.state)
     return (
       <Router basename={process.env.PUBLIC_URL + "/"}>
         <div className="page-container">
