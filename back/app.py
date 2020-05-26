@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, abort, jsonify
 import mysql.connector as mysql
 
 
@@ -19,6 +19,22 @@ def index():
     return app.send_static_file('index.html')
 
 
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    query = 'select user_name, user_id, full_name, is_admin from users where user_name=%s and password=%s'
+    values = (data['username'], data['password'])
+    # print(data)
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    record = cursor.fetchone()
+    headers = ['username', 'userId', 'fullName', 'isAdmin']
+    if not record:
+        abort(401)
+    cursor.close()
+    return jsonify(dict(zip(headers, record)))
+
+
 @app.route('/posts', methods=['GET', 'POST'])
 def manage_posts():
     if request.method == 'GET':
@@ -27,28 +43,30 @@ def manage_posts():
         return create_new_post()
 
 
-@app.route('/posts/<post_id>', methods=['GET'])
+@app.route('/posts/<post_id>')
 def get_post(post_id):
     query = 'select post_id, author_id, title, content, image_url, created_at from posts where post_id= %s'
     values = (post_id,)
     cursor = db.cursor()
     cursor.execute(query, values)
     post_record = cursor.fetchone()
-    headers = ['post id', 'author_id', 'title', 'content', 'image_url', 'created_at']
+    headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published']
     cursor.close()
     return jsonify(dict(zip(headers, post_record)))
 
 
 def get_all_posts():
+    user_id = request.args['userId']
     query_select = 'select post_id, title, content, image_url, created_at, full_name from posts'
-    query_join = 'join users on author_id=user_id'
+    query_join = 'join users on author_id=user_id where user_id=%s'
     query_order = 'order by post_id desc;'
     query = '%s %s %s' % (query_select, query_join, query_order)
+    values = (user_id,)
     data = []
     cursor = db.cursor()
-    cursor.execute(query)
+    cursor.execute(query, values)
     post_records = cursor.fetchall()
-    headers = ['post_id', 'title', 'content', 'image_url', 'created_at', 'full_name']
+    headers = ['id', 'title', 'content', 'imageUrl', 'published', 'author']
     for post in post_records:
         data.append(dict(zip(headers, post)))
     cursor.close()
