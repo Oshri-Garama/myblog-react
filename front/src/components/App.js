@@ -9,6 +9,7 @@ import AddNewPost from "../pages/AddPost/AddNewPost";
 import axios from "axios";
 import humps from 'humps'
 import LoginPage from "../pages/LoginPage/LoginPage";
+import SignupPage from "../pages/SignupPage/SignupPage";
 
 const port = '5000';
 const baseUrl = `http://localhost:${port}`;
@@ -90,6 +91,10 @@ class App extends React.Component {
             <Route 
               path="/login"
               render={(props) => <LoginPage {...props} handleLogin={this.handleLogin} /> }>
+            </Route>
+            <Route 
+              path="/signup"
+              render={(props) => <SignupPage {...props} /> }>
             </Route>
             <Route
               path={"/"}

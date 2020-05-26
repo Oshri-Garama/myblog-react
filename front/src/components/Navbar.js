@@ -16,6 +16,7 @@ const Navbar = (props) => {
         <Link to="/posts/new">New post</Link>
       </div>
       <div className="right-navbar">
+        <Link className='vr-line' to="/signup">{!isLoggedIn && 'Sign Up'}</Link>
         <Link to="/login">{!isLoggedIn && 'Login'}</Link>
         <Link to='/' onClick={props.handleLogout}>{isLoggedIn && 'Logout'}</Link>
       </div>
