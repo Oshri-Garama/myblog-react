@@ -31,6 +31,7 @@ class LoginPage extends React.Component {
     const {username, password} = this.state
     if (username === '' || password === '') {
       alert('Please provide a valid input')
+      this.refs.form.reset()
       return
     }
     axios.post(`${baseUrl}/login` ,{username, password }).then(res => {
@@ -40,16 +41,13 @@ class LoginPage extends React.Component {
       }
     }).catch(() => {
       alert('The username or the password you provided is incorrect')
-        // this.setState({
-        //   username: '',
-        //   passowrd: ''
-        // })
+      this.refs.form.reset()
     })
   }
 
   render() {
     return (
-      <form className="login-container" onSubmit={this.handleLogin}>
+      <form className="login-container" onSubmit={this.handleLogin} ref='form'>
         <h1>Login</h1>
         <div id="username-container">
           <div>User name:</div>
