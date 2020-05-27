@@ -48,12 +48,17 @@ class LoginPage extends React.Component {
         this.props.handleSignup(res.data)
         this.props.history.push('/')
       }
+    }).catch(error => {
+      if (error) {
+        alert('The username is already exist, please choose another one')
+        this.refs.form.reset()
+      }
     })
   }
 
   render() {
     return (
-      <form className="login-container" onSubmit={this.handleSignup}>
+      <form className="login-container" onSubmit={this.handleSignup} ref='form'>
         <h1>Sign Up</h1>
         <div id="fullname-container">
           <div>Full Name:</div>

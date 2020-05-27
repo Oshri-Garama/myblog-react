@@ -4,7 +4,6 @@ import Sidebar from "../../components/Sidebar";
 
 const Homepage = (props) => {
   const { posts, isLoggedIn } = props;
-  console.log(posts)
   return (
     <div className="home-container">
       <div className="blog-container">
@@ -15,7 +14,7 @@ const Homepage = (props) => {
             <h1 id="blog-title">It can be your blog</h1>
           )}
         </header>
-        {!isLoggedIn && <div>Sign up and start sharing your posts</div> }
+        {!isLoggedIn && <div>Sign up and start sharing your posts or log in if you are already a member </div> }
         {isLoggedIn && (posts.length === 0) && <div>Your first post will be shown here</div> }
         {isLoggedIn && posts !== [] && <Posts posts={posts} /> }
       </div>
