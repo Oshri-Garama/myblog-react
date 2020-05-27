@@ -23,6 +23,8 @@ def index():
 @app.route('/signup', methods=['POST'])
 def sign_up():
     data = request.get_json()
+    if is_user_exist(data['username']):
+        return abort(409)
     query = 'insert into users (full_name, user_name, password) values (%s, %s, %s)'
     hashed_password = bcrypt.hashpw(data['password'].encode('utf-8'), bcrypt.gensalt())
     values = (data['fullName'], data['username'], hashed_password)
@@ -32,6 +34,17 @@ def sign_up():
     new_user_id = cursor.lastrowid
     cursor.close()
     return get_user(new_user_id)
+
+
+def is_user_exist(user_name):
+    query = 'select user_name from users where user_name=%s'
+    values = (user_name,)
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    user_record = cursor.fetchone()
+    cursor.close()
+    if user_record:
+        return True
 
 
 def get_user(user_id):
