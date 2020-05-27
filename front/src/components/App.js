@@ -51,10 +51,7 @@ class App extends React.Component {
   handleLogout = () => {
     this.setState(initialState)
     localStorage.setItem('session', JSON.stringify(initialState))
-    axios.post(`${baseUrl}/logout`, {withCredentials: true}).then((res) => {
-      if (res.status === 200) {
-        console.log('Logged in successfully')
-      }
+    axios.post(`${baseUrl}/logout`, {withCredentials: true}).then(() => {
     }).catch((error) => console.log(error, "Theres no such a session_id"))
   }
 
