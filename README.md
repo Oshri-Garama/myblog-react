@@ -27,3 +27,8 @@ we were asked to create database in mysql and implement backend routes for: get 
 then we had to connect the routes to the frontend - with axios.
 This time we didn't upload it to gh-pages.
 
+Task #5
+
+We made a a user managmanet along with sign up, log in, log out functionality
+using bcrypt to hash the password given by the user and cookies to specify session.
+
