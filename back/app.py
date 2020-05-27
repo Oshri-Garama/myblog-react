@@ -101,8 +101,9 @@ def logout():
     cursor = db.cursor()
     cursor.execute(query, values)
     db.commit()
-
-    return '%s is ended' % session_id
+    response = make_response()
+    response.set_cookie('session_id', '', expires=0)
+    return response
 
 
 @app.route('/posts', methods=['GET', 'POST'])
