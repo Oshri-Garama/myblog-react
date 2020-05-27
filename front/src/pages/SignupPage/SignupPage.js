@@ -83,7 +83,7 @@ class LoginPage extends React.Component {
           ></input>
         </div>
         <button className="login-button" type="submit">
-          Login
+          Sign Up
         </button>
       </form>
     );
