@@ -49,7 +49,7 @@ def get_user(user_id):
 def login():
     data = request.get_json()
     query = 'select user_id, user_name, full_name, is_admin, password from users where user_name=%s'
-    values = (data['username'], data['password'])
+    values = (data['username'],)
     cursor = db.cursor()
     cursor.execute(query, values)
     record = cursor.fetchone()
