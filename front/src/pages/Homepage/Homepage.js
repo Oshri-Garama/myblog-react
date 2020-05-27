@@ -2,27 +2,26 @@ import React from "react";
 import Posts from "../../components/Posts";
 import Sidebar from "../../components/Sidebar";
 
-class Homepage extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state={
-      isLoggedIn: props.isLoggedIn
-    }
-  }
-  render() {
-    const { posts } = this.props
-    return (
-      <div className="home-container">
+const Homepage = (props) => {
+  const { posts, isLoggedIn } = props;
+  console.log(posts)
+  return (
+    <div className="home-container">
       <div className="blog-container">
         <header>
-          <h1 id="blog-title">This is my blog</h1>
+          {isLoggedIn ? (
+            <h1 id="blog-title">This is my blog</h1>
+          ) : (
+            <h1 id="blog-title">It can be your blog</h1>
+          )}
         </header>
-        {posts === [] ? <div>Currently there are no posts...</div> : <Posts posts={posts} />}
+        {!isLoggedIn && <div>Sign up and start sharing your posts</div> }
+        {isLoggedIn && (posts.length === 0) && <div>Your first post will be shown here</div> }
+        {isLoggedIn && posts !== [] && <Posts posts={posts} /> }
       </div>
       <Sidebar posts={posts} />
     </div>
-    )
-  };
+  );
 };
 
 export default Homepage;
