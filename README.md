@@ -29,6 +29,6 @@ This time we didn't upload it to gh-pages.
 
 Task #5
 
-We made a a user managmanet along with sign up, log in, log out functionality
+We added functionality for user managmanet: sign up, log in, log out.
 using bcrypt to hash the password given by the user and cookies to specify session.
 
