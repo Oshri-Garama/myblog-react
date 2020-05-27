@@ -33,6 +33,7 @@ class App extends React.Component {
       isLoggedIn: true,
     })
     this.getAllPosts()
+    localStorage.setItem('session', JSON.stringify(this.state))
   };
   
   handleLogin = (data) => {
