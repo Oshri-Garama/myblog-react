@@ -53,7 +53,7 @@ class App extends React.Component {
     localStorage.setItem('session', JSON.stringify(initialState))
     axios.post(`${baseUrl}/logout`, {withCredentials: true}).then((res) => {
       if (res.status === 200) {
-        console.log('success')
+        console.log('Logged in successfully')
       }
     }).catch((error) => console.log(error, "Theres no such a session_id"))
   }
@@ -78,8 +78,10 @@ class App extends React.Component {
   } 
 
   componentDidMount() {
-    this.getAllPosts()
     const prevState = JSON.parse(localStorage.getItem('session')) || initialState;
+    if (prevState.isLoggedIn) {
+      this.getAllPosts()
+    }
     this.setState(prevState)
   }
 
