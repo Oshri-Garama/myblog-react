@@ -39,10 +39,17 @@ def get_user(user_id):
     values = (user_id,)
     cursor = db.cursor()
     cursor.execute(query, values)
-    post_record = cursor.fetchone()
+    user_record = cursor.fetchone()
     headers = ['username', 'userId', 'fullName', 'isAdmin']
+    session_id = str(uuid.uuid4())
+    query = 'insert into sessions (user_id, session_id) values (%s, %s) on duplicate key update session_id=%s'
+    values = (user_id, session_id, session_id)
+    cursor.execute(query, values)
+    db.commit()
+    response = make_response(jsonify(dict(zip(headers, user_record))))
+    response.set_cookie('session_id', session_id)
     cursor.close()
-    return jsonify(dict(zip(headers, post_record)))
+    return response
 
 
 @app.route('/login', methods=['POST'])
