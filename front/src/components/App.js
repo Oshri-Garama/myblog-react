@@ -44,11 +44,17 @@ class App extends React.Component {
       isAdmin: data.isAdmin
     })
     this.getAllPosts()
-    // localStorage.setItem('session', JSON.stringify(this.state))
+    localStorage.setItem('session', JSON.stringify(this.state))
   }
 
   handleLogout = () => {
     this.setState(initialState)
+    localStorage.setItem('session', JSON.stringify(initialState))
+    axios.post(`${baseUrl}/logout`, {withCredentials: true}).then((res) => {
+      if (res.status === 200) {
+        console.log('success')
+      }
+    }).catch((error) => console.log(error, "Theres no such a session_id"))
   }
 
   handleAddPost = (post) => {
@@ -70,11 +76,11 @@ class App extends React.Component {
     }).catch((error) => console.log(error, "Couldn't load posts"))
   } 
 
-  // componentDidMount() {
-  //   this.getAllPosts()
-  //   const prevState = JSON.parse(localStorage.getItem('session')) || initialState;
-  //   this.state=(prevState)
-  // }
+  componentDidMount() {
+    this.getAllPosts()
+    const prevState = JSON.parse(localStorage.getItem('session')) || initialState;
+    this.setState(prevState)
+  }
 
   // adminGetAllPosts = () => {
   //   axios.get(`${baseUrl}/posts`).then((res) => {

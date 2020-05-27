@@ -40,10 +40,10 @@ class LoginPage extends React.Component {
       }
     }).catch(() => {
       alert('The username or the password you provided is incorrect')
-        this.setState({
-          username: '',
-          passowrd: ''
-        })
+        // this.setState({
+        //   username: '',
+        //   passowrd: ''
+        // })
     })
   }
 
