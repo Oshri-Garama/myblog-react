@@ -15,16 +15,16 @@ class Navbar extends React.Component  {
   return (
     <div className="navbar">
       <div className="left-navbar">
-        <Link className="vr-line" to="/">
+        <Link to="/">
           Home
         </Link>
-        <Link className="vr-line" to="/about">
+        {isLoggedIn && <Link className="vr-line-left" to="/about">
           About Me
-        </Link>
-        <Link to="/posts/new">New post</Link>
+        </Link>}
+        {isLoggedIn && <Link className='vr-line-left' to="/posts/new">New post</Link>}
       </div>
       <div className="right-navbar">
-        {!isLoggedIn && <Link className='vr-line' to="/signup">Sign Up</Link>}
+        {!isLoggedIn && <Link className='vr-line-right' to="/signup">Sign Up</Link>}
         {!isLoggedIn && <Link to="/login">Login</Link>}
         {isLoggedIn && <Link to='/' onClick={this.props.handleLogout}>Logout</Link>}
       </div>

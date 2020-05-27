@@ -7,9 +7,16 @@
   color: #196ECF;
 }
 
-.vr-line {
+.vr-line-right {
   padding-right: 8px;
   margin-right: 5px;
   border-right: 2px black ridge;
+  border-radius: 2px;
+}
+
+.vr-line-left {
+  padding-left: 8px;
+  margin-left: 5px;
+  border-left: 2px black ridge;
   border-radius: 2px;
 }
