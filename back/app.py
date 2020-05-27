@@ -71,6 +71,20 @@ def login():
     return response
 
 
+@app.route('/logout', methods=['POST'])
+def logout():
+    session_id = request.cookies.get('session_id')
+    if not session_id:
+        abort(400)
+    query = "delete from sessions where session_id = %s"
+    values = (session_id,)
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    db.commit()
+
+    return '%s is ended' % session_id
+
+
 @app.route('/posts', methods=['GET', 'POST'])
 def manage_posts():
     if request.method == 'GET':
