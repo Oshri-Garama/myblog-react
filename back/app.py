@@ -33,7 +33,11 @@ def sign_up():
     db.commit()
     new_user_id = cursor.lastrowid
     cursor.close()
-    return get_user(new_user_id)
+    user_record = get_user(new_user_id)
+    response = make_response(user_record)
+    new_session_id = create_session(new_user_id)
+    response.set_cookie('session_id', new_session_id)
+    return response
 
 
 def is_user_exist(user_name):
@@ -54,15 +58,19 @@ def get_user(user_id):
     cursor.execute(query, values)
     user_record = cursor.fetchone()
     headers = ['username', 'userId', 'fullName', 'isAdmin']
+    return jsonify(dict(zip(headers, user_record)))
+
+
+def create_session(user_id):
     session_id = str(uuid.uuid4())
     query = 'insert into sessions (user_id, session_id) values (%s, %s) on duplicate key update session_id=%s'
     values = (user_id, session_id, session_id)
+    cursor = db.cursor()
     cursor.execute(query, values)
     db.commit()
-    response = make_response(jsonify(dict(zip(headers, user_record))))
-    response.set_cookie('session_id', session_id)
+    response = make_response()
     cursor.close()
-    return response
+    return session_id
 
 
 @app.route('/login', methods=['POST'])
@@ -80,11 +88,7 @@ def login():
     hashed_password = record[4].encode('utf-8')
     if bcrypt.hashpw(data['password'].encode('utf-8'), hashed_password) != hashed_password:
         abort(401)
-    session_id = str(uuid.uuid4())
-    query = 'insert into sessions (user_id, session_id) values (%s, %s) on duplicate key update session_id=%s'
-    values = (user_id, session_id, session_id)
-    cursor.execute(query, values)
-    db.commit()
+    session_id = create_session(user_id)
     response = make_response(jsonify(dict(zip(headers, record))))
     response.set_cookie('session_id', session_id)
     cursor.close()
