@@ -1,3 +1,7 @@
+body {
+  background-image: url('https://oshriblogbucket.s3.amazonaws.com/light_background_for_blog_or_site.jpg')
+}
+
 .page-container {
   margin: 5px;
   font-family: "Geneva";
