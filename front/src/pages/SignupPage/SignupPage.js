@@ -48,8 +48,12 @@ class LoginPage extends React.Component {
         this.props.handleSignup(res.data)
         this.props.history.push('/')
       }
-    }).catch(error => {
-      if (error) {
+    }).catch(err => {
+      if (err.response.status === 404) {
+        alert('There is a problem connecting to the server, please contact the administrator')
+        console.log(err, 'Couldn\'t connect to database')
+      }
+      else if (err.response.status === 409) {
         alert('The username is already exist, please choose another one')
         this.refs.form.reset()
       }

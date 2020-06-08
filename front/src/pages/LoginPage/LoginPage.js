@@ -39,9 +39,15 @@ class LoginPage extends React.Component {
         this.props.handleLogin(res.data)
         this.props.history.push('/')
       }
-    }).catch(() => {
-      alert('The username or the password you provided is incorrect')
-      this.refs.form.reset()
+    }).catch((err) => {
+      if (err.response.status === 404) {
+        alert('There is a problem connecting to the server, please contact the administrator')
+        console.log(err, 'Couldn\'t connect to database')
+      }
+      else if (err.response.status === 401) {
+        alert('The username or the password you provided is incorrect')
+        this.refs.form.reset()
+      }
     })
   }
 
