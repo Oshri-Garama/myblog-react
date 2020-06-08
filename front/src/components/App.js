@@ -11,7 +11,7 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import SignupPage from "../pages/SignupPage/SignupPage";
 
 const port = '5000';
-const baseUrl = `http://localhost:${port}`;
+// const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
 const initialState = {
   posts: [],
   isLoggedIn: false,
@@ -51,7 +51,7 @@ class App extends React.Component {
   handleLogout = () => {
     this.setState(initialState)
     localStorage.setItem('session', JSON.stringify(initialState))
-    axios.post(`${baseUrl}/logout`, {withCredentials: true}).then(() => {
+    axios.post('/logout', {withCredentials: true}).then(() => {
     }).catch((error) => console.log(error, "Theres no such a session_id"))
   }
 
@@ -65,7 +65,7 @@ class App extends React.Component {
   };
 
   getAllPosts = () => {
-    axios.get(`${baseUrl}/posts`, {withCredentials: true}).then((res) => {
+    axios.get('/posts', {withCredentials: true}).then((res) => {
       if (res.status === 200) {
         this.setState({
           posts: res.data

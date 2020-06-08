@@ -3,7 +3,7 @@ import "./SignupPage.css";
 import axios from 'axios'
 
 const port = '5000';
-const baseUrl = `http://localhost:${port}`;
+// const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class LoginPage extends React.Component {
       alert('Please provide a valid input')
       return
     }
-    axios.post(`${baseUrl}/signup` ,{fullName, username, password }).then(res => {
+    axios.post('/signup' ,{fullName, username, password }).then(res => {
       if (res.status === 200) {
         this.props.handleSignup(res.data)
         this.props.history.push('/')

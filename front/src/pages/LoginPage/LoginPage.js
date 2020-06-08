@@ -3,7 +3,7 @@ import "./LoginPage.css";
 import axios from 'axios'
 
 const port = '5000';
-const baseUrl = `http://localhost:${port}`;
+// const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class LoginPage extends React.Component {
       this.refs.form.reset()
       return
     }
-    axios.post(`${baseUrl}/login` ,{username, password }).then(res => {
+    axios.post('/login' ,{username, password }).then(res => {
       if (res.status === 200) {
         this.props.handleLogin(res.data)
         this.props.history.push('/')

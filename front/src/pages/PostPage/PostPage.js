@@ -13,7 +13,7 @@ class PostPage extends React.Component {
   componentDidMount() {
     const { id } = this.state;
     const port = '5000';
-    const url = `http://localhost:${port}/posts/${id}`;
+    const url = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}/posts/${id}`;
     axios.get(url).then((res) => {
       if (res.status === 200) {
         this.setState({

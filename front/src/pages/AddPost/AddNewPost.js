@@ -3,7 +3,7 @@ import "./AddNewPost.css";
 import axios from "axios";
 
 const port = '5000';
-const url = `http://localhost:${port}/posts`;
+const url = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}/posts`;
 
 class AddNewPost extends React.Component {
   constructor(props) {
