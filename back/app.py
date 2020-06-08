@@ -68,7 +68,6 @@ def create_session(user_id):
     cursor = db.cursor()
     cursor.execute(query, values)
     db.commit()
-    response = make_response()
     cursor.close()
     return session_id
 
