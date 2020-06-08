@@ -4,9 +4,9 @@ import uuid
 import bcrypt
 
 db = mysql.connect(
-    host = "localhost",
-    user = "root",
-    passwd = "123456",
+    host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+    user = "admin",
+    passwd = "Oshri123456",
     database = "blog"
 )
 
