@@ -2,7 +2,7 @@ import React from "react";
 import "./SignupPage.css";
 import axios from 'axios'
 
-const port = '5000';
+// const port = '5000';
 // const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
 
 class LoginPage extends React.Component {

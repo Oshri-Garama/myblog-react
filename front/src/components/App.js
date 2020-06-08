@@ -10,7 +10,7 @@ import axios from "axios";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import SignupPage from "../pages/SignupPage/SignupPage";
 
-const port = '5000';
+// const port = '5000';
 // const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
 const initialState = {
   posts: [],
