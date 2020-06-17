@@ -20,6 +20,11 @@ def index():
     return app.send_static_file('index.html')
 
 
+@app.route('/api/alive')
+def alive():
+    return "I'm alive (You took it all, but I'm still breathing)"
+
+
 @app.route('/signup', methods=['POST'])
 def sign_up():
     data = request.get_json()
