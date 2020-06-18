@@ -13,7 +13,6 @@ import SignupPage from "../pages/SignupPage/SignupPage";
 // const port = '5000';
 // const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
 const initialState = {
-  posts: [],
   isLoggedIn: false,
   userId: '',
   fullName: '',
@@ -24,7 +23,10 @@ const initialState = {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = initialState
+    this.state = {
+      initialState,
+      posts: []
+    }
   }
 
   handleSignup = (details) => {
@@ -32,7 +34,6 @@ class App extends React.Component {
       ...details,
       isLoggedIn: true,
     })
-    this.getAllPosts()
     localStorage.setItem('session', JSON.stringify(this.state))
   };
   
@@ -44,7 +45,7 @@ class App extends React.Component {
       userId: data.userId,
       isAdmin: data.isAdmin
     })
-    this.getAllPosts()
+
     localStorage.setItem('session', JSON.stringify(this.state))
   }
 
@@ -76,21 +77,9 @@ class App extends React.Component {
 
   componentDidMount() {
     const prevState = JSON.parse(localStorage.getItem('session')) || initialState;
-    if (prevState.isLoggedIn) {
-      this.getAllPosts()
-    }
+    this.getAllPosts()
     this.setState(prevState)
   }
-
-  // adminGetAllPosts = () => {
-  //   axios.get(`${baseUrl}/posts`).then((res) => {
-  //     if (res.status === 200) {
-  //       this.setState({
-  //         posts: res.data
-  //       });
-  //     }
-  //   }).catch((error) => console.log(error, "Couldn't load posts"))
-  // } 
 
   render() {
     const { posts, isLoggedIn, userId } = this.state;
