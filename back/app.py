@@ -143,6 +143,20 @@ def get_post(post_id):
     return jsonify(dict(zip(headers, post_record)))
 
 
+@app.route('/posts/delete', methods=['POST'])
+def delete_post():
+    data = request.get_json()
+    post_id = data['post_id']
+    deleted_post = get_post(post_id)
+    delete_query = 'delete from posts where post_id= %s'
+    values = (post_id,)
+    cursor = db.cursor()
+    cursor.execute(delete_query, values)
+    db.commit()
+    cursor.close()
+    return deleted_post
+
+
 def check_login():
     session_id = request.cookies.get('session_id')
     if not session_id:
