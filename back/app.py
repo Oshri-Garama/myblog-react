@@ -158,7 +158,7 @@ def check_login():
 
 
 def get_all_posts():
-    query_select = 'select post_id, title, content, image_url, created_at, full_name from users'
+    query_select = 'select post_id, author_id, title, content, image_url, created_at, full_name from users'
     query_join_posts = 'join posts on users.user_id = posts.author_id'
     query_order = 'order by post_id desc'
     query = '%s %s %s' % (query_select, query_join_posts, query_order)
@@ -166,7 +166,7 @@ def get_all_posts():
     cursor = db.cursor()
     cursor.execute(query)
     post_records = cursor.fetchall()
-    headers = ['id', 'title', 'content', 'imageUrl', 'published', 'author']
+    headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published', 'author']
     for post in post_records:
         data.append(dict(zip(headers, post)))
     cursor.close()
