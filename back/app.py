@@ -3,10 +3,17 @@ import mysql.connector as mysql
 import uuid
 import bcrypt
 
+# db = mysql.connect(
+#     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+#     user = "admin",
+#     passwd = "Oshri123456",
+#     database = "blog"
+# )
+
 db = mysql.connect(
-    host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-    user = "admin",
-    passwd = "Oshri123456",
+    host = "localhost",
+    user = "root",
+    passwd = "123456",
     database = "blog"
 )
 
@@ -124,12 +131,14 @@ def manage_posts():
 
 @app.route('/posts/<post_id>')
 def get_post(post_id):
-    query = 'select post_id, author_id, title, content, image_url, created_at from posts where post_id= %s'
+    query_select = 'select post_id, full_name, author_id, title, content, image_url, created_at from posts'
+    query_join = 'join users on users.user_id = posts.author_id where post_id= %s'
+    query = '%s %s' % (query_select, query_join)
     values = (post_id,)
     cursor = db.cursor()
     cursor.execute(query, values)
     post_record = cursor.fetchone()
-    headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published']
+    headers = ['id', 'author', 'authorId', 'title', 'content', 'imageUrl', 'published']
     cursor.close()
     return jsonify(dict(zip(headers, post_record)))
 
