@@ -63,6 +63,7 @@ class App extends React.Component {
       posts: posts
     })
     this.getAllPosts()
+    localStorage.setItem('session', JSON.stringify(this.state))
   };
 
   getAllPosts = () => {
