@@ -3,14 +3,14 @@ import Posts from "../../components/Posts";
 import Sidebar from "../../components/Sidebar";
 
 const Homepage = (props) => {
-  const { posts, isLoggedIn, userId } = props;
+  const { posts, isLoggedIn, userId, handleDeletePost } = props;
   return (
     <div className="home-container">
       <div className="blog-container">
         <header>
             <h1 id="blog-title">Latests Posts</h1>
         </header>
-        <Posts posts={posts} isLoggedIn={isLoggedIn} userId={userId} /> 
+        <Posts posts={posts} isLoggedIn={isLoggedIn} userId={userId} handleDeletePost={handleDeletePost} /> 
       </div>
       <Sidebar posts={posts} />
     </div>

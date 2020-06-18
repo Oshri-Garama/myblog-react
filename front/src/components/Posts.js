@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/post.css";
 import { Link } from "react-router-dom";
 import moment from 'moment';
+import axios from 'axios'
 
 
 class Post extends React.Component {
@@ -18,6 +19,16 @@ class Post extends React.Component {
   getFormattedDate = date => {
     const dateObj = moment.utc(new Date(date)).format('YYYY-MM-DD')
     return dateObj;
+  }
+
+  handleDelete = () => {
+    const { id, handleDeletePost } = this.props
+    axios.post('/posts/delete', {post_id: id}).then((res) => {
+      if (res.status === 200) {
+        console.log(res.data)
+        handleDeletePost()
+      }
+    })
   }
 
   render() {
@@ -42,7 +53,7 @@ class Post extends React.Component {
         {userLoggedInId && (userLoggedInId === authorId ) &&
         <div className='buttons-container'>
           <button className='buttons'>Edit</button>
-          <button className='buttons'>Delete</button>
+          <button className='buttons' onClick={this.handleDelete}>Delete</button>
         </div>
         }
       </div>
@@ -51,7 +62,7 @@ class Post extends React.Component {
 }
 
 const Posts = (props) => {
-  const { isLoggedIn, userId } = props
+  const { isLoggedIn, userId, handleDeletePost } = props
   const postsJSX = props.posts.map((post) => {
     return (
       <Post
@@ -63,6 +74,7 @@ const Posts = (props) => {
         published={post.published}
         imageUrl={post.imageUrl}
         userLoggedInId={isLoggedIn ? userId : null}
+        handleDeletePost={handleDeletePost}
       />
     );
   });

@@ -63,8 +63,11 @@ class App extends React.Component {
       posts: posts
     })
     this.getAllPosts()
-    localStorage.setItem('session', JSON.stringify(this.state))
   };
+
+  handleDeletePost = () => {
+    this.getAllPosts()
+  }
 
   getAllPosts = () => {
     axios.get('/posts', {withCredentials: true}).then((res) => {
@@ -72,6 +75,7 @@ class App extends React.Component {
         this.setState({
           posts: res.data
         });
+        localStorage.setItem('session', JSON.stringify(this.state))
       }
     }).catch((error) => console.log(error, "Couldn't load posts"))
   } 
@@ -110,7 +114,7 @@ class App extends React.Component {
             </Route>
             <Route
               path={"/"}
-              render={(props) => <Homepage {...props} posts={posts} isLoggedIn={isLoggedIn} userId={userId} />}
+              render={(props) => <Homepage {...props} posts={posts} isLoggedIn={isLoggedIn} userId={userId} handleDeletePost={this.handleDeletePost} />}
             ></Route>
           </Switch>
         </div>
