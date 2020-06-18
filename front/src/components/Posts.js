@@ -25,8 +25,10 @@ class Post extends React.Component {
     const { id, handleDeletePost } = this.props
     axios.post('/posts/delete', {post_id: id}).then((res) => {
       if (res.status === 200) {
-        console.log(res.data)
-        handleDeletePost()
+        const answer = window.confirm('Are you sure you want to delete this post?')
+        if (answer) {
+          handleDeletePost()
+        }
       }
     })
   }
