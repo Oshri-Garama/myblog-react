@@ -110,7 +110,7 @@ class App extends React.Component {
             </Route>
             <Route
               path={"/"}
-              render={(props) => <Homepage {...props} posts={posts} isLoggedIn={isLoggedIn} />}
+              render={(props) => <Homepage {...props} posts={posts} isLoggedIn={isLoggedIn} userId={userId} />}
             ></Route>
           </Switch>
         </div>

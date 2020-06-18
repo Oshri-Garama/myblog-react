@@ -21,7 +21,7 @@ class Post extends React.Component {
   }
 
   render() {
-    const { id, author, title, content, imageUrl, published } = this.props;
+    const { id, userLoggedInId, author, authorId, title, content, imageUrl, published } = this.props;
     const publishedDate = this.getFormattedDate(published)
     const daysOfPublished = moment().diff(publishedDate, 'days')
 
@@ -39,21 +39,30 @@ class Post extends React.Component {
         <div className="image-container"> 
           <img style={{position: 'absolute', top: 0, right: 0, maxWidth: 158, height: 'auto'}} src={imageUrl} alt="" />
         </div>
+        {userLoggedInId && (userLoggedInId === authorId ) &&
+        <div className='buttons-container'>
+          <button className='buttons'>Edit</button>
+          <button className='buttons'>Delete</button>
+        </div>
+        }
       </div>
     );
   }
 }
 
 const Posts = (props) => {
+  const { isLoggedIn, userId } = props
   const postsJSX = props.posts.map((post) => {
     return (
       <Post
         id={post.id}
         author={post.author}
+        authorId={post.authorId}
         title={post.title}
         content={post.content}
         published={post.published}
         imageUrl={post.imageUrl}
+        userLoggedInId={isLoggedIn ? userId : null}
       />
     );
   });
