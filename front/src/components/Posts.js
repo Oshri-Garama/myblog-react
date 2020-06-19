@@ -56,15 +56,15 @@ class Post extends React.Component {
             Published {daysOfPublished === 0 ? 'today' : `${daysOfPublished} days ago`} by {author}
           </div>
         </div>
-        <div className="image-container"> 
-          <img style={{position: 'absolute', top: 0, right: 0, maxWidth: 158, height: 'auto'}} src={imageUrl} alt="" />
+        <div className="right-side-container"> 
+          <img style={{alignSelf: 'flex-end', maxWidth: 150, height: 'auto'}} src={imageUrl} alt="" />
+          {userLoggedInId && (userLoggedInId === authorId ) &&
+          <div className='buttons-container'>
+            <button className='buttons'>Edit</button>
+            <button className='buttons' onClick={this.handleDelete}>Delete</button>
+          </div>
+          }
         </div>
-        {userLoggedInId && (userLoggedInId === authorId ) &&
-        <div className='buttons-container'>
-          <button className='buttons'>Edit</button>
-          <button className='buttons' onClick={this.handleDelete}>Delete</button>
-        </div>
-        }
       </div>
     );
   }
