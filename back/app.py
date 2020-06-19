@@ -223,5 +223,20 @@ def create_new_post():
     return get_post(new_post_id)
 
 
+@app.route('/posts/edit', methods=['POST'])
+def create_new_post():
+    session_id = request.headers['Authorization']
+    check_login(session_id)
+    data = request.get_json()
+    post_id = data['id']
+    query = 'update posts set title = %s, content = %s, image_url = %s where post_id = %s'
+    values = (data['title'], data['content'], data['imageUrl'], post_id)
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    db.commit()
+    cursor.close()
+    return get_post(post_id)
+
+
 if __name__ == "__main__":
     app.run()
