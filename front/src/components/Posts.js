@@ -30,6 +30,10 @@ class Post extends React.Component {
           handleDeletePost()
         }
       }
+    }).catch(err => {
+      if (err.response.status === 400) {
+        console.log(err, 'The post you are trying to delete is not exist in the database')
+      }
     })
   }
 
