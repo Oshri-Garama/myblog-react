@@ -148,6 +148,8 @@ def delete_post():
     data = request.get_json()
     post_id = data['post_id']
     deleted_post = get_post(post_id)
+    if not deleted_post:
+        abort(400)
     delete_query = 'delete from posts where post_id= %s'
     values = (post_id,)
     cursor = db.cursor()
