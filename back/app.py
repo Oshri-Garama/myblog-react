@@ -3,10 +3,17 @@ import mysql.connector as mysql
 import uuid
 import bcrypt
 
+# db = mysql.connect(
+#     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+#     user = "admin",
+#     passwd = "Oshri123456",
+#     database = "blog"
+# )
+
 db = mysql.connect(
-    host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-    user = "admin",
-    passwd = "Oshri123456",
+    host = "localhost",
+    user = "root",
+    passwd = "123456",
     database = "blog"
 )
 
@@ -138,6 +145,8 @@ def get_post(post_id):
 
 @app.route('/posts/delete', methods=['POST'])
 def delete_post():
+    session_id = request.headers['Authorization']
+    check_login(session_id)
     data = request.get_json()
     post_id = data['post_id']
     deleted_post = get_post(post_id)
@@ -152,8 +161,7 @@ def delete_post():
     return deleted_post
 
 
-def check_login():
-    session_id = request.cookies.get('session_id')
+def check_login(session_id):
     if not session_id:
         abort(401)
     query = "select user_id from sessions where session_id = %s"
@@ -202,6 +210,8 @@ def get_user_posts():
 
 
 def create_new_post():
+    session_id = request.headers['Authorization']
+    check_login(session_id)
     data = request.get_json()
     query = 'insert into posts (author_id, title, content, image_url) values (%s, %s, %s, %s)'
     values = (data['authorId'], data['title'], data['content'], data['imageUrl'])
