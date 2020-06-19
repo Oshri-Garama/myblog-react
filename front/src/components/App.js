@@ -6,6 +6,7 @@ import Homepage from "../pages/Homepage/Homepage";
 import AboutMe from "../pages/AboutMe/AboutMe";
 import PostPage from "../pages/PostPage/PostPage";
 import AddNewPost from "../pages/AddPost/AddNewPost";
+import EditPost from "../pages/EditPost/EditPost";
 import axios from "axios";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import SignupPage from "../pages/SignupPage/SignupPage";
@@ -65,6 +66,10 @@ class App extends React.Component {
     this.getAllPosts()
   };
 
+  handleEditPost = () => {
+    this.getAllPosts()
+  }
+
   handleDeletePost = () => {
     this.getAllPosts()
   }
@@ -97,6 +102,12 @@ class App extends React.Component {
               path="/posts/new"
               render={(props) => (
                 <AddNewPost {...props} handleAddPost={this.handleAddPost} authorId={userId} />
+              )}
+            ></Route>
+            <Route
+              path="/posts/edit/:id"
+              render={(props) => (
+                <EditPost {...props} handleEditPost={this.handleEditPost} />
               )}
             ></Route>
             <Route
