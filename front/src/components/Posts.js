@@ -3,6 +3,7 @@ import "../styles/post.css";
 import { Link } from "react-router-dom";
 import moment from 'moment';
 import axios from 'axios'
+import { getAuthHeader } from '../utils/requests'
 
 
 class Post extends React.Component {
@@ -25,15 +26,18 @@ class Post extends React.Component {
     const answer = window.confirm('Are you sure you want to delete this post?')
     if (!answer) return
     const { id, handleDeletePost } = this.props
-    axios.post('/posts/delete', {post_id: id}).then((res) => {
-      if (res.status === 200) {
-        handleDeletePost()
-      }
-    }).catch(err => {
-      if (err.response.status === 400) {
-        console.log(err, 'The post you are trying to delete is not exist in the database')
-      }
-    })
+    const authHeader = getAuthHeader()
+    if (authHeader) {
+      axios.post('/posts/delete', {post_id: id}, {headers: authHeader}).then((res) => {
+        if (res.status === 200) {
+          handleDeletePost()
+        }
+      }).catch(err => {
+        if (err.response.status === 400) {
+          console.log(err, 'The post you are trying to delete is not exist in the database')
+        }
+      })
+    }
   }
 
   render() {

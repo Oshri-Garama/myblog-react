@@ -17,7 +17,7 @@ const initialState = {
   userId: '',
   fullName: '',
   username: '',
-  isAdmin: false
+  isAdmin: false,
 }
 
 class App extends React.Component {
@@ -38,15 +38,15 @@ class App extends React.Component {
   };
   
   handleLogin = (data) => {
-    this.setState({
+    const loggedState = {
       isLoggedIn: true,
       fullName: data.fullName,
       username: data.username,
       userId: data.userId,
       isAdmin: data.isAdmin
-    })
-
-    localStorage.setItem('session', JSON.stringify(this.state))
+    }
+    this.setState(loggedState)
+    localStorage.setItem('session', JSON.stringify(loggedState))
   }
 
   handleLogout = () => {
@@ -75,14 +75,13 @@ class App extends React.Component {
         this.setState({
           posts: res.data
         });
-        localStorage.setItem('session', JSON.stringify(this.state))
       }
     }).catch((error) => console.log(error, "Couldn't load posts"))
   } 
 
   componentDidMount() {
-    const prevState = JSON.parse(localStorage.getItem('session')) || initialState;
     this.getAllPosts()
+    const prevState = JSON.parse(localStorage.getItem('session')) || initialState;
     this.setState(prevState)
   }
 
