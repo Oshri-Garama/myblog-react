@@ -22,13 +22,12 @@ class Post extends React.Component {
   }
 
   handleDelete = () => {
+    const answer = window.confirm('Are you sure you want to delete this post?')
+    if (!answer) return
     const { id, handleDeletePost } = this.props
     axios.post('/posts/delete', {post_id: id}).then((res) => {
       if (res.status === 200) {
-        const answer = window.confirm('Are you sure you want to delete this post?')
-        if (answer) {
-          handleDeletePost()
-        }
+        handleDeletePost()
       }
     }).catch(err => {
       if (err.response.status === 400) {
