@@ -92,12 +92,11 @@ class App extends React.Component {
   }
 
   render() {
-    const { posts, isLoggedIn, userId } = this.state;
-    console.log(Cookies.get('session_id'), 'session')
+    const { posts, isLoggedIn, userId, username } = this.state;
     return (
-      <Router basename={process.env.PUBLIC_URL + "/"}>
+      <Router>
         <div className="page-container">
-          <Navbar key='bla' isLoggedIn={isLoggedIn} handleLogout={this.handleLogout} />
+          <Navbar isLoggedIn={isLoggedIn} handleLogout={this.handleLogout} />
           <Switch>
             <Route path="/about" component={AboutMe}></Route>
             <Route
@@ -114,7 +113,7 @@ class App extends React.Component {
             ></Route>
             <Route
               path="/posts/:id"
-              render={(props) => <PostPage {...props} />}
+              render={(props) => <PostPage {...props} username={username} />}
             ></Route>
             <Route 
               path="/login"
