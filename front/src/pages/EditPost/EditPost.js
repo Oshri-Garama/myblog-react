@@ -1,7 +1,6 @@
 import React from "react";
 import "./EditPost.css";
 import axios from "axios";
-import { getAuthHeader } from '../../utils/requests'
 
 // const port = '5000';
 // const url = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}/posts`;
@@ -50,7 +49,7 @@ class EditPost extends React.Component {
     event.preventDefault();
     const { post } = this.state;
     if (post.title && post.content) {
-      axios.post('/posts/edit', post, {headers: getAuthHeader()}).then(res => {
+      axios.post('/posts/edit', post).then(res => {
         if (res.status === 200) {
           post.published = res.data.published
           post.author = res.data.author

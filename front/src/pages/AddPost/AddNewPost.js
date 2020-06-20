@@ -1,7 +1,6 @@
 import React from "react";
 import "./AddNewPost.css";
 import axios from "axios";
-import { getAuthHeader } from '../../utils/requests'
 
 // const port = '5000';
 // const url = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}/posts`;
@@ -51,7 +50,7 @@ class AddNewPost extends React.Component {
     event.preventDefault();
     const { post } = this.state;
     if (post.title && post.content) {
-      axios.post('/posts', post, {headers: getAuthHeader()}).then(res => {
+      axios.post('/posts', post).then(res => {
         if (res.status === 200) {
           post.published = res.data.published
           post.id = res.data.id

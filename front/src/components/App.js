@@ -10,6 +10,8 @@ import EditPost from "../pages/EditPost/EditPost";
 import axios from "axios";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import SignupPage from "../pages/SignupPage/SignupPage";
+import Cookies from 'js-cookie'
+
 
 // const port = '5000';
 // const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
@@ -91,6 +93,7 @@ class App extends React.Component {
 
   render() {
     const { posts, isLoggedIn, userId } = this.state;
+    console.log(Cookies.get('session_id'), 'session')
     return (
       <Router basename={process.env.PUBLIC_URL + "/"}>
         <div className="page-container">

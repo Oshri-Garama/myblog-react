@@ -3,7 +3,7 @@ import "../styles/post.css";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
-import { getAuthHeader } from "../utils/requests";
+
 
 class Post extends React.Component {
   constructor(props) {
@@ -25,10 +25,8 @@ class Post extends React.Component {
     const answer = window.confirm("Are you sure you want to delete this post?");
     if (!answer) return;
     const { id, handleDeletePost } = this.props;
-    const authHeader = getAuthHeader();
-    if (authHeader) {
       axios
-        .post("/posts/delete", { post_id: id }, { headers: authHeader })
+        .post("/posts/delete", { post_id: id })
         .then((res) => {
           if (res.status === 200) {
             handleDeletePost();
@@ -42,7 +40,6 @@ class Post extends React.Component {
             );
           }
         });
-    }
   };
 
   render() {
