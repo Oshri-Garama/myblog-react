@@ -68,12 +68,13 @@ def get_user(user_id):
 
 def create_session(user_id):
     session_id = str(uuid.uuid4())
-    query = 'insert into sessions (user_id, session_id) values (%s, %s) on duplicate key update session_id=%s'
-    values = (user_id, session_id, session_id)
+    query = 'insert into sessions (user_id, session_id) values (%s, %s)'
+    values = (user_id, session_id)
     cursor = db.cursor()
     cursor.execute(query, values)
     db.commit()
     cursor.close()
+    print('session is created ' + session_id)
     return session_id
 
 
@@ -93,6 +94,7 @@ def login():
     if bcrypt.hashpw(data['password'].encode('utf-8'), hashed_password) != hashed_password:
         abort(401)
     session_id = create_session(user_id)
+    print('logged in with ' + session_id)
     response = make_response(jsonify(dict(zip(headers, record))))
     response.set_cookie('session_id', session_id)
     cursor.close()
@@ -138,7 +140,11 @@ def get_post(post_id):
 
 @app.route('/posts/delete', methods=['POST'])
 def delete_post():
-    session_id = request.headers['Authorization']
+    session_id = request.cookies.get('session_id')
+    print('Trying to delete post with session: ' + session_id)
+    if not session_id:
+        abort(401)
+    print('deleted with session: ' + session_id)
     check_login(session_id)
     data = request.get_json()
     post_id = data['post_id']
@@ -155,8 +161,6 @@ def delete_post():
 
 
 def check_login(session_id):
-    if not session_id:
-        abort(401)
     query = "select user_id from sessions where session_id = %s"
     values = (session_id, )
     cursor = db.cursor()
@@ -203,7 +207,11 @@ def get_user_posts():
 
 
 def create_new_post():
-    session_id = request.headers['Authorization']
+    session_id = request.cookies.get('session_id')
+    print('Trying to create post with session: ' + session_id)
+    if not session_id:
+        abort(401)
+    print('posted with session: ' + session_id)
     check_login(session_id)
     data = request.get_json()
     query = 'insert into posts (author_id, title, content, image_url) values (%s, %s, %s, %s)'
@@ -218,7 +226,11 @@ def create_new_post():
 
 @app.route('/posts/edit', methods=['POST'])
 def edit_post():
-    session_id = request.headers['Authorization']
+    session_id = request.cookies.get('session_id')
+    print('Trying to edit post with session: ' + session_id)
+    if not session_id:
+        abort(401)
+    print('edited post with session: ' + session_id)
     check_login(session_id)
     data = request.get_json()
     post_id = data['id']
