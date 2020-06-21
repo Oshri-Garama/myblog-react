@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import Comment from "../../components/Comment";
+import Comments from "../../components/Comment";
 import "./PostPage.css";
 
 
@@ -10,17 +10,16 @@ class PostPage extends React.Component {
     this.state = {
       id: props.match.params.id || "",
       post: '',
-      comment: ''
+      comment: '',
     };
   }
 
   componentDidMount() {
     const { id } = this.state;
-    const url = `/posts/${id}`;
-    axios.get(url).then((res) => {
+    axios.get(`/posts/${id}`, { withCredentials: true }).then((res) => {
       if (res.status === 200) {
         this.setState({
-          post: res.data
+          post: res.data,
         });
       }
     }).catch((error) => console.log(error, "Couldn't load posts"))
@@ -35,11 +34,13 @@ class PostPage extends React.Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    const {postId, username, comment} = this.state
+    const {id: postId, comment } = this.state
+    const username = this.props.getUsername()
     if (comment && username) {
-      axios.post('/comments', {postId, comment}).then(res => {
+      axios.post(`/comments/${postId}`, {postId, comment}, { withCredentials: true }).then(res => {
         if (res.status === 200) {
-          
+          window.location.reload()
+          console.log(res.data)
         }
       })
     } else {
@@ -49,7 +50,6 @@ class PostPage extends React.Component {
  
   render() {
     const { post, id } = this.state;
-
     return (
       <div className='post-view'>
         <h1>{post.title}</h1>
@@ -61,7 +61,7 @@ class PostPage extends React.Component {
         </form>
         <div id='comments-container'>
           <h3>Comments</h3>
-          <Comment postId={id} username={this.props.username} />
+          <Comments postId={id} />
         </div>
       </div>
     );

@@ -27,7 +27,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      isLoggedIn: '',
+      username: '',
+      userId: '',
+      fullName: '',
+      isAdmin: ''
     }
   }
 
@@ -85,6 +90,10 @@ class App extends React.Component {
     }).catch((error) => console.log(error, "Couldn't load posts"))
   } 
 
+  getUsername = () => {
+    return this.state.username
+  }
+
   componentDidMount() {
     this.getAllPosts()
     const prevState = JSON.parse(localStorage.getItem('session')) || initialState;
@@ -112,8 +121,8 @@ class App extends React.Component {
               )}
             ></Route>
             <Route
-              path="/posts/:id"
-              render={(props) => <PostPage {...props} username={username} />}
+              path="/posts/view/:id"
+              render={(props) => <PostPage {...props} getUsername={this.getUsername} />}
             ></Route>
             <Route 
               path="/login"

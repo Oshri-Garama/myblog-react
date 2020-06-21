@@ -1,27 +1,49 @@
-import React from 'react'
-import axios from 'axios'
+import React from "react";
+import axios from "axios";
 
+const Comment = (props) => {
+  return (
+    <div className="comment">
+      <div id="comment-user-name">{props.username}</div>
+      <div>{props.comment}</div>
+    </div>
+  );
+}
 
-class Comment extends React.Component {
+class Comments extends React.Component {
   constructor(props) {
-    super(props)
-    this.state= {
-      postId: props.postId || '',
-      userName: props.username || '',
-      comment: ''
-    }
+    super(props);
+    this.state = {
+      postId: props.postId,
+      comments: []
+    };
   }
 
+  componentDidMount = () => {
+    const { postId } = this.state;
+    axios
+      .get(`/comments/${postId}`, { withCredentials: true })
+      .then((res) => {
+        if (res.status === 200) {
+          this.setState({
+            comments: res.data,
+          });
+        }
+      })
+      .catch((error) => console.log(error, "Couldn't load comments"));
+  };
+
   render() {
-    return (
-      <div className='comment'>
-          <div id='comment-user-name'>username</div>
-          <div>comment</div>
-      </div>
-      
-      )
+    const commentsJSX = this.state.comments.map(commentData => {
+      return (
+        <Comment
+          username={commentData.username}
+          comment={commentData.content}
+        />
+      );
+    });
+    return commentsJSX;
   }
 }
 
-
-export default Comment
+export default Comments;

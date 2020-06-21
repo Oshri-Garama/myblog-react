@@ -60,7 +60,7 @@ class Post extends React.Component {
       <div className="post-container">
         <div className="seperate-image-container">
           <h4 className="post-title">
-            <Link to={`/posts/${id}`}>{title}</Link>
+            <Link to={`/posts/view/${id}`}>{title}</Link>
           </h4>
           <div className="post-content">{content}</div>
           <div className="published-time">
