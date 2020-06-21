@@ -74,7 +74,6 @@ def create_session(user_id):
     cursor.execute(query, values)
     db.commit()
     cursor.close()
-    print('session is created ' + session_id)
     return session_id
 
 
@@ -94,7 +93,6 @@ def login():
     if bcrypt.hashpw(data['password'].encode('utf-8'), hashed_password) != hashed_password:
         abort(401)
     session_id = create_session(user_id)
-    print('logged in with ' + session_id)
     response = make_response(jsonify(dict(zip(headers, record))))
     response.set_cookie('session_id', session_id)
     cursor.close()
@@ -111,6 +109,7 @@ def logout():
     cursor = db.cursor()
     cursor.execute(query, values)
     db.commit()
+    cursor.close()
     response = make_response()
     response.set_cookie('session_id', '', expires=0)
     return response
@@ -141,10 +140,8 @@ def get_post(post_id):
 @app.route('/posts/delete', methods=['POST'])
 def delete_post():
     session_id = request.cookies.get('session_id')
-    print('Trying to delete post with session: ' + session_id)
     if not session_id:
         abort(401)
-    print('deleted with session: ' + session_id)
     check_login(session_id)
     data = request.get_json()
     post_id = data['post_id']
@@ -166,6 +163,7 @@ def check_login(session_id):
     cursor = db.cursor()
     cursor.execute(query, values)
     record = cursor.fetchone()
+    cursor.close()
     if not record:
         abort(401)
     return record
@@ -208,10 +206,8 @@ def get_user_posts():
 
 def create_new_post():
     session_id = request.cookies.get('session_id')
-    print('Trying to create post with session: ' + session_id)
     if not session_id:
         abort(401)
-    print('posted with session: ' + session_id)
     check_login(session_id)
     data = request.get_json()
     query = 'insert into posts (author_id, title, content, image_url) values (%s, %s, %s, %s)'
@@ -227,10 +223,8 @@ def create_new_post():
 @app.route('/posts/edit', methods=['POST'])
 def edit_post():
     session_id = request.cookies.get('session_id')
-    print('Trying to edit post with session: ' + session_id)
     if not session_id:
         abort(401)
-    print('edited post with session: ' + session_id)
     check_login(session_id)
     data = request.get_json()
     post_id = data['id']
@@ -241,6 +235,46 @@ def edit_post():
     db.commit()
     cursor.close()
     return get_post(post_id)
+
+
+@app.route('/comments/<post_id>', methods=['GET', 'POST'])
+def manage_comments(post_id):
+    if request.method == 'GET':
+        return get_all_comments(post_id)
+    else:
+        return add_new_comment(post_id)
+
+
+def get_all_comments(post_id):
+    query_select = 'select post_id, content, user_name from comments'
+    query_join_comments = 'join users on users.user_id = comments.user_id where post_id = %s'
+    query = '%s %s' % (query_select, query_join_comments)
+    values = (post_id, )
+    data = []
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    comment_records = cursor.fetchall()
+    headers = ['postId', 'content', 'username']
+    for comment in comment_records:
+        data.append(dict(zip(headers, comment)))
+    cursor.close()
+    return jsonify(data)
+
+
+def add_new_comment(post_id):
+    session_id = request.cookies.get('session_id')
+    if not session_id:
+        abort(401)
+    user_id = check_login(session_id)[0]  # returns tuple
+    data = request.get_json()
+    query = 'insert into comments (user_id, post_id, content) values (%s, %s, %s)'
+    values = (user_id, post_id, data['comment'])
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    db.commit()
+    # new_post_id = cursor.lastrowid
+    cursor.close()
+    return 'succeed'
 
 
 if __name__ == "__main__":
