@@ -3,10 +3,17 @@ import mysql.connector as mysql
 import uuid
 import bcrypt
 
+# db = mysql.connect(
+#     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+#     user = "admin",
+#     passwd = "Oshri123456",
+#     database = "blog"
+# )
+
 db = mysql.connect(
-    host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-    user = "admin",
-    passwd = "Oshri123456",
+    host = "localhost",
+    user = "root",
+    passwd = "123456",
     database = "blog"
 )
 
@@ -62,6 +69,7 @@ def get_user(user_id):
     cursor = db.cursor()
     cursor.execute(query, values)
     user_record = cursor.fetchone()
+    cursor.close()
     headers = ['username', 'userId', 'fullName', 'isAdmin']
     return jsonify(dict(zip(headers, user_record)))
 
@@ -85,6 +93,7 @@ def login():
     cursor = db.cursor()
     cursor.execute(query, values)
     record = cursor.fetchone()
+    cursor.close()
     headers = ['userId', 'username', 'fullName', 'isAdmin']
     if not record:
         abort(401)
@@ -95,7 +104,6 @@ def login():
     session_id = create_session(user_id)
     response = make_response(jsonify(dict(zip(headers, record))))
     response.set_cookie('session_id', session_id)
-    cursor.close()
     return response
 
 
@@ -128,7 +136,7 @@ def get_post(post_id):
     query_select = 'select post_id, full_name, author_id, title, content, image_url, created_at from posts'
     query_join = 'join users on users.user_id = posts.author_id where post_id= %s'
     query = '%s %s' % (query_select, query_join)
-    values = (post_id,)
+    values = (post_id, )
     cursor = db.cursor()
     cursor.execute(query, values)
     post_record = cursor.fetchone()
@@ -185,23 +193,23 @@ def get_all_posts():
     return jsonify(data)
 
 
-# get posts of specific user
-def get_user_posts():
-    values = check_login()
-    query_select = 'select post_id, title, content, image_url, created_at, full_name, session_id from users'
-    query_join_sessions = 'join sessions on users.user_id = sessions.user_id'
-    query_join_posts = 'join posts on users.user_id = posts.author_id where users.user_id=%s'
-    query_order = 'order by post_id desc'
-    query = '%s %s %s %s' % (query_select, query_join_sessions, query_join_posts, query_order)
-    data = []
-    cursor = db.cursor()
-    cursor.execute(query, values)
-    post_records = cursor.fetchall()
-    headers = ['id', 'title', 'content', 'imageUrl', 'published', 'author']
-    for post in post_records:
-        data.append(dict(zip(headers, post)))
-    cursor.close()
-    return jsonify(data)
+# # get posts of specific user
+# def get_user_posts():
+#     values = check_login()
+#     query_select = 'select post_id, title, content, image_url, created_at, full_name, session_id from users'
+#     query_join_sessions = 'join sessions on users.user_id = sessions.user_id'
+#     query_join_posts = 'join posts on users.user_id = posts.author_id where users.user_id=%s'
+#     query_order = 'order by post_id desc'
+#     query = '%s %s %s %s' % (query_select, query_join_sessions, query_join_posts, query_order)
+#     data = []
+#     cursor = db.cursor()
+#     cursor.execute(query, values)
+#     post_records = cursor.fetchall()
+#     headers = ['id', 'title', 'content', 'imageUrl', 'published', 'author']
+#     for post in post_records:
+#         data.append(dict(zip(headers, post)))
+#     cursor.close()
+#     return jsonify(data)
 
 
 def create_new_post():
@@ -242,39 +250,53 @@ def manage_comments(post_id):
     if request.method == 'GET':
         return get_all_comments(post_id)
     else:
-        return add_new_comment(post_id)
+        return add_new_comment()
 
 
 def get_all_comments(post_id):
     query_select = 'select post_id, content, user_name from comments'
     query_join_comments = 'join users on users.user_id = comments.user_id where post_id = %s'
-    query = '%s %s' % (query_select, query_join_comments)
-    values = (post_id, )
+    query_order = 'order by comment_id desc'
+    query = '%s %s %s' % (query_select, query_join_comments, query_order)
+    values = (post_id,)
     data = []
     cursor = db.cursor()
     cursor.execute(query, values)
     comment_records = cursor.fetchall()
+    cursor.close()
     headers = ['postId', 'content', 'username']
     for comment in comment_records:
         data.append(dict(zip(headers, comment)))
-    cursor.close()
     return jsonify(data)
 
 
-def add_new_comment(post_id):
+def add_new_comment():
     session_id = request.cookies.get('session_id')
     if not session_id:
         abort(401)
     user_id = check_login(session_id)[0]  # returns tuple
     data = request.get_json()
     query = 'insert into comments (user_id, post_id, content) values (%s, %s, %s)'
-    values = (user_id, post_id, data['comment'])
+    values = (user_id, data['postId'], data['comment'])
     cursor = db.cursor()
     cursor.execute(query, values)
     db.commit()
-    # new_post_id = cursor.lastrowid
     cursor.close()
-    return 'succeed'
+    new_comment_id = cursor.lastrowid
+    return get_comment(new_comment_id)
+
+
+def get_comment(comment_id):
+    query_select = 'select comment_id, post_id, content, user_name from comments'
+    query_join = 'join users on users.user_id = comments.user_id where comment_id= %s'
+    query = '%s %s' % (query_select, query_join)
+    values = (comment_id, )
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    comment_record = cursor.fetchone()
+    headers = ['commentId', 'postId', 'content', 'username']
+    cursor.close()
+    return jsonify(dict(zip(headers, comment_record)))
 
 
 if __name__ == "__main__":
