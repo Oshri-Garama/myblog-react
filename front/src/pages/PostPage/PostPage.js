@@ -50,16 +50,19 @@ class PostPage extends React.Component {
  
   render() {
     const { post, id } = this.state;
+    const { isLoggedIn } = this.props
+    
     return (
       <div className='post-view'>
         <h1>{post.title}</h1>
         <img style={{maxWidth: 300, height: 'auto'}} src={post.imageUrl} alt="" />
         <div className='post-view-content'>{post.content}</div>
-        <form className='comment-input-container' onSubmit={this.onSubmit}>
-          <textarea id='comment-inputarea' onChange={this.handleCommentChange}></textarea>
-          <button id='comment-button'>Comment</button>
+        <form className='comment-input-container' onSubmit={this.onSubmit} disabled={!isLoggedIn}>
+          <textarea id='comment-inputarea' onChange={this.handleCommentChange} disabled={!isLoggedIn}></textarea>
+          <button id='comment-button' disabled={!isLoggedIn}>Comment</button>
         </form>
         <div id='comments-container'>
+          {!isLoggedIn && <h5 style={{color: 'red', fontWeight: 800}}>To comment you must login or sign up</h5>}
           <h3>Comments</h3>
           <Comments postId={id} />
         </div>

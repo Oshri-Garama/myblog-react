@@ -122,7 +122,7 @@ class App extends React.Component {
             ></Route>
             <Route
               path="/posts/view/:id"
-              render={(props) => <PostPage {...props} getUsername={this.getUsername} />}
+              render={(props) => <PostPage {...props} getUsername={this.getUsername} isLoggedIn={isLoggedIn}/>}
             ></Route>
             <Route 
               path="/login"
