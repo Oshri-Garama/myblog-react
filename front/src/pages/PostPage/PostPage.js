@@ -39,8 +39,8 @@ class PostPage extends React.Component {
     if (comment && username) {
       axios.post(`/comments/${postId}`, {postId, comment}, { withCredentials: true }).then(res => {
         if (res.status === 200) {
+          alert("Your comment should be on the top!");
           window.location.reload()
-          console.log(res.data)
         }
       })
     } else {
