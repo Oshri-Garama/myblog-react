@@ -3,10 +3,17 @@ import mysql.connector as mysql
 import uuid
 import bcrypt
 
+# db = mysql.connect(
+#     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+#     user = "admin",
+#     passwd = "Oshri123456",
+#     database = "blog"
+# )
+
 db = mysql.connect(
-    host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-    user = "admin",
-    passwd = "Oshri123456",
+    host = "localhost",
+    user = "root",
+    passwd = "123456",
     database = "blog"
 )
 
@@ -17,6 +24,11 @@ app = Flask(__name__,
 
 @app.route('/')
 def index():
+    return app.send_static_file('index.html')
+
+
+@app.errorhandler(404)
+def page_not_found(e):
     return app.send_static_file('index.html')
 
 
@@ -118,6 +130,8 @@ def logout():
 
 @app.route('/api/posts/<post_id>')
 def get_post(post_id):
+    session_id = request.cookies.get('session_id')
+    user_logged_in = verify_session(session_id)
     query_select = 'select post_id, full_name, author_id, title, content, image_url, created_at from posts'
     query_join = 'join users on users.user_id = posts.author_id where post_id= %s'
     query = '%s %s' % (query_select, query_join)
@@ -134,6 +148,10 @@ def get_post(post_id):
         for comment in comments_record:
             comments.append(dict(zip(headers, comment)))
         post_data = {"post": post, "comments": comments}
+        if not user_logged_in:
+            response = make_response(jsonify(post_data))
+            response.set_cookie('session_id', '', expires=0)
+            return response
         return jsonify(post_data)
     finally:
         cursor.close()
@@ -194,7 +212,21 @@ def check_login(session_id):
     return record
 
 
+def verify_session(session_id):
+    query = "select user_id from sessions where session_id = %s"
+    values = (session_id, )
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    record = cursor.fetchone()
+    cursor.close()
+    if not record:
+        return False
+    return True
+
+
 def get_all_posts():
+    session_id = request.cookies.get('session_id')
+    user_logged_in = verify_session(session_id)
     query_select = 'select post_id, author_id, title, content, image_url, created_at, full_name from users'
     query_join_posts = 'join posts on users.user_id = posts.author_id'
     query_order = 'order by post_id desc'
@@ -207,6 +239,10 @@ def get_all_posts():
         headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published', 'author']
         for post in post_records:
             data.append(dict(zip(headers, post)))
+        if not user_logged_in:
+            response = make_response(jsonify(data))
+            response.set_cookie('session_id', '', expires=0)
+            return response
         return jsonify(data)
     finally:
         cursor.close()
