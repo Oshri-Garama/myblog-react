@@ -122,12 +122,19 @@ def get_post(post_id):
     query_join = 'join users on users.user_id = posts.author_id where post_id= %s'
     query = '%s %s' % (query_select, query_join)
     values = (post_id, )
+    comments_record = get_all_comments(post_id)
     try:
         cursor = db.cursor()
         cursor.execute(query, values)
         post_record = cursor.fetchone()
         headers = ['id', 'author', 'authorId', 'title', 'content', 'imageUrl', 'published']
-        return jsonify(dict(zip(headers, post_record)))
+        post = dict(zip(headers, post_record))
+        headers = ['postId', 'content', 'username']
+        comments = []
+        for comment in comments_record:
+            comments.append(dict(zip(headers, comment)))
+        post_data = {"post": post, "comments": comments}
+        return jsonify(post_data)
     finally:
         cursor.close()
 
