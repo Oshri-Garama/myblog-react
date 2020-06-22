@@ -10,6 +10,13 @@ db = mysql.connect(
     database = "blog"
 )
 
+# db = mysql.connect(
+#     host = "localhost",
+#     # user = "root",
+#     passwd = "123456",
+#     database = "blog"
+# )
+
 app = Flask(__name__,
             static_folder='../front/build',
             static_url_path='/')
@@ -25,7 +32,7 @@ def alive():
     return "I'm alive (You took it all, but I'm still breathing)"
 
 
-@app.route('/signup', methods=['POST'])
+@app.route('/api/signup', methods=['POST'])
 def sign_up():
     data = request.get_json()
     if is_user_exist(data['username']):
@@ -78,7 +85,7 @@ def create_session(user_id):
     return session_id
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
     query = 'select user_id, user_name, full_name, is_admin, password from users where user_name=%s'
@@ -100,7 +107,7 @@ def login():
     return response
 
 
-@app.route('/logout', methods=['POST'])
+@app.route('/api/logout', methods=['POST'])
 def logout():
     session_id = request.cookies.get('session_id')
     if not session_id:
@@ -116,7 +123,7 @@ def logout():
     return response
 
 
-@app.route('/posts', methods=['GET', 'POST'])
+@app.route('/api/posts', methods=['GET', 'POST'])
 def manage_posts():
     if request.method == 'GET':
         return get_all_posts()
@@ -124,7 +131,7 @@ def manage_posts():
         return create_new_post()
 
 
-@app.route('/posts/<post_id>')
+@app.route('/api/posts/<post_id>')
 def get_post(post_id):
     query_select = 'select post_id, full_name, author_id, title, content, image_url, created_at from posts'
     query_join = 'join users on users.user_id = posts.author_id where post_id= %s'
@@ -133,12 +140,14 @@ def get_post(post_id):
     cursor = db.cursor()
     cursor.execute(query, values)
     post_record = cursor.fetchone()
+    post_comments = get_all_comments(post_id)
+    print(post_comments)
     headers = ['id', 'author', 'authorId', 'title', 'content', 'imageUrl', 'published']
     cursor.close()
     return jsonify(dict(zip(headers, post_record)))
 
 
-@app.route('/posts/delete', methods=['POST'])
+@app.route('/api/posts/delete', methods=['POST'])
 def delete_post():
     session_id = request.cookies.get('session_id')
     if not session_id:
@@ -221,7 +230,7 @@ def create_new_post():
     return get_post(new_post_id)
 
 
-@app.route('/posts/edit', methods=['POST'])
+@app.route('/api/posts/edit', methods=['POST'])
 def edit_post():
     session_id = request.cookies.get('session_id')
     if not session_id:
@@ -238,7 +247,7 @@ def edit_post():
     return get_post(post_id)
 
 
-@app.route('/comments/<post_id>', methods=['GET', 'POST'])
+@app.route('/api/comments/<post_id>', methods=['GET', 'POST'])
 def manage_comments(post_id):
     if request.method == 'GET':
         return get_all_comments(post_id)
@@ -260,7 +269,7 @@ def get_all_comments(post_id):
     headers = ['postId', 'content', 'username']
     for comment in comment_records:
         data.append(dict(zip(headers, comment)))
-    return jsonify(data)
+    return comment_records
 
 
 def add_new_comment():
