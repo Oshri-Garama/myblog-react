@@ -10,13 +10,6 @@ db = mysql.connect(
     database = "blog"
 )
 
-# db = mysql.connect(
-#     host = "localhost",
-#     # user = "root",
-#     passwd = "123456",
-#     database = "blog"
-# )
-
 app = Flask(__name__,
             static_folder='../front/build',
             static_url_path='/')
@@ -123,28 +116,28 @@ def logout():
     return response
 
 
-@app.route('/api/posts', methods=['GET', 'POST'])
-def manage_posts():
-    if request.method == 'GET':
-        return get_all_posts()
-    else:
-        return create_new_post()
-
-
 @app.route('/api/posts/<post_id>')
 def get_post(post_id):
     query_select = 'select post_id, full_name, author_id, title, content, image_url, created_at from posts'
     query_join = 'join users on users.user_id = posts.author_id where post_id= %s'
     query = '%s %s' % (query_select, query_join)
     values = (post_id, )
-    cursor = db.cursor()
-    cursor.execute(query, values)
-    post_record = cursor.fetchone()
-    post_comments = get_all_comments(post_id)
-    print(post_comments)
-    headers = ['id', 'author', 'authorId', 'title', 'content', 'imageUrl', 'published']
-    cursor.close()
-    return jsonify(dict(zip(headers, post_record)))
+    try:
+        cursor = db.cursor()
+        cursor.execute(query, values)
+        post_record = cursor.fetchone()
+        headers = ['id', 'author', 'authorId', 'title', 'content', 'imageUrl', 'published']
+        return jsonify(dict(zip(headers, post_record)))
+    finally:
+        cursor.close()
+
+
+@app.route('/api/posts', methods=['GET', 'POST'])
+def manage_posts():
+    if request.method == 'GET':
+        return get_all_posts()
+    else:
+        return create_new_post()
 
 
 @app.route('/api/posts/delete', methods=['POST'])
@@ -158,6 +151,7 @@ def delete_post():
     deleted_post = get_post(post_id)
     if not deleted_post:
         abort(400)
+    delete_post_comments_if_exists(post_id)
     delete_query = 'delete from posts where post_id= %s'
     values = (post_id,)
     cursor = db.cursor()
@@ -165,6 +159,20 @@ def delete_post():
     db.commit()
     cursor.close()
     return deleted_post
+
+
+def delete_post_comments_if_exists(post_id):
+    comments = get_all_comments(post_id)
+    if comments:
+        query = 'delete from comments where post_id=%s'
+        values = (post_id,)
+        try:
+            cursor = db.cursor()
+            cursor.execute(query, values)
+            db.commit()
+            return comments
+        finally:
+            cursor.close()
 
 
 def check_login(session_id):
@@ -185,15 +193,16 @@ def get_all_posts():
     query_order = 'order by post_id desc'
     query = '%s %s %s' % (query_select, query_join_posts, query_order)
     data = []
-    cursor = db.cursor()
-    cursor.execute(query)
-    post_records = cursor.fetchall()
-    headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published', 'author']
-    for post in post_records:
-        data.append(dict(zip(headers, post)))
-    cursor.close()
-    return jsonify(data)
-
+    try:
+        cursor = db.cursor()
+        cursor.execute(query)
+        post_records = cursor.fetchall()
+        headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published', 'author']
+        for post in post_records:
+            data.append(dict(zip(headers, post)))
+        return jsonify(data)
+    finally:
+        cursor.close()
 
 # # get posts of specific user
 # def get_user_posts():
