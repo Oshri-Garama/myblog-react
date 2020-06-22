@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Comments from "../../components/Comment";
 import "./PostPage.css";
+import Cookies from 'js-cookie'
 
 
 class PostPage extends React.Component {
@@ -12,6 +13,7 @@ class PostPage extends React.Component {
       post: '',
       comment: '',
       username: '',
+      comments: []
     };
   }
 
@@ -20,7 +22,8 @@ class PostPage extends React.Component {
     axios.get(`/api/posts/${id}`, { withCredentials: true }).then((res) => {
       if (res.status === 200) {
         this.setState({
-          post: res.data,
+          post: res.data.post,
+          comments: res.data.comments
         });
       }
     }).catch((error) => console.log(error, "Couldn't load posts"))
@@ -50,8 +53,8 @@ class PostPage extends React.Component {
   }
  
   render() {
-    const { post, id } = this.state;
-    const { isLoggedIn } = this.props
+    const { id, post, comments } = this.state;
+    const isLoggedIn = Cookies.get('session_id') ? true : false
 
     return (
       <div className='post-view'>
@@ -65,7 +68,7 @@ class PostPage extends React.Component {
         <div id='comments-container'>
           {!isLoggedIn && <h5 style={{color: 'red', fontWeight: 800}}>To comment you must login or sign up</h5>}
           <h3>Comments</h3>
-          {/* <Comments postId={id} /> */}
+          <Comments comments={comments} />
         </div>
       </div>
     );

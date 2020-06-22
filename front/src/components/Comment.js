@@ -10,31 +10,8 @@ const Comment = (props) => {
   );
 }
 
-class Comments extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      postId: props.postId,
-      comments: []
-    };
-  }
-
-  componentDidMount = () => {
-    const { postId } = this.state;
-    axios
-      .get(`/comments/${postId}`, { withCredentials: true })
-      .then((res) => {
-        if (res.status === 200) {
-          this.setState({
-            comments: res.data,
-          });
-        }
-      })
-      .catch((error) => console.log(error, "Couldn't load comments"));
-  };
-
-  render() {
-    const commentsJSX = this.state.comments.map(commentData => {
+const Comments = (props) => {
+    const commentsJSX = props.comments.map(commentData => {
       return (
         <Comment
           username={commentData.username}
@@ -43,7 +20,6 @@ class Comments extends React.Component {
       );
     });
     return commentsJSX;
-  }
 }
 
 export default Comments;
