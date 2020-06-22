@@ -50,7 +50,7 @@ class AddNewPost extends React.Component {
     event.preventDefault();
     const { post } = this.state;
     if (post.title && post.content) {
-      axios.post('/posts', post).then(res => {
+      axios.post('/api/posts', post).then(res => {
         if (res.status === 200) {
           post.published = res.data.published
           post.id = res.data.id

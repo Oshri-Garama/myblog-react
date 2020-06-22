@@ -59,7 +59,7 @@ class App extends React.Component {
   handleLogout = () => {
     this.setState(initialState)
     localStorage.setItem('session', JSON.stringify(initialState))
-    axios.post('/logout', {withCredentials: true}).then(() => {
+    axios.post('/api/logout', {withCredentials: true}).then(() => {
     }).catch((error) => console.log(error, "Theres no such a session_id"))
   }
 
@@ -81,7 +81,7 @@ class App extends React.Component {
   }
 
   getAllPosts = () => {
-    axios.get('/posts', {withCredentials: true}).then((res) => {
+    axios.get('/api/posts', {withCredentials: true}).then((res) => {
       if (res.status === 200) {
         this.setState({
           posts: res.data

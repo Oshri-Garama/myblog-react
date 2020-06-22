@@ -34,7 +34,7 @@ class LoginPage extends React.Component {
       this.refs.form.reset()
       return
     }
-    axios.post('/login' ,{username, password }).then(res => {
+    axios.post('/api/login' ,{username, password }).then(res => {
       if (res.status === 200) {
         this.props.handleLogin(res.data)
         this.props.history.push('/')

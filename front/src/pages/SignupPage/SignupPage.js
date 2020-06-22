@@ -43,7 +43,7 @@ class LoginPage extends React.Component {
       alert('Please provide a valid input')
       return
     }
-    axios.post('/signup' ,{fullName, username, password }).then(res => {
+    axios.post('/api/signup' ,{fullName, username, password }).then(res => {
       if (res.status === 200) {
         this.props.handleSignup(res.data)
         this.props.history.push('/')

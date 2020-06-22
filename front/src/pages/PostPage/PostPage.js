@@ -16,7 +16,7 @@ class PostPage extends React.Component {
 
   componentDidMount() {
     const { id } = this.state;
-    axios.get(`/posts/${id}`, { withCredentials: true }).then((res) => {
+    axios.get(`/api/posts/${id}`, { withCredentials: true }).then((res) => {
       if (res.status === 200) {
         this.setState({
           post: res.data,
@@ -37,7 +37,7 @@ class PostPage extends React.Component {
     const {id: postId, comment } = this.state
     const username = this.props.getUsername()
     if (comment && username) {
-      axios.post(`/comments/${postId}`, {postId, comment}, { withCredentials: true }).then(res => {
+      axios.post(`/api/comments/${postId}`, {postId, comment}, { withCredentials: true }).then(res => {
         if (res.status === 200) {
           alert("Your comment should be on the top!");
           window.location.reload()
@@ -64,7 +64,7 @@ class PostPage extends React.Component {
         <div id='comments-container'>
           {!isLoggedIn && <h5 style={{color: 'red', fontWeight: 800}}>To comment you must login or sign up</h5>}
           <h3>Comments</h3>
-          <Comments postId={id} />
+          {/* <Comments postId={id} /> */}
         </div>
       </div>
     );
