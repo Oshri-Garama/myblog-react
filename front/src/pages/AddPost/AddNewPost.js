@@ -56,7 +56,6 @@ class AddNewPost extends React.Component {
           post.id = res.data.id
           post.author = res.data.author
           alert("Post saved successfully");
-          this.props.handleAddPost(post);
           this.props.history.push("/");
         }
       })

@@ -11,6 +11,7 @@ class PostPage extends React.Component {
       id: props.match.params.id || "",
       post: '',
       comment: '',
+      username: '',
     };
   }
 
@@ -35,7 +36,7 @@ class PostPage extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
     const {id: postId, comment } = this.state
-    const username = this.props.getUsername()
+    const { username } = this.props
     if (comment && username) {
       axios.post(`/api/comments/${postId}`, {postId, comment}, { withCredentials: true }).then(res => {
         if (res.status === 200) {
@@ -51,7 +52,7 @@ class PostPage extends React.Component {
   render() {
     const { post, id } = this.state;
     const { isLoggedIn } = this.props
-    
+
     return (
       <div className='post-view'>
         <h1>{post.title}</h1>

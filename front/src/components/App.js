@@ -63,45 +63,14 @@ class App extends React.Component {
     }).catch((error) => console.log(error, "Theres no such a session_id"))
   }
 
-  handleAddPost = (post) => {
-    const { posts } = this.state;
-    posts.unshift(post)
-    this.setState({
-      posts: posts
-    })
-    this.getAllPosts()
-  };
-
-  handleEditPost = () => {
-    this.getAllPosts()
-  }
-
-  handleDeletePost = () => {
-    this.getAllPosts()
-  }
-
-  getAllPosts = () => {
-    axios.get('/api/posts', {withCredentials: true}).then((res) => {
-      if (res.status === 200) {
-        this.setState({
-          posts: res.data
-        });
-      }
-    }).catch((error) => console.log(error, "Couldn't load posts"))
-  } 
-
-  getUsername = () => {
-    return this.state.username
-  }
-
   componentDidMount() {
-    this.getAllPosts()
     const prevState = JSON.parse(localStorage.getItem('session')) || initialState;
     this.setState(prevState)
   }
 
   render() {
     const { posts, isLoggedIn, userId, username } = this.state;
+    console.log('render')
     return (
       <Router>
         <div className="page-container">
@@ -111,18 +80,18 @@ class App extends React.Component {
             <Route
               path="/posts/new"
               render={(props) => (
-                <AddNewPost {...props} handleAddPost={this.handleAddPost} authorId={userId} />
+                <AddNewPost {...props} authorId={userId} />
               )}
             ></Route>
             <Route
               path="/posts/edit/:id"
               render={(props) => (
-                <EditPost {...props} handleEditPost={this.handleEditPost} />
+                <EditPost {...props} />
               )}
             ></Route>
             <Route
               path="/posts/:id"
-              render={(props) => <PostPage {...props} getUsername={this.getUsername} isLoggedIn={isLoggedIn}/>}
+              render={(props) => <PostPage {...props} isLoggedIn={isLoggedIn} username={username}/>}
             ></Route>
             <Route 
               path="/login"
@@ -134,7 +103,7 @@ class App extends React.Component {
             </Route>
             <Route
               path={"/"}
-              render={(props) => <Homepage {...props} posts={posts} isLoggedIn={isLoggedIn} userId={userId} handleDeletePost={this.handleDeletePost} />}
+              render={(props) => <Homepage {...props} posts={posts} isLoggedIn={isLoggedIn} userId={userId} />}
             ></Route>
           </Switch>
         </div>

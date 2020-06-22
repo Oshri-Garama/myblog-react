@@ -54,7 +54,6 @@ class EditPost extends React.Component {
           post.published = res.data.published
           post.author = res.data.author
           alert("Post updated successfully");
-          this.props.handleEditPost(post);
           this.props.history.push("/");
         }
       })

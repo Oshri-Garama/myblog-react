@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 
-
 class Post extends React.Component {
   constructor(props) {
     super(props);
@@ -24,22 +23,22 @@ class Post extends React.Component {
   handleDelete = () => {
     const answer = window.confirm("Are you sure you want to delete this post?");
     if (!answer) return;
-    const { id, handleDeletePost } = this.props;
-      axios
-        .post("/posts/delete", { post_id: id })
-        .then((res) => {
-          if (res.status === 200) {
-            handleDeletePost();
-          }
-        })
-        .catch((err) => {
-          if (err.response.status === 400) {
-            console.log(
-              err,
-              "The post you are trying to delete is not exist in the database"
-            );
-          }
-        });
+    const { id } = this.props;
+    axios
+      .post("/api/posts/delete", { post_id: id })
+      .then((res) => {
+        if (res.status === 200) {
+          setTimeout(this.props.getAllPosts, 300)
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          console.log(
+            err,
+            "The post you are trying to delete is not exist in the database"
+          );
+        }
+      });
   };
 
   render() {
@@ -101,24 +100,51 @@ class Post extends React.Component {
   }
 }
 
-const Posts = (props) => {
-  const { isLoggedIn, userId, handleDeletePost } = props;
-  const postsJSX = props.posts.map((post) => {
-    return (
-      <Post
-        id={post.id}
-        author={post.author}
-        authorId={post.authorId}
-        title={post.title}
-        content={post.content}
-        published={post.published}
-        imageUrl={post.imageUrl}
-        userLoggedInId={isLoggedIn ? userId : null}
-        handleDeletePost={handleDeletePost}
-      />
-    );
-  });
-  return postsJSX;
-};
+class Posts extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      posts: [],
+    };
+  }
+
+  getAllPosts = () => {
+    axios
+      .get("/api/posts", { withCredentials: true })
+      .then((res) => {
+        if (res.status === 200) {
+          this.setState({
+            posts: res.data,
+          });
+        }
+      })
+      .catch((error) => console.log(error, "Couldn't load posts"));
+  };
+
+  componentDidMount = () => {
+    this.getAllPosts();
+  };
+
+  render() {
+    const { isLoggedIn, userId } = this.props;
+    const { posts } = this.state;
+    const postsJSX = posts.map((post) => {
+      return (
+        <Post
+          id={post.id}
+          author={post.author}
+          authorId={post.authorId}
+          title={post.title}
+          content={post.content}
+          published={post.published}
+          imageUrl={post.imageUrl}
+          userLoggedInId={isLoggedIn ? userId : null}
+          getAllPosts={this.getAllPosts}
+        />
+      );
+    });
+    return postsJSX;
+  }
+}
 
 export default Posts;
