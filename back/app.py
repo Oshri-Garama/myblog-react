@@ -3,17 +3,10 @@ import mysql.connector as mysql
 import uuid
 import bcrypt
 
-# db = mysql.connect(
-#     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-#     user = "admin",
-#     passwd = "Oshri123456",
-#     database = "blog"
-# )
-
 db = mysql.connect(
-    host = "localhost",
-    user = "root",
-    passwd = "123456",
+    host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+    user = "admin",
+    passwd = "Oshri123456",
     database = "blog"
 )
 
@@ -270,10 +263,10 @@ def create_new_post():
     session_id = request.cookies.get('session_id')
     if not session_id:
         abort(401)
-    check_login(session_id)
+    user_id = check_login(session_id)[0]
     data = request.get_json()
     query = 'insert into posts (author_id, title, content, image_url) values (%s, %s, %s, %s)'
-    values = (data['authorId'], data['title'], data['content'], data['imageUrl'])
+    values = (user_id, data['title'], data['content'], data['imageUrl'])
     cursor = db.cursor()
     cursor.execute(query, values)
     db.commit()
