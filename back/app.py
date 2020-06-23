@@ -2,13 +2,54 @@ from flask import Flask, request, abort, jsonify, make_response
 import mysql.connector as mysql
 import uuid
 import bcrypt
+import threading
+import queue
+
+my_queue = queue.Queue()
+
+# db = mysql.connect(
+#     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+#     user = "admin",
+#     passwd = "Oshri123456",
+#     database = "blog"
+# )
 
 db = mysql.connect(
-    host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-    user = "admin",
-    passwd = "Oshri123456",
+    host = "localhost",
+    user = "root",
+    passwd = "123456",
     database = "blog"
 )
+
+
+def worker():
+    while True:
+        cursor = db.cursor()
+        check = my_queue.get()
+        callback_function = check['callback_function']
+        print('bla')
+        print(f'Working on {check} - {check}')
+        print(f'Finished {check} - {check}')
+        cursor.execute(check['query'], check['values'])
+        # db.commit()
+        record = cursor.fetchone()
+        cursor.close()
+        print(record, 'record')
+        print(callback_function, 'callback_function')
+        print('finished worker')
+        callback_function(record)
+        my_queue.task_done()
+
+
+threading.Thread(target=worker, daemon=True).start()
+
+
+# db = mysql.connect(
+#     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+#     user = "admin",
+#     passwd = "Oshri123456",
+#     database = "blog"
+# )
 
 app = Flask(__name__,
             static_folder='../front/build',
@@ -40,9 +81,9 @@ def sign_up():
     values = (data['fullName'], data['username'], hashed_password)
     cursor = db.cursor()
     cursor.execute(query, values)
-    db.commit()
     new_user_id = cursor.lastrowid
     cursor.close()
+    db.commit()
     user_record = get_user(new_user_id)
     response = make_response(user_record)
     new_session_id = create_session(new_user_id)
@@ -78,8 +119,8 @@ def create_session(user_id):
     values = (user_id, session_id)
     cursor = db.cursor()
     cursor.execute(query, values)
-    db.commit()
     cursor.close()
+    db.commit()
     return session_id
 
 
@@ -87,22 +128,28 @@ def create_session(user_id):
 def login():
     data = request.get_json()
     query = 'select user_id, user_name, full_name, is_admin, password from users where user_name=%s'
-    values = (data['username'],)
-    cursor = db.cursor()
-    cursor.execute(query, values)
-    record = cursor.fetchone()
-    cursor.close()
+    values = (data['username'], )
+    has_many_records = False
+    fetched_record = 'X'
+
+    def callback_function(record):
+        return record
+
+    req = {"query": query, "values": values, "has_many_records": has_many_records,
+           "callback_function": callback_function}
+    my_queue.put(req)
+
     headers = ['userId', 'username', 'fullName', 'isAdmin']
-    if not record:
+    if not fetched_record:
         abort(401)
-    user_id = record[0]
-    hashed_password = record[4].encode('utf-8')
+    user_id = fetched_record[0]
+    hashed_password = fetched_record[4].encode('utf-8')
     if bcrypt.hashpw(data['password'].encode('utf-8'), hashed_password) != hashed_password:
         abort(401)
     session_id = create_session(user_id)
-    response = make_response(jsonify(dict(zip(headers, record))))
+    response = make_response(jsonify(dict(zip(headers, fetched_record))))
     response.set_cookie('session_id', session_id)
-    return response
+    return 'response'
 
 
 @app.route('/api/logout', methods=['POST'])
@@ -114,8 +161,8 @@ def logout():
     values = (session_id,)
     cursor = db.cursor()
     cursor.execute(query, values)
-    db.commit()
     cursor.close()
+    db.commit()
     response = make_response()
     response.set_cookie('session_id', '', expires=0)
     return response
@@ -124,30 +171,28 @@ def logout():
 @app.route('/api/posts/<post_id>')
 def get_post(post_id):
     session_id = request.cookies.get('session_id')
-    user_logged_in = verify_session(session_id)
+    user_logged_in = bool(verify_session(session_id))
     query_select = 'select post_id, full_name, author_id, title, content, image_url, created_at from posts'
     query_join = 'join users on users.user_id = posts.author_id where post_id= %s'
     query = '%s %s' % (query_select, query_join)
     values = (post_id, )
     comments_record = get_all_comments(post_id)
-    try:
-        cursor = db.cursor()
-        cursor.execute(query, values)
-        post_record = cursor.fetchone()
-        headers = ['id', 'author', 'authorId', 'title', 'content', 'imageUrl', 'published']
-        post = dict(zip(headers, post_record))
-        headers = ['postId', 'content', 'username']
-        comments = []
-        for comment in comments_record:
-            comments.append(dict(zip(headers, comment)))
-        post_data = {"post": post, "comments": comments}
-        if not user_logged_in:
-            response = make_response(jsonify(post_data))
-            response.set_cookie('session_id', '', expires=0)
-            return response
-        return jsonify(post_data)
-    finally:
-        cursor.close()
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    post_record = cursor.fetchone()
+    cursor.close()
+    headers = ['id', 'author', 'authorId', 'title', 'content', 'imageUrl', 'published']
+    post = dict(zip(headers, post_record))
+    headers = ['postId', 'content', 'username']
+    comments = []
+    for comment in comments_record:
+        comments.append(dict(zip(headers, comment)))
+    post_data = {"post": post, "comments": comments}
+    if not user_logged_in:
+        response = make_response(jsonify(post_data))
+        response.set_cookie('session_id', '', expires=0)
+        return response
+    return jsonify(post_data)
 
 
 @app.route('/api/posts', methods=['GET', 'POST'])
@@ -174,8 +219,8 @@ def delete_post():
     values = (post_id,)
     cursor = db.cursor()
     cursor.execute(delete_query, values)
-    db.commit()
     cursor.close()
+    db.commit()
     return deleted_post
 
 
@@ -184,13 +229,11 @@ def delete_post_comments_if_exists(post_id):
     if comments:
         query = 'delete from comments where post_id=%s'
         values = (post_id,)
-        try:
-            cursor = db.cursor()
-            cursor.execute(query, values)
-            db.commit()
-            return comments
-        finally:
-            cursor.close()
+        cursor = db.cursor()
+        cursor.execute(query, values)
+        cursor.close()
+        db.commit()
+        return comments
 
 
 def check_login(session_id):
@@ -213,32 +256,45 @@ def verify_session(session_id):
     record = cursor.fetchone()
     cursor.close()
     if not record:
-        return False
-    return True
+        return 'False'
+    return 'True'
+
+
+@app.route('/api/test')
+def test():
+    my_queue.put('verify_session')
+    session_id = request.cookies.get('session_id')
+    query = "select user_id from sessions where session_id = %s"
+    values = (session_id,)
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    record = cursor.fetchone()
+    cursor.close()
+    if not record:
+        return 'False'
+    return 'True'
 
 
 def get_all_posts():
     session_id = request.cookies.get('session_id')
-    user_logged_in = verify_session(session_id)
+    user_logged_in = bool(verify_session(session_id))
     query_select = 'select post_id, author_id, title, content, image_url, created_at, full_name from users'
     query_join_posts = 'join posts on users.user_id = posts.author_id'
     query_order = 'order by post_id desc'
     query = '%s %s %s' % (query_select, query_join_posts, query_order)
     data = []
-    try:
-        cursor = db.cursor()
-        cursor.execute(query)
-        post_records = cursor.fetchall()
-        headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published', 'author']
-        for post in post_records:
-            data.append(dict(zip(headers, post)))
-        if not user_logged_in:
-            response = make_response(jsonify(data))
-            response.set_cookie('session_id', '', expires=0)
-            return response
-        return jsonify(data)
-    finally:
-        cursor.close()
+    cursor = db.cursor()
+    cursor.execute(query)
+    post_records = cursor.fetchall()
+    cursor.close()
+    headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published', 'author']
+    for post in post_records:
+        data.append(dict(zip(headers, post)))
+    if not user_logged_in:
+        response = make_response(jsonify(data))
+        response.set_cookie('session_id', '', expires=0)
+        return response
+    return jsonify(data)
 
 # # get posts of specific user
 # def get_user_posts():
@@ -269,9 +325,9 @@ def create_new_post():
     values = (user_id, data['title'], data['content'], data['imageUrl'])
     cursor = db.cursor()
     cursor.execute(query, values)
-    db.commit()
     new_post_id = cursor.lastrowid
     cursor.close()
+    db.commit()
     return get_post(new_post_id)
 
 
@@ -287,8 +343,8 @@ def edit_post():
     values = (data['title'], data['content'], data['imageUrl'], post_id)
     cursor = db.cursor()
     cursor.execute(query, values)
-    db.commit()
     cursor.close()
+    db.commit()
     return get_post(post_id)
 
 
@@ -327,9 +383,9 @@ def add_new_comment():
     values = (user_id, data['postId'], data['comment'])
     cursor = db.cursor()
     cursor.execute(query, values)
-    db.commit()
-    cursor.close()
     new_comment_id = cursor.lastrowid
+    cursor.close()
+    db.commit()
     return get_comment(new_comment_id)
 
 
@@ -341,8 +397,8 @@ def get_comment(comment_id):
     cursor = db.cursor()
     cursor.execute(query, values)
     comment_record = cursor.fetchone()
-    headers = ['commentId', 'postId', 'content', 'username']
     cursor.close()
+    headers = ['commentId', 'postId', 'content', 'username']
     return jsonify(dict(zip(headers, comment_record)))
 
 
