@@ -4,52 +4,16 @@ import uuid
 import bcrypt
 import threading
 import queue
+import time
 
-# my_queue = queue.Queue()
-
-# db = mysql.connect(
-#     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-#     user = "admin",
-#     passwd = "Oshri123456",
-#     database = "blog"
-# )
+my_queue = queue.Queue()
 
 db = mysql.connect(
-    host = "localhost",
-    user = "root",
-    passwd = "123456",
+    host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+    user = "admin",
+    passwd = "Oshri123456",
     database = "blog"
 )
-
-
-# def worker():
-#     while True:
-#         cursor = db.cursor()
-#         check = my_queue.get()
-#         callback_function = check['callback_function']
-#         print('bla')
-#         print(f'Working on {check} - {check}')
-#         print(f'Finished {check} - {check}')
-#         cursor.execute(check['query'], check['values'])
-#         # db.commit()
-#         record = cursor.fetchone()
-#         cursor.close()
-#         print(record, 'record')
-#         print(callback_function, 'callback_function')
-#         print('finished worker')
-#         callback_function(record)
-#         my_queue.task_done()
-#
-#
-# threading.Thread(target=worker, daemon=True).start()
-
-
-# db = mysql.connect(
-#     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-#     user = "admin",
-#     passwd = "Oshri123456",
-#     database = "blog"
-# )
 
 app = Flask(__name__,
             static_folder='../front/build',
@@ -100,6 +64,7 @@ def is_user_exist(user_name):
     cursor.close()
     if user_record:
         return True
+    return False
 
 
 def get_user(user_id):
@@ -164,8 +129,7 @@ def logout():
 
 @app.route('/api/posts/<post_id>')
 def get_post(post_id):
-    session_id = request.cookies.get('session_id')
-    user_logged_in = bool(verify_session(session_id))
+    user_data = bool(verify_session())
     query_select = 'select post_id, full_name, author_id, title, content, image_url, created_at from posts'
     query_join = 'join users on users.user_id = posts.author_id where post_id= %s'
     query = '%s %s' % (query_select, query_join)
@@ -182,10 +146,6 @@ def get_post(post_id):
     for comment in comments_record:
         comments.append(dict(zip(headers, comment)))
     post_data = {"post": post, "comments": comments}
-    if not user_logged_in:
-        response = make_response(jsonify(post_data))
-        response.set_cookie('session_id', '', expires=0)
-        return response
     return jsonify(post_data)
 
 
@@ -199,10 +159,7 @@ def manage_posts():
 
 @app.route('/api/posts/delete', methods=['POST'])
 def delete_post():
-    session_id = request.cookies.get('session_id')
-    if not session_id:
-        abort(401)
-    check_login(session_id)
+    check_login()
     data = request.get_json()
     post_id = data['post_id']
     deleted_post = get_post(post_id)
@@ -228,9 +185,13 @@ def delete_post_comments_if_exists(post_id):
         cursor.close()
         db.commit()
         return comments
+    return False
 
 
-def check_login(session_id):
+def check_login():
+    session_id = request.cookies.get('session_id')
+    if not session_id:
+        abort(401)
     query = "select user_id from sessions where session_id = %s"
     values = (session_id, )
     cursor = db.cursor()
@@ -242,36 +203,31 @@ def check_login(session_id):
     return record
 
 
-def verify_session(session_id):
-    query = "select user_id from sessions where session_id = %s"
-    values = (session_id, )
-    cursor = db.cursor()
-    cursor.execute(query, values)
-    record = cursor.fetchone()
-    cursor.close()
-    if not record:
-        return 'False'
-    return 'True'
-
-
-@app.route('/api/test')
-def test():
-    my_queue.put('verify_session')
+@app.route('/api/verify_session')
+def verify_session():
+    db_verify = mysql.connect(
+        host="localhost",
+        user="root",
+        passwd="123456",
+        database="blog"
+    )
     session_id = request.cookies.get('session_id')
-    query = "select user_id from sessions where session_id = %s"
+    query_select = "select users.user_id, full_name, user_name, is_admin from sessions"
+    query_join_user = 'join users on users.user_id = sessions.user_id where session_id = %s'
+    query = '%s %s ' % (query_select, query_join_user)
     values = (session_id,)
-    cursor = db.cursor()
+    cursor = db_verify.cursor()
     cursor.execute(query, values)
     record = cursor.fetchone()
     cursor.close()
+    db_verify.close()
     if not record:
-        return 'False'
-    return 'True'
+        return jsonify(success=True)
+    headers = ['userId', 'fullname', 'user_name', 'is_admin']
+    return jsonify(dict(zip(headers, record)))
 
 
 def get_all_posts():
-    session_id = request.cookies.get('session_id')
-    user_logged_in = bool(verify_session(session_id))
     query_select = 'select post_id, author_id, title, content, image_url, created_at, full_name from users'
     query_join_posts = 'join posts on users.user_id = posts.author_id'
     query_order = 'order by post_id desc'
@@ -284,10 +240,6 @@ def get_all_posts():
     headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published', 'author']
     for post in post_records:
         data.append(dict(zip(headers, post)))
-    if not user_logged_in:
-        response = make_response(jsonify(data))
-        response.set_cookie('session_id', '', expires=0)
-        return response
     return jsonify(data)
 
 # # get posts of specific user
