@@ -2,11 +2,7 @@ from flask import Flask, request, abort, jsonify, make_response
 import mysql.connector as mysql
 import uuid
 import bcrypt
-import threading
-import queue
-import time
 
-my_queue = queue.Queue()
 
 db = mysql.connect(
     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
@@ -129,7 +125,6 @@ def logout():
 
 @app.route('/api/posts/<post_id>')
 def get_post(post_id):
-    user_data = bool(verify_session())
     query_select = 'select post_id, full_name, author_id, title, content, image_url, created_at from posts'
     query_join = 'join users on users.user_id = posts.author_id where post_id= %s'
     query = '%s %s' % (query_select, query_join)
@@ -222,8 +217,8 @@ def verify_session():
     cursor.close()
     db_verify.close()
     if not record:
-        return jsonify(success=True)
-    headers = ['userId', 'fullname', 'user_name', 'is_admin']
+        return jsonify(verified=False)
+    headers = ['userId', 'fullName', 'username', 'isAdmin']
     return jsonify(dict(zip(headers, record)))
 
 
