@@ -14,7 +14,7 @@ class AddNewPost extends React.Component {
         content: "",
         title: "",
         imageUrl: "",
-        authorId: props.authorId
+        author: ""
       },
       saved: false,
     };
