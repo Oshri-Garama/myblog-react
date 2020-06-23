@@ -5,7 +5,7 @@ import bcrypt
 import threading
 import queue
 
-my_queue = queue.Queue()
+# my_queue = queue.Queue()
 
 # db = mysql.connect(
 #     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
@@ -22,26 +22,26 @@ db = mysql.connect(
 )
 
 
-def worker():
-    while True:
-        cursor = db.cursor()
-        check = my_queue.get()
-        callback_function = check['callback_function']
-        print('bla')
-        print(f'Working on {check} - {check}')
-        print(f'Finished {check} - {check}')
-        cursor.execute(check['query'], check['values'])
-        # db.commit()
-        record = cursor.fetchone()
-        cursor.close()
-        print(record, 'record')
-        print(callback_function, 'callback_function')
-        print('finished worker')
-        callback_function(record)
-        my_queue.task_done()
-
-
-threading.Thread(target=worker, daemon=True).start()
+# def worker():
+#     while True:
+#         cursor = db.cursor()
+#         check = my_queue.get()
+#         callback_function = check['callback_function']
+#         print('bla')
+#         print(f'Working on {check} - {check}')
+#         print(f'Finished {check} - {check}')
+#         cursor.execute(check['query'], check['values'])
+#         # db.commit()
+#         record = cursor.fetchone()
+#         cursor.close()
+#         print(record, 'record')
+#         print(callback_function, 'callback_function')
+#         print('finished worker')
+#         callback_function(record)
+#         my_queue.task_done()
+#
+#
+# threading.Thread(target=worker, daemon=True).start()
 
 
 # db = mysql.connect(
@@ -128,28 +128,22 @@ def create_session(user_id):
 def login():
     data = request.get_json()
     query = 'select user_id, user_name, full_name, is_admin, password from users where user_name=%s'
-    values = (data['username'], )
-    has_many_records = False
-    fetched_record = 'X'
-
-    def callback_function(record):
-        return record
-
-    req = {"query": query, "values": values, "has_many_records": has_many_records,
-           "callback_function": callback_function}
-    my_queue.put(req)
-
+    values = (data['username'],)
+    cursor = db.cursor()
+    cursor.execute(query, values)
+    record = cursor.fetchone()
+    cursor.close()
     headers = ['userId', 'username', 'fullName', 'isAdmin']
-    if not fetched_record:
+    if not record:
         abort(401)
-    user_id = fetched_record[0]
-    hashed_password = fetched_record[4].encode('utf-8')
+    user_id = record[0]
+    hashed_password = record[4].encode('utf-8')
     if bcrypt.hashpw(data['password'].encode('utf-8'), hashed_password) != hashed_password:
         abort(401)
     session_id = create_session(user_id)
-    response = make_response(jsonify(dict(zip(headers, fetched_record))))
+    response = make_response(jsonify(dict(zip(headers, record))))
     response.set_cookie('session_id', session_id)
-    return 'response'
+    return response
 
 
 @app.route('/api/logout', methods=['POST'])
