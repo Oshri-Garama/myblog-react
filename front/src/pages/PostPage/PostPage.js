@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import Comments from "../../components/Comment";
 import "./PostPage.css";
-import Cookies from 'js-cookie'
 
 
 class PostPage extends React.Component {
@@ -54,8 +53,7 @@ class PostPage extends React.Component {
  
   render() {
     const { id, post, comments } = this.state;
-    const isLoggedIn = Cookies.get('session_id') ? true : false
-
+    const { isLoggedIn } = this.props;
     return (
       <div className='post-view'>
         <h1>{post.title}</h1>

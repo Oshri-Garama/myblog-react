@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 
+
 class Post extends React.Component {
   constructor(props) {
     super(props);
@@ -126,7 +127,7 @@ class Posts extends React.Component {
   };
 
   render() {
-    const { isLoggedIn, userId } = this.props;
+    const { userId, isLoggedIn } = this.props;
     const { posts } = this.state;
     const postsJSX = posts.map((post) => {
       return (
