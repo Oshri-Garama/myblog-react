@@ -10,6 +10,7 @@ import EditPost from "../pages/EditPost/EditPost";
 import axios from "axios";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import SignupPage from "../pages/SignupPage/SignupPage";
+import loader from '../images/loader.svg'
 
 // const port = '5000';
 // const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
@@ -19,7 +20,8 @@ const initialState = {
   username: null,
   fullName: null,
   isAdmin: false,
-  isLoggedIn: null
+  isLoggedIn: null,
+  isLoading: null,
 }
 
 class App extends React.Component {
@@ -54,9 +56,16 @@ class App extends React.Component {
   
 
   componentDidMount = () => {
+    this.setState({
+      ...this.state,
+      isLoading: true
+    })
     axios.get('/api/verify_session').then(res => {
       if (res.status === 200) {
         if (res.data.verified === false) {
+          this.setState({
+            isLoading: false
+          })
           return
         }
         else {
@@ -65,7 +74,8 @@ class App extends React.Component {
             username: res.data.username,
             fullName: res.data.fullName,
             userId: res.data.userId,
-            isAdmin: res.data.isAdmin
+            isAdmin: res.data.isAdmin,
+            isLoading: false
           })
         }
       }
@@ -74,6 +84,7 @@ class App extends React.Component {
 
   render() {
     const { posts, isLoggedIn, userId, username } = this.state;
+    if (this.state.isLoading) return <div id='loader-container'><img id='loader' src={loader}></img></div>
     return (
       <Router>
         <div className="page-container">

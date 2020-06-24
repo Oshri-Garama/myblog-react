@@ -2,6 +2,11 @@ body {
   background-image: url('https://oshriblogbucket.s3.amazonaws.com/light_background_for_blog_or_site.jpg')
 }
 
+#loader-container {
+  display: flex;
+  justify-content: center;
+}
+
 .page-container {
   margin: 5px;
   font-family: "Geneva";
