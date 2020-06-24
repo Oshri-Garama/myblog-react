@@ -257,10 +257,7 @@ def get_all_posts():
 
 
 def create_new_post():
-    session_id = request.cookies.get('session_id')
-    if not session_id:
-        abort(401)
-    user_id = check_login(session_id)[0]
+    user_id = check_login()[0]
     data = request.get_json()
     query = 'insert into posts (author_id, title, content, image_url) values (%s, %s, %s, %s)'
     values = (user_id, data['title'], data['content'], data['imageUrl'])
@@ -277,7 +274,7 @@ def edit_post():
     session_id = request.cookies.get('session_id')
     if not session_id:
         abort(401)
-    check_login(session_id)
+    check_login()
     data = request.get_json()
     post_id = data['id']
     query = 'update posts set title = %s, content = %s, image_url = %s where post_id = %s'
@@ -318,7 +315,7 @@ def add_new_comment():
     session_id = request.cookies.get('session_id')
     if not session_id:
         abort(401)
-    user_id = check_login(session_id)[0]  # returns tuple
+    user_id = check_login()[0]  # returns tuple
     data = request.get_json()
     query = 'insert into comments (user_id, post_id, content) values (%s, %s, %s)'
     values = (user_id, data['postId'], data['comment'])
