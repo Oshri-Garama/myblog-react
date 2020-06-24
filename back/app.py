@@ -5,10 +5,10 @@ import bcrypt
 
 
 db = mysql.connect(
-    host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-    user = "admin",
-    passwd = "Oshri123456",
-    database = "blog"
+        host="blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+        user="admin",
+        passwd="Oshri123456",
+        database="blog"
 )
 
 app = Flask(__name__,
@@ -201,9 +201,9 @@ def check_login():
 @app.route('/api/verify_session')
 def verify_session():
     db_verify = mysql.connect(
-        host="localhost",
-        user="root",
-        passwd="123456",
+        host="blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+        user="admin",
+        passwd="Oshri123456",
         database="blog"
     )
     session_id = request.cookies.get('session_id')
