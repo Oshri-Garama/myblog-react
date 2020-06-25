@@ -62,34 +62,34 @@ class LoginPage extends React.Component {
 
   render() {
     return (
-      <form className="login-container" onSubmit={this.handleSignup} ref='form'>
+      <form className="login-page-container" onSubmit={this.handleSignup} ref='form'>
         <h1>Sign Up</h1>
-        <div id="fullname-container">
-          <div>Full Name:</div>
-          <input
-            className="field-decoration"
-            type="text"
-            placeholder="Type here your full name..."
-            onChange={this.handleFullNameChange}
-          ></input>
-        </div>
-        <div id="username-container">
-          <div>User name:</div>
-          <input
-            className="field-decoration"
-            type="text"
-            placeholder="Type here your user name..."
-            onChange={this.handleUserNameChange}
-          ></input>
-        </div>
-        <div id="password-container">
-          <div>Password:</div>
-          <input
-            className="field-decoration"
-            type="password"
-            placeholder="Type here your password..."
-            onChange={this.handlePasswordChange}
-          ></input>
+        <div className='form-container'>
+          <div className='fields-container'>
+            <div>Full Name:</div>
+            <div>User name:</div>
+            <div>Password:</div>
+          </div>
+          <div className='inputs-container'>
+            <input
+              className="field-decoration"
+              type="text"
+              placeholder="Type here your full name..."
+              onChange={this.handleFullNameChange}
+            ></input>
+            <input
+              className="field-decoration"
+              type="text"
+              placeholder="Type here your user name..."
+              onChange={this.handleUserNameChange}
+            ></input>
+            <input
+              className="field-decoration"
+              type="password"
+              placeholder="Type here your password..."
+              onChange={this.handlePasswordChange}
+            ></input>
+          </div>
         </div>
         <button className="login-button" type="submit">
           Sign Up

@@ -1,26 +1,23 @@
-.login-container {
+.form-container {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+}
+
+.fields-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 80px;
 }
 
-#username-container, #password-container, #fullname-container {
+.inputs-container {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80px;
 }
 
-#username-container .field-decoration {
-  margin-left: 10px;
-  margin-bottom: 10px;
-}
-
-#password-container .field-decoration {
-  margin-left: 19px;
-  margin-bottom: 10px;
-}
-
-#fullname-container .field-decoration {
-  margin-left: 16px;
-  margin-bottom: 10px;
-}
 
 .field-decoration {
   width: 200px;
@@ -39,10 +36,8 @@
   border-left: 2px black solid;
   border-top: 2px black solid;
   box-shadow: 2px 2px 2px black;
-  margin-bottom: 15px;
-  padding-top: 3px;
+  margin-top: 20px;
   min-height: 20px;
-  margin-top: 10px;
   width: 90px;
   font-size: small;
   font-weight: 600;
