@@ -1,31 +1,17 @@
 body {
-  background-image: url('https://oshriblogbucket.s3.amazonaws.com/light_background_for_blog_or_site.jpg')
+  background-image: url('https://oshriblogbucket.s3.amazonaws.com/light_background_for_blog_or_site.jpg');
+  font-family: "Geneva", "Helvetica";
+  margin-right: 10px;
+  width: 98.7%;
+}
+
+.navbar-container {
+  margin: 5px;
 }
 
 #loader-container {
   display: flex;
   justify-content: center;
-}
-
-.page-container {
-  margin: 5px;
-  font-family: "Geneva";
-}
-
-.home-container {
-  display: flex;
-}
-
-.blog-container {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 70%;
-  height: 400px;
-  font-family: "Helvetica";
-}
-
-#blog-title {
-  margin-bottom: 10px;
 }
 
 .sidebar-container {

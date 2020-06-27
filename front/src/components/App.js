@@ -87,7 +87,7 @@ class App extends React.Component {
     if (this.state.isLoading) return <div id='loader-container'><img id='loader' src={loader}></img></div>
     return (
       <Router>
-        <div className="page-container">
+        <div className="navbar-container">
           <Navbar isLoggedIn={isLoggedIn} handleLogout={this.handleLogout} />
         </div>
           <Switch>

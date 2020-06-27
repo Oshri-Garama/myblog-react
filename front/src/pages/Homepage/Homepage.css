@@ -1,0 +1,64 @@
+#home-container {
+  display: flex;
+  flex-direction: column;
+  height: 340px;
+  justify-content: space-between;
+}
+
+.blog-container {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 70%;
+  height: 400px;
+}
+
+#blog-logo-container {
+  display: flex;
+  height: 80px;
+  overflow: auto;
+}
+
+#top-five-title {
+  writing-mode: vertical-lr;
+  text-orientation: upright;
+  font-size: 12px;  
+}
+
+#top-five {
+  display: flex;
+  justify-content: center;
+  height: 160px;
+  border-top: 2px black ridge;
+  border-bottom: 2px black ridge;
+  border-left: 2px black ridge;
+}
+
+#home-container #footer-page-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#home-container #seperator-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 250px;
+}
+
+#home-container #seperator-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 300px;
+}
+
+#recent-posts-container {
+  width: 100%;
+}
+
+#posts-container {
+  display: flex;
+  width: 83%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

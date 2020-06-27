@@ -1,7 +1,10 @@
 .new-post-container {
   display: flex;
   flex-direction: column;
+  opacity: 1;
 }
+
+
 
 #save-post-button {
   border: 3px black solid;
@@ -15,6 +18,11 @@
   width: 90px;
   font-size: small;
   font-weight: 600;
+  transition-duration: 1000ms;
+}
+
+#save-post-button:hover {
+  color: blue;
 }
 
 #input-title {

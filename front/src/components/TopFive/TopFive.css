@@ -1,0 +1,40 @@
+.top-five-posts-container {
+  display: flex;
+  border-left: 2px black ridge;
+  justify-content: space-between;
+  overflow: auto;
+}
+
+.top-five-post {
+  display: flex;
+  width: 19.8%;
+  border-right: 2px black ridge;
+}
+
+.top-five-post img {
+  min-height: 70%;
+  margin-right: 5%;
+  object-fit: cover;
+}
+
+.top-five-posts-container .post-title {
+  align-self: center;
+  width: 75%;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.top-five-post .content-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.post-rank {
+  align-self: flex-end;
+  margin-bottom: 5px;
+  font-weight: bolder;
+}

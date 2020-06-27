@@ -4,16 +4,15 @@ import { Link } from "react-router-dom";
 
 class Navbar extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   handleLogout = () => {
-    this.props.handleLogout()
-  }
+    this.props.handleLogout();
+  };
 
-
-  render () {
-    const { isLoggedIn } = this.props
+  render() {
+    const { isLoggedIn } = this.props;
     return (
       <div className="navbar">
         <div className="left-navbar">
@@ -30,6 +29,9 @@ class Navbar extends React.Component {
           )}
         </div>
         <div className="right-navbar">
+          <Link className="vr-line-right" to="#">
+            Change Language
+          </Link>
           {!isLoggedIn && (
             <Link className="vr-line-right" to="/signup">
               Sign Up
@@ -45,6 +47,6 @@ class Navbar extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default Navbar;

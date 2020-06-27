@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/post.css";
+import "./Posts.css";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
@@ -58,23 +58,22 @@ class Post extends React.Component {
 
     return (
       <div className="post-container">
-        <div className="seperate-image-container">
+        <div className='post-content-container'>
           <h4 className="post-title">
-            <Link to={`/posts/${id}`}>{title}</Link>
+              <Link to={`/posts/${id}`}>{title}</Link>
           </h4>
-          <div className="post-content">{content}</div>
-          <div className="published-time">
+          <img src={imageUrl} alt=""/>
+        <div className="post-content">{content}</div>
+        </div>
+        <div className="published-time">
             Published{" "}
             {daysOfPublished === 0 ? "today" : `${daysOfPublished} days ago`} by{" "}
             {author}
-          </div>
+        </div>
+        
+        {/* <div className="seperate-image-container">
         </div>
         <div className="right-side-container">
-          <img
-            style={{ alignSelf: "flex-end", maxWidth: 150, height: "auto" }}
-            src={imageUrl}
-            alt=""
-          />
           {userLoggedInId && userLoggedInId === authorId && (
             <div className="buttons-container">
               <Link
@@ -95,7 +94,7 @@ class Post extends React.Component {
               </button>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     );
   }

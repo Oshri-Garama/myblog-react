@@ -1,0 +1,33 @@
+#user-navbar-container {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+}
+
+#user-navbar-container #left-menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 400px;
+}
+
+#user-navbar-container #right-menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 500px;
+}
+
+#right-menu #search-post-container input {
+  border-radius: 5px;
+}
+
+#right-menu #search-post-container button {
+  border-radius: 25px;
+}
+
+#search-post-container {
+  display:flex;
+  justify-content: space-between;
+  width: 49%;
+}

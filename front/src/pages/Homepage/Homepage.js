@@ -1,6 +1,8 @@
 import React from "react";
-import Posts from "../../components/Posts";
-import Sidebar from "../../components/Sidebar";
+import Posts from "../../components/Posts/Posts";
+import UserNavbar from '../../components/UserNavbar/UserNavbar'
+import './Homepage.css'
+import TopFive from '../../components/TopFive/TopFive'
 
 class Homepage extends React.Component {
   constructor(props) {
@@ -10,14 +12,33 @@ class Homepage extends React.Component {
   render() {
     const { posts, userId, isLoggedIn } = this.props;
     return (
-      <div className="home-container">
-        <div className="blog-container">
-          <header>
-            <h1 id="blog-title">Latests Posts</h1>
-          </header>
-          <Posts posts={posts} isLoggedIn={isLoggedIn} userId={userId} />
+      <div id="home-container">
+        <div id='seperator-center'>
+          <div id='seperator-top'>
+            <div id="blog-logo-container">
+              <img src='https://www.gleannlochlandscaping.com/wp-content/themes/land2/images/sliders/01.jpg'/>
+            </div>
+            <div id='top-five'>
+              <header id='top-five-title'>TOP FIVE</header>
+              <TopFive/>
+            </div>
+          </div>
+            <UserNavbar isLoggedIn={isLoggedIn}/>
         </div>
-        <Sidebar posts={posts} />
+        <div id='footer-page-container'>
+          <div id='recent-posts-container'>
+            <header id="blog-title">Latests Posts</header>
+            <div id='posts-container'>
+              <Posts posts={posts} isLoggedIn={isLoggedIn} userId={userId} />
+            </div>
+          </div>
+            <div>Sidebar</div>
+          </div>
+        {/* <div className="blog-container">
+          <header>
+          </header>
+        </div> */}
+        {/* <Sidebar posts={posts} /> */}
       </div>
     );
   }
