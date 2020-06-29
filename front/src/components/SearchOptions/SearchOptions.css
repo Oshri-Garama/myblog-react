@@ -1,0 +1,26 @@
+#search-post-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#search-post-container input {
+  width: 48%;
+}
+
+#search-post-container button {
+  height: 100%;
+  width: 50%;
+}
+
+#filter-post-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#search-filter-seperator {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 70px;
+}

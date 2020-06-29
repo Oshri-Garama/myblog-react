@@ -13,33 +13,3 @@ body {
   display: flex;
   justify-content: center;
 }
-
-.sidebar-container {
-  display: flex;
-  flex-direction: column;
-  margin-left: 40px;
-  flex-basis: 30%;
-}
-
-.sidebar-container h1 {
-  margin-bottom: -15px
-}
-
-.sidebar-container a {
-  color: #196ECF
-}
-
-.latest-container {
-  border-bottom: 2px black solid;
-  border-radius: 3px;
-}
-
-mark.bold {
-  background: none;
-  font-weight: bold;
-}
-
-mark.red {
-  background: none;
-  color: red;
-}

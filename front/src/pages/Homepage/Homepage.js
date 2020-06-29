@@ -1,8 +1,8 @@
 import React from "react";
 import Posts from "../../components/Posts/Posts";
-import UserNavbar from '../../components/UserNavbar/UserNavbar'
 import './Homepage.css'
 import TopFive from '../../components/TopFive/TopFive'
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 class Homepage extends React.Component {
   constructor(props) {
@@ -23,7 +23,6 @@ class Homepage extends React.Component {
               <TopFive/>
             </div>
           </div>
-            <UserNavbar isLoggedIn={isLoggedIn}/>
         </div>
         <div id='footer-page-container'>
           <div id='recent-posts-container'>
@@ -32,13 +31,8 @@ class Homepage extends React.Component {
               <Posts posts={posts} isLoggedIn={isLoggedIn} userId={userId} />
             </div>
           </div>
-            <div>Sidebar</div>
+            <Sidebar isLoggedIn={isLoggedIn} />
           </div>
-        {/* <div className="blog-container">
-          <header>
-          </header>
-        </div> */}
-        {/* <Sidebar posts={posts} /> */}
       </div>
     );
   }

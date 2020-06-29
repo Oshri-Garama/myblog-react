@@ -27,6 +27,11 @@ class Navbar extends React.Component {
               New post
             </Link>
           )}
+          {isLoggedIn && (
+            <Link className='vr-line-left' to="#">
+              My Posts
+            </Link>
+          )}
         </div>
         <div className="right-navbar">
           <Link className="vr-line-right" to="#">
