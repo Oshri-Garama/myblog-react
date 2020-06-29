@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/navbar.css";
+import "./navbar.css";
 import { Link } from "react-router-dom";
 
 class Navbar extends React.Component {
@@ -14,11 +14,11 @@ class Navbar extends React.Component {
   render() {
     const { isLoggedIn } = this.props;
     return (
-      <div className="navbar">
-        <div className="left-navbar">
-          <Link to="/">Home</Link>
+      <div id="navbar-container">
+        <div id="left-navbar">
+          <Link className='vr-line-right' to="/">Home</Link>
           {isLoggedIn && (
-            <Link className="vr-line-left" to="/about">
+            <Link to="/about">
               About Me
             </Link>
           )}
@@ -33,9 +33,9 @@ class Navbar extends React.Component {
             </Link>
           )}
         </div>
-        <div className="right-navbar">
-          <Link className="vr-line-right" to="#">
-            Change Language
+        <div id="right-navbar">
+          <Link id='change-language-link' className='vr-line-right vr-line-left' to="#">
+            English
           </Link>
           {!isLoggedIn && (
             <Link className="vr-line-right" to="/signup">
