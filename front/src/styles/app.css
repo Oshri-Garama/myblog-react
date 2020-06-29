@@ -1,15 +1,28 @@
 body {
-  background-image: url('https://oshriblogbucket.s3.amazonaws.com/light_background_for_blog_or_site.jpg');
+  /* background-image: url('https://oshriblogbucket.s3.amazonaws.com/light_background_for_blog_or_site.jpg'); */
   font-family: "Geneva", "Helvetica";
-  margin-right: 10px;
-  width: 98.7%;
-}
-
-.navbar-container {
-  margin: 5px;
+  width: 100%;
+  margin-top: 2px;
 }
 
 #loader-container {
   display: flex;
   justify-content: center;
+}
+
+#logo {
+  display: flex;
+  font-size: 35px;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  overflow: auto;
+  color: white;
+  font-weight: 900;
+  background-color: #727887;
+}
+
+#constant-seperator {
+  display: flex;
+  flex-direction: column;
 }

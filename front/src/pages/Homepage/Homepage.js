@@ -15,15 +15,11 @@ class Homepage extends React.Component {
       <div id="home-container">
         <div id='seperator-center'>
           <div id='seperator-top'>
-            <div id="blog-logo-container">
-              <img src='https://www.gleannlochlandscaping.com/wp-content/themes/land2/images/sliders/01.jpg'/>
-            </div>
             <div id='top-five'>
               <header id='top-five-title'>TOP FIVE</header>
               <TopFive/>
             </div>
           </div>
-        </div>
         <div id='footer-page-container'>
           <div id='recent-posts-container'>
             <header id="blog-title">Latests Posts</header>
@@ -33,6 +29,7 @@ class Homepage extends React.Component {
           </div>
             <Sidebar isLoggedIn={isLoggedIn} />
           </div>
+        </div>
       </div>
     );
   }

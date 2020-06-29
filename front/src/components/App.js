@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/app.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar from '../components/Navbar/Navbar'
 import Homepage from "../pages/Homepage/Homepage";
 import AboutMe from "../pages/AboutMe/AboutMe";
 import PostPage from "../pages/PostPage/PostPage";
@@ -87,8 +87,13 @@ class App extends React.Component {
     if (this.state.isLoading) return <div id='loader-container'><img id='loader' src={loader}></img></div>
     return (
       <Router>
-        <div className="navbar-container">
-          <Navbar isLoggedIn={isLoggedIn} handleLogout={this.handleLogout} />
+        <div id='constant-seperator'>
+          <div id="logo">
+            Writee
+          </div>
+          <div className="navbar-container">
+            <Navbar isLoggedIn={isLoggedIn} handleLogout={this.handleLogout} />
+          </div>
         </div>
           <Switch>
             <Route path="/about" component={AboutMe}></Route>
