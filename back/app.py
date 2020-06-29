@@ -1,19 +1,31 @@
-from flask import Flask, request, abort, jsonify, make_response
-import mysql.connector as mysql
+from flask import Flask, request, abort, jsonify, make_response, g
+import mysql.connector.pooling
 import uuid
 import bcrypt
 
 
-db = mysql.connect(
-        host="blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-        user="admin",
-        passwd="Oshri123456",
-        database="blog"
+pool = mysql.connector.pooling.MySQLConnectionPool(
+    host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+    user = "admin",
+    passwd = "Oshri123456",
+    database = "blog",
+    buffered = True,
+    pool_size = 32
 )
 
 app = Flask(__name__,
             static_folder='../front/build',
             static_url_path='/')
+
+
+@app.before_request
+def before_request():
+    g.db = pool.get_connection()
+
+
+@app.teardown_request
+def teardown_request(exception):
+    g.db.close()
 
 
 @app.route('/')
@@ -39,11 +51,11 @@ def sign_up():
     query = 'insert into users (full_name, user_name, password) values (%s, %s, %s)'
     hashed_password = bcrypt.hashpw(data['password'].encode('utf-8'), bcrypt.gensalt())
     values = (data['fullName'], data['username'], hashed_password)
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     new_user_id = cursor.lastrowid
     cursor.close()
-    db.commit()
+    g.db.commit()
     user_record = get_user(new_user_id)
     response = make_response(user_record)
     new_session_id = create_session(new_user_id)
@@ -54,7 +66,7 @@ def sign_up():
 def is_user_exist(user_name):
     query = 'select user_name from users where user_name=%s'
     values = (user_name,)
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     user_record = cursor.fetchone()
     cursor.close()
@@ -66,7 +78,7 @@ def is_user_exist(user_name):
 def get_user(user_id):
     query = 'select user_name, user_id, full_name, is_admin from users where user_id= %s'
     values = (user_id,)
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     user_record = cursor.fetchone()
     cursor.close()
@@ -78,10 +90,10 @@ def create_session(user_id):
     session_id = str(uuid.uuid4())
     query = 'insert into sessions (user_id, session_id) values (%s, %s)'
     values = (user_id, session_id)
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     cursor.close()
-    db.commit()
+    g.db.commit()
     return session_id
 
 
@@ -90,7 +102,7 @@ def login():
     data = request.get_json()
     query = 'select user_id, user_name, full_name, is_admin, password from users where user_name=%s'
     values = (data['username'],)
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     record = cursor.fetchone()
     cursor.close()
@@ -114,10 +126,10 @@ def logout():
         abort(400)
     query = "delete from sessions where session_id = %s"
     values = (session_id,)
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     cursor.close()
-    db.commit()
+    g.db.commit()
     response = make_response()
     response.set_cookie('session_id', '', expires=0)
     return response
@@ -130,7 +142,7 @@ def get_post(post_id):
     query = '%s %s' % (query_select, query_join)
     values = (post_id, )
     comments_record = get_all_comments(post_id)
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     post_record = cursor.fetchone()
     cursor.close()
@@ -163,10 +175,10 @@ def delete_post():
     delete_post_comments_if_exists(post_id)
     delete_query = 'delete from posts where post_id= %s'
     values = (post_id,)
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(delete_query, values)
     cursor.close()
-    db.commit()
+    g.db.commit()
     return deleted_post
 
 
@@ -175,10 +187,10 @@ def delete_post_comments_if_exists(post_id):
     if comments:
         query = 'delete from comments where post_id=%s'
         values = (post_id,)
-        cursor = db.cursor()
+        cursor = g.db.cursor()
         cursor.execute(query, values)
         cursor.close()
-        db.commit()
+        g.db.commit()
         return comments
     return False
 
@@ -189,7 +201,7 @@ def check_login():
         abort(401)
     query = "select user_id from sessions where session_id = %s"
     values = (session_id, )
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     record = cursor.fetchone()
     cursor.close()
@@ -200,22 +212,15 @@ def check_login():
 
 @app.route('/api/verify_session')
 def verify_session():
-    db_verify = mysql.connect(
-        host="blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-        user="admin",
-        passwd="Oshri123456",
-        database="blog"
-    )
     session_id = request.cookies.get('session_id')
     query_select = "select users.user_id, full_name, user_name, is_admin from sessions"
     query_join_user = 'join users on users.user_id = sessions.user_id where session_id = %s'
     query = '%s %s ' % (query_select, query_join_user)
     values = (session_id,)
-    cursor = db_verify.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     record = cursor.fetchone()
     cursor.close()
-    db_verify.close()
     if not record:
         return jsonify(verified=False)
     headers = ['userId', 'fullName', 'username', 'isAdmin']
@@ -228,7 +233,7 @@ def get_all_posts():
     query_order = 'order by post_id desc'
     query = '%s %s %s' % (query_select, query_join_posts, query_order)
     data = []
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query)
     post_records = cursor.fetchall()
     cursor.close()
@@ -246,7 +251,7 @@ def get_all_posts():
 #     query_order = 'order by post_id desc'
 #     query = '%s %s %s %s' % (query_select, query_join_sessions, query_join_posts, query_order)
 #     data = []
-#     cursor = db.cursor()
+#     cursor = g.db.cursor()
 #     cursor.execute(query, values)
 #     post_records = cursor.fetchall()
 #     headers = ['id', 'title', 'content', 'imageUrl', 'published', 'author']
@@ -261,11 +266,11 @@ def create_new_post():
     data = request.get_json()
     query = 'insert into posts (author_id, title, content, image_url) values (%s, %s, %s, %s)'
     values = (user_id, data['title'], data['content'], data['imageUrl'])
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     new_post_id = cursor.lastrowid
     cursor.close()
-    db.commit()
+    g.db.commit()
     return get_post(new_post_id)
 
 
@@ -279,10 +284,10 @@ def edit_post():
     post_id = data['id']
     query = 'update posts set title = %s, content = %s, image_url = %s where post_id = %s'
     values = (data['title'], data['content'], data['imageUrl'], post_id)
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     cursor.close()
-    db.commit()
+    g.db.commit()
     return get_post(post_id)
 
 
@@ -301,7 +306,7 @@ def get_all_comments(post_id):
     query = '%s %s %s' % (query_select, query_join_comments, query_order)
     values = (post_id,)
     data = []
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     comment_records = cursor.fetchall()
     cursor.close()
@@ -319,11 +324,11 @@ def add_new_comment():
     data = request.get_json()
     query = 'insert into comments (user_id, post_id, content) values (%s, %s, %s)'
     values = (user_id, data['postId'], data['comment'])
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     new_comment_id = cursor.lastrowid
     cursor.close()
-    db.commit()
+    g.db.commit()
     return get_comment(new_comment_id)
 
 
@@ -332,7 +337,7 @@ def get_comment(comment_id):
     query_join = 'join users on users.user_id = comments.user_id where comment_id= %s'
     query = '%s %s' % (query_select, query_join)
     values = (comment_id, )
-    cursor = db.cursor()
+    cursor = g.db.cursor()
     cursor.execute(query, values)
     comment_record = cursor.fetchone()
     cursor.close()
