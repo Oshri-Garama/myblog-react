@@ -22,7 +22,7 @@ class Homepage extends React.Component {
           </div>
         <div id='footer-page-container'>
           <div id='recent-posts-container'>
-            <header id="blog-title">Latests Posts</header>
+            {/* <header id="blog-title">Latests Posts</header> */}
             <div id='posts-container'>
               <Posts posts={posts} isLoggedIn={isLoggedIn} userId={userId} />
             </div>

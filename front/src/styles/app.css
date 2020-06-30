@@ -3,6 +3,8 @@ body {
   font-family: "Geneva", "Helvetica";
   width: 100%;
   margin-top: 2px;
+  background: linear-gradient(to bottom, #F3FAEC 45%, #7D9977 20%);
+  background-repeat: no-repeat;
 }
 
 #loader-container {
@@ -19,10 +21,11 @@ body {
   overflow: auto;
   color: white;
   font-weight: 900;
-  background-color: #727887;
+  background-color: #7D9977;
 }
 
 #constant-seperator {
   display: flex;
   flex-direction: column;
+  background-color: #7D9977;
 }

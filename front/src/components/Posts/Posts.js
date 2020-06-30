@@ -59,9 +59,9 @@ class Post extends React.Component {
     return (
       <div className="post-container">
         <div className='post-content-container'>
-          <h4 className="post-title">
-              <Link to={`/posts/${id}`}>{title}</Link>
-          </h4>
+          <div className='post-title-container'>
+              <Link className='post-title' to={`/posts/${id}`}>{title}</Link>
+          </div>
           <img src={imageUrl} alt=""/>
         <div className="post-content">{content}</div>
         </div>

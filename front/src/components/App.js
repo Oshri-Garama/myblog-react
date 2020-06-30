@@ -88,9 +88,6 @@ class App extends React.Component {
     return (
       <Router>
         <div id='constant-seperator'>
-          <div id="logo">
-            Writee
-          </div>
           <div className="navbar-container">
             <Navbar isLoggedIn={isLoggedIn} handleLogout={this.handleLogout} />
           </div>

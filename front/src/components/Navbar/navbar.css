@@ -1,9 +1,9 @@
 #navbar-container {
   display: flex;
   justify-content: space-between;
-  background-color: #727887;
-  border-top: 1px white ridge;
-  height: 30px;
+  background-color: #7D9977;
+  height: 40px;
+  box-shadow: 2px 2px 2px 2px white;
 }
 
 #navbar-container a {
