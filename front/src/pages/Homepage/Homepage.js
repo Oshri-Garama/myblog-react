@@ -16,10 +16,6 @@ class Homepage extends React.Component {
     super(props);
   }
 
-  disableScrolling = () => {
-    window.onscroll = function () { window.scrollTo(0, 0); };
-  }
-  
   componentDidMount = () => {
     disableScroll.on();
   }
