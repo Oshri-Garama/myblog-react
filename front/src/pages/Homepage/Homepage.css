@@ -1,10 +1,18 @@
 #home-container {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   height: 1000px;
   justify-content: space-between;
   margin: 20px;
-  overflow: auto;
+  overflow: auto; */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 1000px;
+  border: 1px solid;
+  background: linear-gradient(to bottom, #009688 40%, #F3FAEC 20%);
+  background-repeat: no-repeat;
 }
 
 #top-five-title {
@@ -61,4 +69,42 @@
 #blog-title {
   align-self: center;
   margin-right: 20%
+}
+
+#buttons-homepage {
+  display: flex;
+  justify-content: center;
+  justify-content: space-around;
+  height: 85%;
+  width: 55%;
+}
+
+.button-homepage {
+  display: flex;
+  justify-content: center;
+  height: 180px;
+  width: 180px;
+  background-color: white;
+  border-radius: 100%;
+  box-shadow: 2px 2px 2px 2px #7D9977;
+  border: 1px solid green;
+  background-color: rgb(234, 246, 227);
+}
+
+#buttons-homepage img {
+  background-repeat: no-repeat;
+}
+
+#home-container header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-weight: 500;
+  font-size: 40px;
+  white-space: pre-wrap;
+  height: 400px;
+  width: 48%;
+  color: #f3faec;
+  text-shadow: 2px 2px #7D9977 ;
 }

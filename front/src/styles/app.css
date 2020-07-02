@@ -2,9 +2,7 @@ body {
   /* background-image: url('https://oshriblogbucket.s3.amazonaws.com/light_background_for_blog_or_site.jpg'); */
   font-family: "Geneva", "Helvetica";
   width: 100%;
-  margin-top: 2px;
-  background: linear-gradient(to bottom, #F3FAEC 45%, #7D9977 20%);
-  background-repeat: no-repeat;
+  margin: 0px;
 }
 
 #loader-container {
@@ -27,5 +25,4 @@ body {
 #constant-seperator {
   display: flex;
   flex-direction: column;
-  background-color: #7D9977;
 }

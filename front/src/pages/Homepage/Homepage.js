@@ -1,8 +1,12 @@
 import React from "react";
 import Posts from "../../components/Posts/Posts";
-import './Homepage.css'
-import TopFive from '../../components/TopFive/TopFive'
+import "./Homepage.css";
+import TopFive from "../../components/TopFive/TopFive";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { Link } from "react-router-dom";
+import newPostSVG from "../../images/newPost.svg";
+import allPostsSVG from "../../images/allPosts.svg";
+import myPostsSVG from "../../images/myPosts.svg";
 
 class Homepage extends React.Component {
   constructor(props) {
@@ -13,24 +17,20 @@ class Homepage extends React.Component {
     const { posts, userId, isLoggedIn } = this.props;
     return (
       <div id="home-container">
-        <TopFive/>
-        {/* <div id='seperator-center'>
-          <div id='seperator-top'>
-            <div id='top-five'>
-              <header id='top-five-title'>TOP FIVE</header>
-              <TopFive/>
-            </div>
-          </div>
-        <div id='footer-page-container'>
-          <div id='recent-posts-container'> */}
-            {/* <header id="blog-title">Latests Posts</header> */}
-            {/* <div id='posts-container'>
-              <Posts posts={posts} isLoggedIn={isLoggedIn} userId={userId} />
-            </div>
-          </div>
-            <Sidebar isLoggedIn={isLoggedIn} />
-          </div>
-        </div> */}
+        <header>Writee {'\n'}
+          Memories Don't Last Forever
+        </header>
+        <div id="buttons-homepage">
+          <Link className="button-homepage" to="/posts/new">
+            <img src={newPostSVG} />
+          </Link>
+          <Link className="button-homepage" to="/posts">
+            <img src={allPostsSVG} />
+          </Link>
+          <Link className="button-homepage" to="/">
+            <img src={myPostsSVG} />
+          </Link>
+        </div>
       </div>
     );
   }

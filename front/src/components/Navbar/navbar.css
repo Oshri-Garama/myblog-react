@@ -1,15 +1,16 @@
 #navbar-container {
   display: flex;
   justify-content: space-between;
-  background-color: #7D9977;
+  background-color: #F3FAEC;
   height: 40px;
-  box-shadow: 2px 2px 2px 2px white;
+  width: 100%;
+  /* box-shadow: 2px 2px 2px 2px white; */
 }
 
 #navbar-container a {
-  color: white;
+  color: #009688;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 900;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +18,7 @@
 }
 
 #navbar-container a:visited {
-  color: white;
+  color: #009688;
 }
 
 #left-navbar {
@@ -36,12 +37,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: 2px white ridge;
+  border-right: 1px #009688 ridge;
 }
 
 .vr-line-left {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-left: 2px white ridge;
+  border-left: 1px #009688 ridge;
 }

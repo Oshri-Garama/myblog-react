@@ -11,6 +11,7 @@ import axios from "axios";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import SignupPage from "../pages/SignupPage/SignupPage";
 import loader from '../images/loader.svg'
+import Posts from "./Posts/Posts";
 
 // const port = '5000';
 // const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
@@ -109,6 +110,10 @@ class App extends React.Component {
             <Route
               path="/posts/:id"
               render={(props) => <PostPage {...props} username={username} isLoggedIn={isLoggedIn}/>}
+            ></Route>
+            <Route
+              path="/posts"
+              render={(props) => <Posts {...props} posts={posts} isLoggedIn={isLoggedIn} userId={userId}/>}
             ></Route>
             <Route 
               path="/login"
