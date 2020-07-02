@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Mukta');
+
 body {
   /* background-image: url('https://oshriblogbucket.s3.amazonaws.com/light_background_for_blog_or_site.jpg'); */
-  font-family: "Geneva", "Helvetica";
+  font-family: 'Mukta';
   width: 100%;
   margin: 0px;
 }
@@ -22,7 +24,3 @@ body {
   background-color: #7D9977;
 }
 
-#constant-seperator {
-  display: flex;
-  flex-direction: column;
-}

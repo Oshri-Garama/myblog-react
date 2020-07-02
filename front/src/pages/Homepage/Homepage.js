@@ -7,29 +7,50 @@ import { Link } from "react-router-dom";
 import newPostSVG from "../../images/newPost.svg";
 import allPostsSVG from "../../images/allPosts.svg";
 import myPostsSVG from "../../images/myPosts.svg";
+import disableScroll from 'disable-scroll';
+
+
 
 class Homepage extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  disableScrolling = () => {
+    window.onscroll = function () { window.scrollTo(0, 0); };
+  }
+  
+  componentDidMount = () => {
+    disableScroll.on();
+  }
+
   render() {
     const { posts, userId, isLoggedIn } = this.props;
     return (
       <div id="home-container">
-        <header>Writee {'\n'}
-          Memories Don't Last Forever
-        </header>
+        <div id='title-container'>
+          <header id='web-title'>Writee</header>
+          <header id='web-subtitle'>Memories Don't Last Forever</header>
+        </div>
         <div id="buttons-homepage">
-          <Link className="button-homepage" to="/posts/new">
-            <img src={newPostSVG} />
-          </Link>
-          <Link className="button-homepage" to="/posts">
-            <img src={allPostsSVG} />
-          </Link>
+          <div className='button-container'>
+            <Link className="button-homepage" to="/posts/new">
+              <img src={newPostSVG} />
+            </Link>
+            <text>New Post</text>
+          </div>
+          <div className='button-container'>
+            <Link className="button-homepage" to="/posts">
+              <img src={allPostsSVG} />
+            </Link>
+            <text>All Posts</text>
+          </div>
+          <div className='button-container'>
           <Link className="button-homepage" to="/">
             <img src={myPostsSVG} />
           </Link>
+          <text>My Posts</text>
+          </div>
         </div>
       </div>
     );
