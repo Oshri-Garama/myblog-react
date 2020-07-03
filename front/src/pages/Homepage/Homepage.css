@@ -9,7 +9,11 @@
   }
   #title-container {
     margin-top: 5%;
-    margin-bottom: 5%;
+    margin-bottom: 1%;
+  }
+  #web-title {
+    font-size: 300px !important;
+    margin-bottom: 6%;
   }
 }
 
