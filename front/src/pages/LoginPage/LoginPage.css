@@ -9,13 +9,13 @@
 }
 
 #login-container-page #login-logo-svg {
-  margin-top: 2%;
+  margin-top: 3%;
 }
 
 #login-container-page .form-container {
   display: flex;
   align-items: center;
-  margin-top: 4%;
+  margin-top: 3%;
   height: 280px;
   width: 280px;
   border-radius: 100%;
