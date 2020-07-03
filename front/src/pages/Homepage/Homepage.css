@@ -103,6 +103,10 @@
   background-color: rgb(234, 246, 227);
 }
 
+.button-homepage:hover {
+  background-color:rgb(216, 239, 211);
+}
+
 #buttons-homepage img {
   background-repeat: no-repeat;
 }
