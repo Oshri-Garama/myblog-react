@@ -17,7 +17,6 @@ class Homepage extends React.Component {
   }
 
   componentDidMount = () => {
-    disableScroll.on();
   }
 
   render() {
