@@ -1,43 +1,89 @@
-.login-container-page .form-container {
+#login-container-page {
   display: flex;
-  width: 300px;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to bottom, #009688 65%, #F3FAEC 20%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-.login-container-page .fields-container {
+#login-container-page #login-logo-svg {
+  margin-top: 2%;
+}
+
+#login-container-page .form-container {
+  display: flex;
+  align-items: center;
+  margin-top: 4%;
+  height: 280px;
+  width: 280px;
+  border-radius: 100%;
+  background-color: rgb(234, 246, 227);
+  box-shadow: 1px 1px 1px 1px #7D9977;
+  border: 1px solid green;
+  justify-content: space-evenly;
+  color: #009688;
+  font-size: 15px;
+}
+
+.form-container .fields-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  width: 85%;
+}
+
+.form-container .image-sepeartor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 180px;
+  width: 100%;
+}
+
+.form-container .image-sepeartor img {
+  height: 80px;
+  margin-top: -20px;
+}
+
+
+.form-container .labels-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 50px;
 }
 
-.login-container-page .inputs-container {
+
+#login-container-page #inputs-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 50px;
 }
 
-.field-decoration {
-  width: 200px;
-  height: 15px;
-  border: 2px solid black;
+.form-container .field-decoration {
+  border: 2px solid #009688;
+  width: 150px;
+  box-shadow: 1px 1px 1px 1px #7D9977;
 }
 
-.field-decoration::placeholder {
+.form-container .field-decoration::placeholder {
   font-weight: 500;
-  font-size: 13px;
+  font-size: 12px;
   color: gray;
 }
 
-.login-button {
-  border: 3px black solid;
-  border-left: 2px black solid;
-  border-top: 2px black solid;
-  box-shadow: 2px 2px 2px black;
-  min-height: 20px;
-  margin-top: 20px;
-  width: 90px;
-  font-size: small;
-  font-weight: 600;
+#login-container-page .login-button {
+  min-height: 35px;
+  width: 100;
+  margin-top: -80px;
+  font-size: 25px;
+  box-shadow: none;
+  border: none;
+  background-color: transparent;
+  color: #009688;
 }
+

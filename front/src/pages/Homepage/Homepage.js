@@ -48,7 +48,7 @@ class Homepage extends React.Component {
           <Link className="button-homepage" to="/login">
             <img src={signInSVG} />
           </Link>
-          <text>Sign In</text>
+          <text>Login</text>
         </div>
         <div className="button-container">
           <Link className="button-homepage" to="/signup">
