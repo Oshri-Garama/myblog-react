@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Mukta');
 @import url('https://fonts.googleapis.com/css?family=Kalam');
 
 body {
   /* background-image: url('https://oshriblogbucket.s3.amazonaws.com/light_background_for_blog_or_site.jpg'); */
-  font-family: 'Mukta';
+  font-family: 'Kalam';
   width: 100%;
   height: 100%;
   margin: 0px;

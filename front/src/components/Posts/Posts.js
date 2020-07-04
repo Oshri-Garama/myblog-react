@@ -143,7 +143,10 @@ class Posts extends React.Component {
         />
       );
     });
-    return postsJSX;
+    return <div id='all-posts-page-container'>
+      <header id='recent-posts-title'>Recent Posts</header>
+      <div id='recent-posts-container'>{postsJSX}</div>
+    </div>
   }
 }
 
