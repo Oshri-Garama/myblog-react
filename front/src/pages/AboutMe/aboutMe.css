@@ -11,10 +11,11 @@
 
 #aboutme-container header {
   font-family: 'Great Vibes';
-  font-size: 70px;
+  font-size: 55px;
   font-weight: 500;
   height: 100px;
-  margin-top: 3%;
+  margin-top: 5%;
+  margin-bottom: -3%;
   color: #f3faec;
   text-shadow: 2px 2px #7D9977;
 }
@@ -23,18 +24,15 @@
   display: flex;
   align-items: center;
   font-family: 'Kalam';
-
   white-space: pre-line;
-  padding-left: 3%;
-  padding-right: 3%;
-  margin-top: 2%;
-  height: 380px;
-  width: 380px;
-  border-radius: 100%;
+  padding: 1%;
+  margin-top: 5%;
+  height: 330px;
+  width: 400px;
   background-color: rgb(234, 246, 227);
   box-shadow: 1px 1px 1px 1px #7D9977;
   border: 1px solid green;
   justify-content: space-evenly;
   color: #009688;
-  font-size: 15px;
+  font-size: 16px;
 }
