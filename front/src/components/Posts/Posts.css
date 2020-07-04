@@ -49,6 +49,45 @@
   height: auto;
 }
 
+.post-container .post-buttons-container {
+  display: flex;
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+}
+
+.post-container .edit-post-icon {
+  width: 50px;
+  height: 26px;
+  margin-top: 6%;
+} 
+
+.post-container .delete-post-container {
+  display: flex;
+  justify-content: center;
+  max-width: 23px;
+  margin-bottom: 5px;
+}
+
+.post-container .delete-post-icon {
+  background-color: transparent;
+  min-width: 60px;
+  height: 22px;
+  border: 0;
+  padding-right: 0px;
+  padding-left: -15px;
+  outline: none;
+  /* border-radius: 65%; */
+}
+
+.post-container .delete-post-container:hover {
+  background-color:rgb(216, 239, 211);
+}
+
+.post-container .edit-post-icon:hover {
+  background-color:rgb(216, 239, 211);
+}
+
 .post-content-container {
   display: flex;
   flex-direction: column;

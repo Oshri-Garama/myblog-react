@@ -3,6 +3,8 @@ import "./Posts.css";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
+import deleteSVG from '../../images/icons/delete.svg'
+import editSVG from '../../images/icons/edit.svg'
 
 
 class Post extends React.Component {
@@ -70,12 +72,8 @@ class Post extends React.Component {
             {daysOfPublished === 0 ? "today" : `${daysOfPublished} days ago`} by{" "}
             {author}
         </div>
-        
-        {/* <div className="seperate-image-container">
-        </div>
-        <div className="right-side-container">
           {userLoggedInId && userLoggedInId === authorId && (
-            <div className="buttons-container">
+            <div className="post-buttons-container">
               <Link
                 to={{
                   pathname: `/posts/edit/${id}`,
@@ -87,15 +85,16 @@ class Post extends React.Component {
                   },
                 }}
               >
-                Edit
+                <img className='edit-post-icon' src={editSVG}/>
               </Link>
-              <button className="buttons" onClick={this.handleDelete}>
-                Delete
+              <div className='delete-post-container'>
+              <button className='delete-post-icon' onClick={this.handleDelete}>
+                <img src={deleteSVG}/>
               </button>
+              </div>
             </div>
           )}
-        </div> */}
-      </div>
+        </div>
     );
   }
 }
