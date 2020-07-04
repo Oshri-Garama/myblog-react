@@ -1,3 +1,40 @@
-p {
+#aboutme-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(to bottom, #009688 65%, #F3FAEC 20%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100vh;
+}
+
+#aboutme-container header {
+  font-family: 'Great Vibes';
+  font-size: 70px;
+  font-weight: 500;
+  height: 100px;
+  margin-top: 3%;
+  color: #f3faec;
+  text-shadow: 2px 2px #7D9977;
+}
+
+#aboutme-container p {
+  display: flex;
+  align-items: center;
+  font-family: 'Kalam';
+
   white-space: pre-line;
+  padding-left: 3%;
+  padding-right: 3%;
+  margin-top: 2%;
+  height: 380px;
+  width: 380px;
+  border-radius: 100%;
+  background-color: rgb(234, 246, 227);
+  box-shadow: 1px 1px 1px 1px #7D9977;
+  border: 1px solid green;
+  justify-content: space-evenly;
+  color: #009688;
+  font-size: 15px;
 }
