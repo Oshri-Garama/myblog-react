@@ -4,6 +4,7 @@
   background-color: #F3FAEC;
   height: 40px;
   width: 100%;
+  position: fixed;
   /* box-shadow: 2px 2px 2px 2px white; */
 }
 
