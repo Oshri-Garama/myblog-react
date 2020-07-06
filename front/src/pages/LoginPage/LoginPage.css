@@ -69,10 +69,12 @@
   border: 2px solid #009688;
   width: 158px;
   box-shadow: 1px 1px 1px 1px #7D9977;
+  transition-duration: 500ms;
+  outline: none;
 }
 
 .form-container .field-decoration:hover {
-  background-color:rgb(216, 239, 211);
+  background-color:rgb(231, 241, 229);
 }
 
 .form-container .field-decoration::placeholder {
@@ -93,6 +95,7 @@
   background-color: transparent;
   color: #009688;
   outline: none;
+  transition-duration: 500ms;
 }
 
 #login-container-page .login-button:hover {

@@ -1,6 +1,7 @@
 import React from "react";
 import "./AddNewPost.css";
 import axios from "axios";
+import bookSVG from '../../images/book.svg'
 
 // const port = '5000';
 // const url = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}/posts`;
@@ -14,7 +15,7 @@ class AddNewPost extends React.Component {
         content: "",
         title: "",
         imageUrl: "",
-        author: ""
+        author: "",
       },
       saved: false,
     };
@@ -50,15 +51,15 @@ class AddNewPost extends React.Component {
     event.preventDefault();
     const { post } = this.state;
     if (post.title && post.content) {
-      axios.post('/api/posts', post).then(res => {
+      axios.post("/api/posts", post).then((res) => {
         if (res.status === 200) {
-          post.published = res.data.published
-          post.id = res.data.id
-          post.author = res.data.author
+          post.published = res.data.published;
+          post.id = res.data.id;
+          post.author = res.data.author;
           alert("Post saved successfully");
           this.props.history.push("/");
         }
-      })
+      });
     } else {
       alert("Title and Content are required");
     }
@@ -67,31 +68,32 @@ class AddNewPost extends React.Component {
   render() {
     return (
       <form className="new-post-container" onSubmit={this.onSubmit}>
-        <h1>Create New Post</h1>
-        <input
-          id="input-title"
-          type="text"
-          placeholder="Post title goes here..."
-          onChange={this.handleTitleChange}
-        ></input>
-        <input
-          id="input-title"
-          type="url"
-          placeholder="Paste here your image url"
-          onChange={this.handleImageChange}
-        ></input>
-        <textarea
-          id="input-content"
-          placeholder="Post content goes here..."
-          onChange={this.handleContentChange}
-        ></textarea>
-        <button
-          id="save-post-button"
-          type="submit"
-          onClick={this.handleSavePost}
-        >
-          Save post
-        </button>
+        <header id="create-new-post-title">Create New Post</header>
+        <img id='icon-header-new-post' src={bookSVG}/>
+          <input
+            id="input-add-title"
+            type="text"
+            placeholder="Post title goes here..."
+            onChange={this.handleTitleChange}
+          ></input>
+          <input
+            id="input-add-img"
+            type="url"
+            placeholder="Paste here your image url"
+            onChange={this.handleImageChange}
+          ></input>
+          <textarea
+            id="input-add-content"
+            placeholder="Post content goes here..."
+            onChange={this.handleContentChange}
+          ></textarea>
+          <button
+            id="create-post-button"
+            type="submit"
+            onClick={this.handleSavePost}
+          >
+            Create Post
+          </button>
       </form>
     );
   }

@@ -66,10 +66,11 @@
   box-shadow: 2px 2px 2px 2px #7D9977;
   border: 1px solid green;
   background-color: rgb(234, 246, 227);
+  transition-duration: 500ms;
 }
 
 .button-homepage:hover {
-  background-color:rgb(216, 239, 211);
+  background-color:rgb(201, 234, 194);
 }
 
 #buttons-homepage img {

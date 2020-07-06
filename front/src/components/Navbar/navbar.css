@@ -14,7 +14,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 30%;  
+  min-width: 30%;
+  transition-duration: 500ms;  
 }
 
 #navbar-container a:visited {
