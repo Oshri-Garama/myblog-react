@@ -18,6 +18,11 @@
   margin-bottom: -3%;
   color: #f3faec;
   text-shadow: 2px 2px #7D9977;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.2s;
 }
 
 #aboutme-container p {
@@ -35,4 +40,9 @@
   justify-content: space-evenly;
   color: #009688;
   font-size: 16px;
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
 }

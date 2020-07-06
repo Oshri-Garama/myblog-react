@@ -57,7 +57,7 @@ class AddNewPost extends React.Component {
           post.id = res.data.id;
           post.author = res.data.author;
           alert("Post saved successfully");
-          this.props.history.push("/");
+          this.props.history.push("/posts");
         }
       });
     } else {
@@ -69,6 +69,8 @@ class AddNewPost extends React.Component {
     return (
       <form className="new-post-container" onSubmit={this.onSubmit}>
         <header id="create-new-post-title">Create New Post</header>
+        <div id='new-post-form-container'>
+
         <img id='icon-header-new-post' src={bookSVG}/>
           <input
             id="input-add-title"
@@ -94,6 +96,7 @@ class AddNewPost extends React.Component {
           >
             Create Post
           </button>
+        </div>
       </form>
     );
   }

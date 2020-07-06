@@ -30,6 +30,17 @@
   margin-bottom: 1%;
 }
 
+.new-post-container #new-post-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1.5s;
+}
+
 .new-post-container #create-post-button {
   margin-top: 20px;
   border: none;

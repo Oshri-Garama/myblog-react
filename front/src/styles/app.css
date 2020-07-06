@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Kalam');
+@import url('https://fonts.googleapis.com/css?family=Mutka');
 
 body {
   /* background-image: url('https://oshriblogbucket.s3.amazonaws.com/light_background_for_blog_or_site.jpg'); */
@@ -6,6 +7,15 @@ body {
   width: 100%;
   height: 100%;
   margin: 0px;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
 #loader-container {

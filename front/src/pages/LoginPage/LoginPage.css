@@ -10,6 +10,11 @@
 
 #login-container-page #login-logo-svg {
   margin-top: 6%;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
 }
 
 #login-container-page .form-container {
@@ -25,6 +30,11 @@
   justify-content: space-evenly;
   color: #009688;
   font-size: 15px;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
 }
 
 .form-container .fields-container {
@@ -71,6 +81,8 @@
   box-shadow: 1px 1px 1px 1px #7D9977;
   transition-duration: 500ms;
   outline: none;
+  color: hsl(174, 100%, 29%);
+  font-weight: 550;
 }
 
 .form-container .field-decoration:hover {
@@ -96,6 +108,11 @@
   color: #009688;
   outline: none;
   transition-duration: 500ms;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
 }
 
 #login-container-page .login-button:hover {

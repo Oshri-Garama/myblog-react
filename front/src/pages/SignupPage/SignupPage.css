@@ -16,6 +16,11 @@
   margin-top: 5%;
   color: #f3faec;
   text-shadow: 2px 2px #7D9977;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 0.3s;
 }
 
 #signup-page-container #signup-description {
@@ -27,6 +32,11 @@
   font-size: 23px;
   font-weight: 500;
   margin-top: -2%;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
 }
 
 #signup-page-container #signup-form-container {
@@ -42,6 +52,11 @@
   justify-content: space-evenly;
   color: #009688;
   font-size: 15px;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
 }
 
 #signup-form-container #signup-image-sepeartor img {
@@ -80,7 +95,7 @@
   transition-duration: 500ms;
   outline: none;
   color: hsl(174, 100%, 29%);
-  font-weight: 900;
+  font-weight: 550;
 }
 
 #signup-form-container .field-decoration:hover {
@@ -105,6 +120,11 @@
   color: #009688;
   outline: none;
   transition-duration: 500ms;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
 }
 
 #signup-page-container #signup-button:hover {
