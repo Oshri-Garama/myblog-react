@@ -66,33 +66,33 @@ class EditPost extends React.Component {
     const { title, content, imageUrl } = this.state.post
     return (
       <form className="new-post-container" onSubmit={this.onSubmit}>
-        <h1>Edit Your Post</h1>
+        <header id="create-new-post-title">Edit Your Post</header>
         <input
-          id="input-title"
+          id="input-add-title"
           value={title}
           type="text"
           placeholder="Post title goes here..."
           onChange={this.handleTitleChange}
         ></input>
         <input
-          id="input-title"
+          id="input-add-img"
           value={imageUrl}
           type="url"
           placeholder="Paste here your image url"
           onChange={this.handleImageChange}
         ></input>
         <textarea
-          id="input-content"
+          id="input-add-content"
           value={content}
           placeholder="Post content goes here..."
           onChange={this.handleContentChange}
         ></textarea>
         <button
-          id="save-post-button"
+          id="create-post-button"
           type="submit"
           onClick={this.handleSavePost}
         >
-          Save post
+          Update Post
         </button>
       </form>
     );
