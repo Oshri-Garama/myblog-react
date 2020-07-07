@@ -60,6 +60,15 @@ class PostPage extends React.Component {
     }
   };
 
+  renderPostImage = () => {
+    const { post } = this.state
+    if (post.imageUrl) 
+    return (
+      <img id="post-image-post-page" src={post.imageUrl} />
+    )
+    return null
+  }
+
   render() {
     const { id, post, comments } = this.state;
     const { isLoggedIn } = this.props;
@@ -68,7 +77,7 @@ class PostPage extends React.Component {
         <header id="post-view-title">{post.title}</header>
         <div className="post-view-container">
           <div id="post-page-seperator">
-            <img id="post-image-post-page" src={post.imageUrl} />
+            {this.renderPostImage()}
             <div className="post-view-content">{post.content}</div>
           </div>
           <form
