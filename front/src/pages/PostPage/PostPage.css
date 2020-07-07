@@ -1,42 +1,117 @@
-.post-view {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+.post-view-page {
+  background-color: #F3FAEC;
+  height: 100vh;
 }
 
-.post-view-content {
-  margin-top: 10px;
+.post-view-page #post-view-title {
+    background-color: #009688;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 100%;
+    font-family: 'Kalam';
+    color: #f3faec;
+    text-shadow: 2px 2px #7D9977;
+    font-size: 70px;
+    padding-top: 4%;
+    font-weight: 500;
+    margin-bottom: 1%;
+}
+
+.post-view-container {
+  display: flex;
+  padding: 1%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.post-view-container #post-image-post-page {
+  max-width: 300px;
+  height: auto;
+  box-shadow: 1px 1px 1px 1px rgb(97, 120, 91);
 }
 
 .comment-input-container {
   display: flex;
-  justify-content: space-between;
-  margin-top: 40px;
+  flex-direction: column;
+  width: 23%;
 }
 
 #comment-inputarea {
   height: 50px;
-  width: 202px;
-  margin-right: 20px
+  margin-bottom: 2%;
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid rgb(78, 171, 148);
+  color: black;
+  font-weight: 900;
+  font-size: 15px;
+  transition-duration: 1000ms;
+  outline: none;
 }
 
-.comment {
-  display: flex;
-  width: 202px;
-  flex-direction: column;
-  background-color: white;
-  color: green;
-  font-weight: bold;
-  margin-bottom: 10px;
+#comment-inputarea:focus {
+  border-bottom: 2px solid rgb(106, 221, 192);
+}
+
+#comment-inputarea::placeholder{
+  font-weight: 500;
+  font-size: 14px;
+  color: rgb(78, 171, 148)
+}
+
+#comment-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+#comment-icon {
+    transition-duration: 500ms;
+    border: none;
+    margin-bottom: 3%;
+}
+
+#comment-icon:hover {
+  background-color: rgb(222, 240, 205);
+}
+
+#post-view-comments-header {
+  align-self: center;
+  color: rgb(96, 135, 87);
+  text-shadow: 1px 1px #cad6d5;
+  font-size: 20px;
 }
 
 #comment-user-name {
   font-size: 20px;
   font-weight: 500;
+  color: #0d0d0d;
+  text-shadow: 1px 1px #cad6d5;
+}
+
+#comment-comment-content {
+  color: rgb(106, 173, 91);
+  text-shadow: 1px 1px #cad6d5;
 }
 
 #comments-container {
   display: flex;
   flex-direction: column;
-  align-content: space-between;
+  justify-content: space-between;
+  height: 160px;
+}
+
+.post-view-content {
+  min-width: 65%;
+  padding-left: 10px;
+  font-size: 20px;
+  text-align: justify;
+  text-shadow: 2px 2px #cad6d5;
+}
+
+.post-view-page #post-page-seperator {
+  display: flex;
+  width: 65%;
 }

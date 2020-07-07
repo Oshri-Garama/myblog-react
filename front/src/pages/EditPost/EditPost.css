@@ -1,39 +1,7 @@
-.new-post-container {
-  display: flex;
-  flex-direction: column;
+.edit-post-container {
+  margin-top: -1.5%;
 }
 
-#save-post-button {
-  border: 3px black solid;
-  border-left: 2px black solid;
-  border-top: 2px black solid;
-  box-shadow: 2px 2px 2px black;
-  margin-bottom: 15px;
-  padding-top: 3px;
-  min-height: 20px;
-  margin-top: 10px;
-  width: 90px;
-  font-size: small;
-  font-weight: 600;
-}
-
-#input-title {
-  width: 400px;
-  height: 15px;
-  margin-bottom: 15px
-}
-
-#input-content {
-  width: 398px;
-  height: 150px;
-}
-
-#input-title, #input-content {
-  border: 2px solid black
-}
-
-#input-title::placeholder, #input-content::placeholder {
-  font-weight: 500;
-  font-size: 13px;
-  color: black;
+#edit-post-logo {
+  margin-bottom: -19%;
 }

@@ -3,9 +3,9 @@ import axios from "axios";
 
 const Comment = (props) => {
   return (
-    <div className="comment">
+    <div className="comment-container">
       <div id="comment-user-name">{props.username}</div>
-      <div>{props.comment}</div>
+      <div id='comment-comment-content'>{props.comment}</div>
     </div>
   );
 }

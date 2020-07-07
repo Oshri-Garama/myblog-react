@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Comments from "../../components/Comment";
 import "./PostPage.css";
+import commentSVG from '../../images/icons/comment.svg'
 
 
 class PostPage extends React.Component {
@@ -55,18 +56,25 @@ class PostPage extends React.Component {
     const { id, post, comments } = this.state;
     const { isLoggedIn } = this.props;
     return (
-      <div className='post-view'>
-        <h1>{post.title}</h1>
-        <img style={{maxWidth: 300, height: 'auto'}} src={post.imageUrl} alt="" />
+      <div className='post-view-page'>
+        <header id='post-view-title'>{post.title}</header>
+        <div className='post-view-container'>
+          <div id='post-page-seperator'>
+
+        <img id='post-image-post-page' src={post.imageUrl}/>
         <div className='post-view-content'>{post.content}</div>
+          </div>
         <form className='comment-input-container' onSubmit={this.onSubmit} disabled={!isLoggedIn}>
-          <textarea id='comment-inputarea' onChange={this.handleCommentChange} disabled={!isLoggedIn}></textarea>
-          <button id='comment-button' disabled={!isLoggedIn}>Comment</button>
-        </form>
-        <div id='comments-container'>
+          <textarea id='comment-inputarea' placeholder='Leave a comment...' onChange={this.handleCommentChange} disabled={!isLoggedIn}></textarea>
+          <button id='comment-button' disabled={!isLoggedIn}>
+            <img id='comment-icon' src={commentSVG}/>
+          </button>
+          <div id='comments-container'>
           {!isLoggedIn && <h5 style={{color: 'red', fontWeight: 800}}>To comment you must login or sign up</h5>}
-          <h3>Comments</h3>
+          <header id='post-view-comments-header'>Comments</header>
           <Comments comments={comments} />
+        </div>
+        </form>
         </div>
       </div>
     );

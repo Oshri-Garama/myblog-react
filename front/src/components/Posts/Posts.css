@@ -37,7 +37,7 @@
   padding: 1%;
   margin-right: 0.75%;
   margin-left: 0.75%;
-  height: 360px;
+  height: 300px;
   box-shadow: 2px 2px 2px 2px #7D9977;
   margin-bottom: 20px;
   background-color: rgb(240, 246, 237);
@@ -72,6 +72,7 @@
   justify-content: center;
   max-width: 23px;
   margin-bottom: 5px;
+  transition-duration: 0.5s;
 }
 
 .post-container .delete-post-icon {
@@ -82,6 +83,7 @@
   padding-right: 0px;
   padding-left: -15px;
   outline: none;
+  transition-duration: 0.5s;
 }
 
 .post-container .delete-post-container:hover {
@@ -102,6 +104,13 @@
 
 .post-content {
   margin-top: 8%;
+  max-width: 93%;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: justify;
 }
 
 
@@ -118,6 +127,7 @@
   font-weight: 900;
   font-size: 18px;
   margin-bottom: 5%;
+  transition-duration: 0.5s;
 }
 
 .post-title-container .post-title:hover {

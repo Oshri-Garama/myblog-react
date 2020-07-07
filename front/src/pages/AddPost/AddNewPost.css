@@ -38,7 +38,7 @@
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
-	animation-duration: 1.5s;
+	animation-duration: 1s;
 }
 
 .new-post-container #create-post-button {
@@ -79,7 +79,7 @@
   border: none;
   background-color: transparent;
   border-bottom: 2px solid rgb(78, 171, 148);
-  color: rgb(25, 141, 112);
+  color: black;
   font-weight: 900;
   font-size: 15px;
   transition-duration: 1000ms;
