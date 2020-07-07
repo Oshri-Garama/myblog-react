@@ -28,8 +28,10 @@
 
 .post-view-container #post-image-post-page {
   max-width: 300px;
-  height: auto;
+  max-height: 250px;
+  margin-right: 10px;
   box-shadow: 1px 1px 1px 1px rgb(97, 120, 91);
+  float: left;
 }
 
 .comment-input-container {
@@ -112,6 +114,7 @@
 }
 
 .post-view-page #post-page-seperator {
-  display: flex;
+  /* display: flex; */
   width: 65%;
+  /* display: table; */
 }
