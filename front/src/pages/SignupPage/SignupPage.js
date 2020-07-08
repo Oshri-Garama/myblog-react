@@ -40,6 +40,11 @@ class SignupPage extends React.Component {
   handleSignup = (event) => {
     event.preventDefault();
     const { fullName, username, password } = this.state;
+    let lastUrlPath = '/'
+    const location = this.props.location.state
+    if (location && location.from) {
+      lastUrlPath = location.from;
+    }
     if (username === "" || password === "" || fullName === "") {
       alert("Please provide a valid input");
       return;
@@ -49,7 +54,7 @@ class SignupPage extends React.Component {
       .then((res) => {
         if (res.status === 200) {
           this.props.handleSignup(res.data);
-          this.props.history.push("/");
+          this.props.history.push(lastUrlPath);
         }
       })
       .catch((err) => {

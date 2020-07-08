@@ -108,7 +108,12 @@ class PostPage extends React.Component {
                   login
                 </Link>
                 {' '} OR {' '}
-                 <Link className='comment-section-link' to='/signup'>
+                 <Link className='comment-section-link' to={{
+                   pathname: '/signup',
+                   state: {
+                    from: this.props.location
+                  },
+                   }}>
                    sign up
                  </Link>
                 </section>
