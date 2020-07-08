@@ -23,7 +23,7 @@
 #recent-posts-container {
   display: flex;
   justify-content: center;
-  padding-top: 5%;
+  padding-top: 2%;
   flex-wrap: wrap;
   width: 100%;
 }
@@ -132,4 +132,45 @@
 
 .post-title-container .post-title:hover {
   background-color:rgb(216, 239, 211);
+}
+
+#all-posts-page-container #add-new-post-container {
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 32%;
+  padding-top: 1%
+}
+
+#all-posts-page-container #add-new-post-container text {
+  align-self: flex;
+  align-self: center;
+  font-size: 17px;
+  font-weight: 500;
+  color: #009688;
+  text-shadow: 1px 1px rgb(53, 163, 64);
+  font-family: 'Gloria Hallelujah';
+}
+
+#all-posts-page-container #add-new-post-button {
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  width: 80px;
+  border-radius: 100%;
+  box-shadow: 2px 2px 2px 2px #7D9977;
+  border: 1px solid green;
+  background-color: rgb(234, 246, 227);
+  transition-duration: 500ms;
+}
+
+#all-posts-page-container #add-new-post-button:hover {
+  background-color:rgb(201, 234, 194);
+}
+
+#all-posts-page-container #add-new-post-button img {
+  background-repeat: no-repeat;
+  height: 80px;
+  width: 120px;
 }

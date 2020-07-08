@@ -5,6 +5,7 @@ import moment from "moment";
 import axios from "axios";
 import deleteSVG from '../../images/icons/delete.svg'
 import editSVG from '../../images/icons/edit.svg'
+import newPostSVG from "../../images/newPost.svg";
 
 
 class Post extends React.Component {
@@ -144,6 +145,12 @@ class Posts extends React.Component {
     });
     return <div id='all-posts-page-container'>
       <header id='recent-posts-title'>Recent Posts</header>
+      <div id="add-new-post-container">
+          <Link id="add-new-post-button" to="/posts/new">
+            <img src={newPostSVG} />
+          </Link>
+          <text>New Post</text>
+        </div>
       <div id='recent-posts-container'>{postsJSX}</div>
     </div>
   }
