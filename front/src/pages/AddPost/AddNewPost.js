@@ -50,7 +50,7 @@ class AddNewPost extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
     const { post } = this.state;
-    if (post.title && post.content) {
+    if (post.title && post.content && (post.title.length <= 30)) {
       axios.post("/api/posts", post).then((res) => {
         if (res.status === 200) {
           post.published = res.data.published;
@@ -60,7 +60,11 @@ class AddNewPost extends React.Component {
           this.props.history.push("/posts");
         }
       });
-    } else {
+    } else if (post.title.length > 30) {
+      console.log('here')
+      alert("Title must be 30 letters max");
+    }
+    else {
       alert("Title and Content are required");
     }
   };
