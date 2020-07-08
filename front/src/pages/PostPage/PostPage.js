@@ -3,6 +3,7 @@ import axios from "axios";
 import Comments from "../../components/Comment";
 import "./PostPage.css";
 import commentSVG from "../../images/icons/comment.svg";
+import { Link } from 'react-router-dom'
 
 class PostPage extends React.Component {
   constructor(props) {
@@ -96,9 +97,16 @@ class PostPage extends React.Component {
             </button>
             <div id="comments-container">
               {!isLoggedIn && (
-                <h5 style={{ color: "red", fontWeight: 800 }}>
-                  To comment you must login or sign up
-                </h5>
+                <section id='comment-unlogged-error'>
+                  To comment you must {' '}
+                 <Link className='comment-section-link' to='/login'>
+                  login
+                </Link>
+                {' '} OR {' '}
+                 <Link className='comment-section-link' to='/signup'>
+                   sign up
+                 </Link>
+                </section>
               )}
               <header id="post-view-comments-header">Comments</header>
               <Comments comments={comments} />

@@ -118,3 +118,18 @@
   width: 65%;
   /* display: table; */
 }
+
+.post-view-page #comment-unlogged-error {
+  color: red;
+  font-weight: 800;
+  font-size: 17px;
+  margin-bottom: 2%;
+}
+
+#comment-unlogged-error .comment-section-link {
+  color: #009688;
+}
+
+#comment-unlogged-error .comment-section-link:visited {
+  color: #009688;
+}
