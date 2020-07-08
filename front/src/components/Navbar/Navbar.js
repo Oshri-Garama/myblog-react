@@ -13,6 +13,7 @@ class Navbar extends React.Component {
 
   render() {
     const { isLoggedIn } = this.props;
+    
     return (
       <div id="navbar-container">
         <div id="left-navbar">

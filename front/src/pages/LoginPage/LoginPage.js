@@ -32,7 +32,11 @@ class LoginPage extends React.Component {
     event.preventDefault();
     const { username, password } = this.state;
     // added state from to save the last page and then on success redirect there.
-    const lastUrlPath = this.props.location.state.from || '/'
+    let lastUrlPath = '/'
+    const location = this.props.location.state
+    if (location && location.from) {
+      lastUrlPath = location.from;
+    }
     if (username === "" || password === "") {
       alert("Please provide a valid input");
       this.refs.form.reset();
