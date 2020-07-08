@@ -147,7 +147,12 @@
   flex-direction: column;
   justify-content: space-between;
   height: 32%;
-  padding-top: 1%
+  padding-top: 1%;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
 }
 
 #all-posts-page-container #add-new-post-container text {
