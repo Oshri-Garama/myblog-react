@@ -16,25 +16,27 @@ class Navbar extends React.Component {
     return (
       <div id="navbar-container">
         <div id="left-navbar">
-          <Link className='vr-line-right' to="/">Home</Link>
-          {isLoggedIn && (
-            <Link to="/about">
-              About Me
+          <Link className="vr-line-right" to="/">
+            Home
+          </Link>
+            <Link className="vr-line-right" to="/posts">
+              All Posts
             </Link>
-          )}
           {isLoggedIn && (
-            <Link className="vr-line-left" to="/posts/new">
-              New post
-            </Link>
-          )}
-          {isLoggedIn && (
-            <Link className='vr-line-left' to="#">
+            <Link className="vr-line-right" to="#">
               My Posts
             </Link>
           )}
+          <Link className="vr-line-right" to="/about">
+            About Me
+          </Link>
         </div>
         <div id="right-navbar">
-          <Link id='change-language-link' className='vr-line-right vr-line-left' to="#">
+          <Link
+            id="change-language-link"
+            className="vr-line-right vr-line-left"
+            to="#"
+          >
             English
           </Link>
           {!isLoggedIn && (
