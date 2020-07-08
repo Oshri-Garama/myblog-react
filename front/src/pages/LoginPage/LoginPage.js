@@ -31,6 +31,8 @@ class LoginPage extends React.Component {
   handleLogin = (event) => {
     event.preventDefault();
     const { username, password } = this.state;
+    // added state from to save the last page and then on success redirect there.
+    const lastUrlPath = this.props.location.state.from || '/'
     if (username === "" || password === "") {
       alert("Please provide a valid input");
       this.refs.form.reset();
@@ -41,7 +43,7 @@ class LoginPage extends React.Component {
       .then((res) => {
         if (res.status === 200) {
           this.props.handleLogin(res.data);
-          this.props.history.push("/");
+          this.props.history.push(lastUrlPath);
         }
       })
       .catch((err) => {

@@ -99,7 +99,12 @@ class PostPage extends React.Component {
               {!isLoggedIn && (
                 <section id='comment-unlogged-error'>
                   To comment you must {' '}
-                 <Link className='comment-section-link' to='/login'>
+                 <Link className='comment-section-link' to={{
+                   pathname: '/login',
+                   state: {
+                    from: this.props.location
+                  },
+                   }}>
                   login
                 </Link>
                 {' '} OR {' '}
