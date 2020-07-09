@@ -242,23 +242,28 @@ def get_all_posts():
         data.append(dict(zip(headers, post)))
     return jsonify(data)
 
-# # get posts of specific user
-# def get_user_posts():
-#     values = check_login()
-#     query_select = 'select post_id, title, content, image_url, created_at, full_name, session_id from users'
-#     query_join_sessions = 'join sessions on users.user_id = sessions.user_id'
-#     query_join_posts = 'join posts on users.user_id = posts.author_id where users.user_id=%s'
-#     query_order = 'order by post_id desc'
-#     query = '%s %s %s %s' % (query_select, query_join_sessions, query_join_posts, query_order)
-#     data = []
-#     cursor = g.db.cursor()
-#     cursor.execute(query, values)
-#     post_records = cursor.fetchall()
-#     headers = ['id', 'title', 'content', 'imageUrl', 'published', 'author']
-#     for post in post_records:
-#         data.append(dict(zip(headers, post)))
-#     cursor.close()
-#     return jsonify(data)
+
+@app.route('/api/user/posts')
+def get_user_posts():
+    session_id = request.cookies.get('session_id')
+    if not session_id:
+        abort(401)
+    user_id = check_login()[0]
+    values = (user_id, )
+    query_select = 'select post_id, author_id, title, content, image_url, created_at, full_name from users'
+    query_join_sessions = 'join sessions on users.user_id = sessions.user_id'
+    query_join_posts = 'join posts on users.user_id = posts.author_id where users.user_id = %s'
+    query_order = 'order by post_id desc'
+    query = '%s %s %s %s' % (query_select, query_join_sessions, query_join_posts, query_order)
+    data = []
+    cursor = g.db.cursor()
+    cursor.execute(query, values)
+    post_records = cursor.fetchall()
+    headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published', 'author']
+    for post in post_records:
+        data.append(dict(zip(headers, post)))
+    cursor.close()
+    return jsonify(data)
 
 
 def create_new_post():
