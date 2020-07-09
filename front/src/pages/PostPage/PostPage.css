@@ -106,6 +106,15 @@
   height: 100px;
 }
 
+#comments-container #comments-list {
+  height: 280px;
+  max-height: 280px;
+  overflow: hidden;
+  position: absolute;
+  margin-top: 5%;
+  width: 20%;
+}
+
 .post-view-content {
   min-width: 65%;
   padding-left: 10px;

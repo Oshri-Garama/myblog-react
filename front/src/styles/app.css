@@ -10,6 +10,14 @@ body, html {
   background-color: #F3FAEC;
 }
 
+.ps__rail-x {
+  opacity: 0.6 !important;
+}
+
+.ps__rail-y {
+  opacity: 0.6 !important;
+}
+
 @keyframes fadeInOpacity {
 	0% {
 		opacity: 0;

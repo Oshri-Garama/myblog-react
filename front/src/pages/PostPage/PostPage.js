@@ -4,6 +4,8 @@ import Comments from "../../components/Comment";
 import "./PostPage.css";
 import commentSVG from "../../images/icons/comment.svg";
 import { Link } from 'react-router-dom'
+import Scrollbar from 'perfect-scrollbar'
+import 'perfect-scrollbar/css/perfect-scrollbar.css';
 
 class PostPage extends React.Component {
   constructor(props) {
@@ -15,6 +17,7 @@ class PostPage extends React.Component {
       username: "",
       comments: [],
     };
+    this.comp = React.createRef();
   }
 
   componentDidMount() {
@@ -30,6 +33,14 @@ class PostPage extends React.Component {
         }
       })
       .catch((error) => console.log(error, "Couldn't load posts"));
+  }
+
+  componentWillUnmount = () => {
+    this.ps = null;
+  }
+
+  componentDidUpdate = () => {
+    this.ps = new Scrollbar(this.comp.current);
   }
 
   handleCommentChange = (event) => {
@@ -119,7 +130,9 @@ class PostPage extends React.Component {
                 </section>
               )}
               <header id="post-view-comments-header">Comments</header>
-              <Comments comments={comments} />
+                  <div id='comments-list' ref={this.comp}>
+                    <Comments comments={comments} />
+                  </div>
             </div>
           </form>
         </div>
