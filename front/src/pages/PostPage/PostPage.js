@@ -113,12 +113,12 @@ class PostPage extends React.Component {
           isPopupOpen: false,
           message: null
         })
-      }, 7000)
+      }, 4000)
     }
   }
 
   render() {
-    const { id, post, comments } = this.state;
+    const { id, post, comments, isPopupOpen } = this.state;
     const { isLoggedIn } = this.props;
     this.closePopupIfOpen()
     return (
@@ -141,7 +141,7 @@ class PostPage extends React.Component {
               onChange={this.handleCommentChange}
               disabled={!isLoggedIn}
             ></textarea>
-            <button id="comment-button" disabled={!isLoggedIn}>
+            <button id="comment-button" disabled={!isLoggedIn || isPopupOpen}>
               <img id="comment-icon" src={commentSVG} />
             </button>
             <div id="comments-container">
