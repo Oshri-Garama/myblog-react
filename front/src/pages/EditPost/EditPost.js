@@ -2,9 +2,7 @@ import React from "react";
 import "./EditPost.css";
 import axios from "axios";
 import editSVG from "../../images/edit-logo.svg";
-
-// const port = '5000';
-// const url = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}/posts`;
+import AlertMessage from "../../components/AlertMessage/AlertMessage";
 
 class EditPost extends React.Component {
   constructor(props) {
@@ -16,7 +14,11 @@ class EditPost extends React.Component {
         title: props.location.state.title || "",
         imageUrl: props.location.state.imageUrl || "",
       },
-      saved: false,
+      popup: {
+        message: null,
+        isPopupOpen: false,
+        success: false,
+      },
     };
   }
   handleTitleChange = (event) => {
@@ -49,26 +51,72 @@ class EditPost extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
     const { post } = this.state;
-    if (post.title && post.content) {
+    if (post.title && post.content && post.title.length <= 30) {
       axios.post("/api/posts/edit", post).then((res) => {
         if (res.status === 200) {
           post.published = res.data.published;
           post.author = res.data.author;
-          alert("Post updated successfully");
-          this.props.history.push("/");
+          this.setState({
+            ...this.state,
+            popup: {
+              message: "Post updated successfully",
+              isPopupOpen: true,
+              success: true,
+            },
+          });
+          setTimeout(() => {
+            this.props.history.push(`/posts`);
+          }, 3000)
         }
       });
-    } else {
-      alert("Title and Content are required");
+    } 
+    else if (post.title.length > 30) {
+      this.setState({
+        ...this.state,
+        popup: {
+          message: "Title must be 30 letters max",
+          isPopupOpen: true,
+          success: false,
+        }
+      })
+    }
+    else {
+      this.setState({
+        ...this.state,
+        popup: {
+          message: "Title and Content are required",
+          isPopupOpen: true,
+          success: false,
+        },
+      });
+    }
+  };
+
+  closePopupIfOpen = () => {
+    const { isPopupOpen } = this.state.popup;
+    if (isPopupOpen) {
+      setTimeout(() => {
+        this.setState({
+          ...this.state,
+          popup: {
+            isPopupOpen: false,
+            message: null,
+          },
+        });
+      }, 4000);
     }
   };
 
   render() {
     const { title, content, imageUrl } = this.state.post;
+    const { message, success } = this.state.popup;
+    const type = success ? "success" : "failed";
+    this.closePopupIfOpen();
     return (
       <form className="new-post-container" onSubmit={this.onSubmit}>
+        <AlertMessage message={message} type={type} />
         <header id="create-new-post-title">Edit Your Post</header>
-        <div id="new-post-form-container" className='edit-post-container'>
+        <div id="new-post-form-container" className="edit-post-container">
           <img id="edit-post-logo" src={editSVG} />
           <input
             id="input-add-title"

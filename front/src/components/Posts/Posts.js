@@ -27,12 +27,12 @@ class Post extends React.Component {
   handleDelete = () => {
     const answer = window.confirm("Are you sure you want to delete this post?");
     if (!answer) return;
-    const { id } = this.props;
+    const { id, pathname } = this.props;
     axios
       .post("/api/posts/delete", { post_id: id })
       .then((res) => {
         if (res.status === 200) {
-          setTimeout(this.props.getAllPosts, 300)
+          setTimeout(this.props.getAllPosts(pathname), 300)
         }
       })
       .catch((err) => {
@@ -148,6 +148,7 @@ class Posts extends React.Component {
           imageUrl={post.imageUrl}
           userLoggedInId={isLoggedIn ? userId : null}
           getAllPosts={this.getAllPosts}
+          pathname={pathname}
         />
       );
     });
