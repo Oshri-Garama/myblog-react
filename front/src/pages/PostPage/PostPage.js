@@ -99,17 +99,6 @@ class PostPage extends React.Component {
     return null;
   };
 
-  renderPopupIfNeeded = () => {
-    const { message, success } = this.state
-    const type = success ? 'success' : 'failed';
-    if (message) {
-      return <AlertMessage message={message} type={type} />
-    }
-    else {
-      return null
-    }
-  }
-
   closePopupIfOpen = () => {
     const { isPopupOpen } = this.state
     if (isPopupOpen) {
@@ -124,12 +113,13 @@ class PostPage extends React.Component {
   }
 
   render() {
-    const { id, post, success, comments, isPopupOpen } = this.state;
+    const { id, post, message, success, comments, isPopupOpen } = this.state;
     const { isLoggedIn } = this.props;
+    const type = success ? 'success' : 'failed';
     this.closePopupIfOpen()
     return (
       <div className="post-view-page">
-        {this.renderPopupIfNeeded()}
+        <AlertMessage message={message} type={type} />
         <header id="post-view-title">{post.title}</header>
         <div className="post-view-container">
           <div id="post-page-seperator">
