@@ -126,11 +126,6 @@ class Posts extends React.Component {
     this.getAllPosts(pathname);
   };
 
-  componentDidUpdate = () => {
-    const { pathname } = this.props.location
-    this.getAllPosts(pathname);
-  };
-
   render() {
     const { userId, isLoggedIn } = this.props;
     const { posts } = this.state;
