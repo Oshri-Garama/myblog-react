@@ -19,7 +19,7 @@ class PostPage extends React.Component {
       comments: [],
       message: null,
       isPopupOpen: false,
-      commenting: false
+      success: false
     };
     this.comp = React.createRef();
   }
@@ -75,7 +75,7 @@ class PostPage extends React.Component {
               ...this.state,
               message: "Your comment should be on the top",
               isPopupOpen: true,
-              commenting: true
+              success: true
             });
             this.fetchPostPage()
           }
@@ -85,7 +85,7 @@ class PostPage extends React.Component {
         ...this.state,
         message: "Comment can not be empty",
         isPopupOpen: true,
-        commenting: false
+        success: false
       });
     }
   };
@@ -98,9 +98,10 @@ class PostPage extends React.Component {
   };
 
   renderPopupIfNeeded = () => {
-    const { message } = this.state
+    const { message, success } = this.state
+    const type = success ? 'success' : 'failed';
     if (message) {
-      return <AlertMessage message={message} type='success' />
+      return <AlertMessage message={message} type={type} />
     }
     else {
       return null
@@ -114,14 +115,15 @@ class PostPage extends React.Component {
         this.setState({
           ...this.state,
           isPopupOpen: false,
-          message: null
+          message: null,
+          success: null,
         })
       }, 4000)
     }
   }
 
   render() {
-    const { id, post, commenting, comments, isPopupOpen } = this.state;
+    const { id, post, success, comments, isPopupOpen } = this.state;
     const { isLoggedIn } = this.props;
     this.closePopupIfOpen()
     return (
@@ -144,7 +146,7 @@ class PostPage extends React.Component {
               onChange={this.handleCommentChange}
               disabled={!isLoggedIn}
             ></textarea>
-            <button id="comment-button" disabled={(!isLoggedIn || isPopupOpen) && commenting}>
+            <button id="comment-button" disabled={(!isLoggedIn || isPopupOpen) && success}>
               <img id="comment-icon" src={commentSVG} />
             </button>
             <div id="comments-container">
