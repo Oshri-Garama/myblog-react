@@ -18,7 +18,8 @@ class PostPage extends React.Component {
       username: "",
       comments: [],
       message: null,
-      isPopupOpen: false
+      isPopupOpen: false,
+      commenting: false
     };
     this.comp = React.createRef();
   }
@@ -73,7 +74,8 @@ class PostPage extends React.Component {
             this.setState({
               ...this.state,
               message: "Your comment should be on the top",
-              isPopupOpen: true
+              isPopupOpen: true,
+              commenting: true
             });
             this.fetchPostPage()
           }
@@ -82,7 +84,8 @@ class PostPage extends React.Component {
       this.setState({
         ...this.state,
         message: "Comment can not be empty",
-        isPopupOpen: true
+        isPopupOpen: true,
+        commenting: false
       });
     }
   };
@@ -118,7 +121,7 @@ class PostPage extends React.Component {
   }
 
   render() {
-    const { id, post, comments, isPopupOpen } = this.state;
+    const { id, post, commenting, comments, isPopupOpen } = this.state;
     const { isLoggedIn } = this.props;
     this.closePopupIfOpen()
     return (
@@ -141,7 +144,7 @@ class PostPage extends React.Component {
               onChange={this.handleCommentChange}
               disabled={!isLoggedIn}
             ></textarea>
-            <button id="comment-button" disabled={!isLoggedIn || isPopupOpen}>
+            <button id="comment-button" disabled={(!isLoggedIn || isPopupOpen) && commenting}>
               <img id="comment-icon" src={commentSVG} />
             </button>
             <div id="comments-container">
