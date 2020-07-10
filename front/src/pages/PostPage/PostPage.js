@@ -75,9 +75,11 @@ class PostPage extends React.Component {
               ...this.state,
               message: "Your comment should be on the top",
               isPopupOpen: true,
-              success: true
+              success: true,
+              comment: ''
             });
             this.fetchPostPage()
+            this.refs.form.reset();
           }
         });
     } else {
@@ -116,7 +118,6 @@ class PostPage extends React.Component {
           ...this.state,
           isPopupOpen: false,
           message: null,
-          success: null,
         })
       }, 4000)
     }
@@ -139,6 +140,7 @@ class PostPage extends React.Component {
             className="comment-input-container"
             onSubmit={this.onSubmit}
             disabled={!isLoggedIn}
+            ref="form"
           >
             <textarea
               id="comment-inputarea"
