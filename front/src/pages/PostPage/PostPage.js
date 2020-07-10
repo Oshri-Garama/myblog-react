@@ -3,9 +3,10 @@ import axios from "axios";
 import Comments from "../../components/Comment";
 import "./PostPage.css";
 import commentSVG from "../../images/icons/comment.svg";
-import { Link } from 'react-router-dom'
-import Scrollbar from 'perfect-scrollbar'
-import 'perfect-scrollbar/css/perfect-scrollbar.css';
+import { Link } from "react-router-dom";
+import Scrollbar from "perfect-scrollbar";
+import "perfect-scrollbar/css/perfect-scrollbar.css";
+import successSVG from "../../images/icons/success.svg";
 
 class PostPage extends React.Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class PostPage extends React.Component {
       comment: "",
       username: "",
       comments: [],
+      isPopupOpen: false,
+      message: null,
     };
     this.comp = React.createRef();
   }
@@ -37,11 +40,11 @@ class PostPage extends React.Component {
 
   componentWillUnmount = () => {
     this.ps = null;
-  }
+  };
 
   componentDidUpdate = () => {
     this.ps = new Scrollbar(this.comp.current);
-  }
+  };
 
   handleCommentChange = (event) => {
     this.setState({
@@ -63,29 +66,63 @@ class PostPage extends React.Component {
         )
         .then((res) => {
           if (res.status === 200) {
-            alert("Your comment should be on the top!");
-            window.location.reload();
+            this.setState({
+              ...this.state,
+              isPopupOpen: true,
+              message: "Your comment should be on the top",
+            });
+            // window.location.reload();
           }
         });
     } else {
-      alert("Comment can not be empty");
+      this.setState({
+        ...this.state,
+        isPopupOpen: true,
+        message: "Comment can not be empty",
+      });
     }
   };
 
   renderPostImage = () => {
-    const { post } = this.state
-    if (post.imageUrl) 
-    return (
-      <img id="post-image-post-page" src={post.imageUrl} />
-    )
-    return null
+    const { post } = this.state;
+    if (post.imageUrl)
+      return <img id="post-image-post-page" src={post.imageUrl} />;
+    return null;
+  };
+
+  showPopupIfNeeded = () => {
+    const { message, isPopupOpen } = this.state;
+    if (isPopupOpen) {
+      return (
+        <div class="alert-success-message">
+          <img src={successSVG} />
+          {message}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  closePopupIfOpen = () => {
+    const { isPopupOpen } = this.state
+    if (isPopupOpen) {
+      setTimeout(() => {
+        this.setState({
+          ...this.state,
+          isPopupOpen: false,
+          message: null
+        })
+      }, 3000)
+    }
   }
 
   render() {
     const { id, post, comments } = this.state;
     const { isLoggedIn } = this.props;
+    this.closePopupIfOpen()
     return (
       <div className="post-view-page">
+        {this.showPopupIfNeeded()}
         <header id="post-view-title">{post.title}</header>
         <div className="post-view-container">
           <div id="post-page-seperator">
@@ -108,31 +145,37 @@ class PostPage extends React.Component {
             </button>
             <div id="comments-container">
               {!isLoggedIn && (
-                <section id='comment-unlogged-error'>
-                  To comment you must {' '}
-                 <Link className='comment-section-link' to={{
-                   pathname: '/login',
-                   state: {
-                    from: this.props.location
-                  },
-                   }}>
-                  login
-                </Link>
-                {' '} OR {' '}
-                 <Link className='comment-section-link' to={{
-                   pathname: '/signup',
-                   state: {
-                    from: this.props.location
-                  },
-                   }}>
-                   sign up
-                 </Link>
+                <section id="comment-unlogged-error">
+                  To comment you must{" "}
+                  <Link
+                    className="comment-section-link"
+                    to={{
+                      pathname: "/login",
+                      state: {
+                        from: this.props.location,
+                      },
+                    }}
+                  >
+                    login
+                  </Link>{" "}
+                  OR{" "}
+                  <Link
+                    className="comment-section-link"
+                    to={{
+                      pathname: "/signup",
+                      state: {
+                        from: this.props.location,
+                      },
+                    }}
+                  >
+                    sign up
+                  </Link>
                 </section>
               )}
               <header id="post-view-comments-header">Comments</header>
-                  <div id='comments-list' ref={this.comp}>
-                    <Comments comments={comments} />
-                  </div>
+              <div id="comments-list" ref={this.comp}>
+                <Comments comments={comments} />
+              </div>
             </div>
           </form>
         </div>

@@ -2,12 +2,31 @@
 @import url('https://fonts.googleapis.com/css?family=Mutka');
 
 body, html {
-  /* background-image: url('https://oshriblogbucket.s3.amazonaws.com/light_background_for_blog_or_site.jpg'); */
   font-family: 'Kalam';
   width: 100%;
   height: 100%;
   margin: 0px;
   background-color: #F3FAEC;
+}
+
+.alert-success-message {
+  /* border: 1px solid red; */
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  align-items: center;
+  top: 7.5%;
+  padding: 1%;
+  left: 38%;
+  width: 22%;
+  height: 6%;
+  background: #fff;
+  border-radius: 2px;
+  font-feature-settings: 'tnum';
+  background-color: white;
+  -webkit-box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
+  box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
+  pointer-events: all;
 }
 
 .ps__rail-x {

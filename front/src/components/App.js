@@ -82,6 +82,7 @@ class App extends React.Component {
       }
     })
   }
+  
 
   render() {
     const { posts, isLoggedIn, userId, username } = this.state;
