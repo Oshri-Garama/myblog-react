@@ -97,6 +97,9 @@
 #comment-comment-content {
   color: rgb(106, 173, 91);
   text-shadow: 1px 1px #cad6d5;
+  max-width: 90%;
+  word-wrap:break-word;
+  white-space: pre-line;
 }
 
 #comments-container {
@@ -111,8 +114,9 @@
   max-height: 280px;
   overflow: hidden;
   position: absolute;
-  margin-top: 5%;
+  margin-top: 3%;
   width: 20%;
+  max-width: 20%;
 }
 
 .post-view-content {
