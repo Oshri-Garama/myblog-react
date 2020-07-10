@@ -2,9 +2,7 @@ import React from "react";
 import "./SignupPage.css";
 import axios from "axios";
 import signupSVG from "../../images/signup.svg";
-
-// const port = '5000';
-// const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
+import AlertMessage from "../../components/AlertMessage/AlertMessage";
 
 class SignupPage extends React.Component {
   constructor(props) {
@@ -13,6 +11,11 @@ class SignupPage extends React.Component {
       fullName: "",
       username: "",
       password: "",
+      popup: {
+        message: null,
+        isPopupOpen: false,
+        success: false,
+      },
     };
   }
 
@@ -40,13 +43,20 @@ class SignupPage extends React.Component {
   handleSignup = (event) => {
     event.preventDefault();
     const { fullName, username, password } = this.state;
-    let lastUrlPath = '/'
-    const location = this.props.location.state
+    let lastUrlPath = "/";
+    const location = this.props.location.state;
     if (location && location.from) {
       lastUrlPath = location.from;
     }
     if (username === "" || password === "" || fullName === "") {
-      alert("Please provide a valid input");
+      this.setState({
+        ...this.state,
+        popup: {
+          message: "Please provide a valid input",
+          isPopupOpen: true,
+          success: false,
+        },
+      });
       return;
     }
     axios
@@ -59,20 +69,51 @@ class SignupPage extends React.Component {
       })
       .catch((err) => {
         if (err.response.status === 404) {
-          alert(
-            "There is a problem connecting to the server, please contact the administrator"
-          );
+          this.setState({
+            ...this.state,
+            popup: {
+              message: "Problem connecting to the server, please contact support",
+              isPopupOpen: true,
+              success: false,
+            },
+          });
           console.log(err, "Couldn't connect to database");
         } else if (err.response.status === 409) {
-          alert("The username is already exist, please choose another one");
+          this.setState({
+            ...this.state,
+            popup: {
+              message: "Username exists, please choose another one",
+              isPopupOpen: true,
+              success: false,
+            },
+          });
           this.refs.form.reset();
         }
       });
   };
 
+  closePopupIfOpen = () => {
+    const { isPopupOpen } = this.state.popup;
+    if (isPopupOpen) {
+      setTimeout(() => {
+        this.setState({
+          ...this.state,
+          popup: {
+            isPopupOpen: false,
+            message: null,
+          },
+        });
+      }, 4000);
+    }
+  };
+
   render() {
+    const { message, success } = this.state.popup;
+    const type = success ? "success" : "failed";
+    this.closePopupIfOpen();
     return (
       <form id="signup-page-container" onSubmit={this.handleSignup} ref="form">
+        <AlertMessage message={message} type={type} />
         <header id="signup-title">Start Your Journey Now!</header>
         <section id="signup-description">
           In Writee, you can write every single memory that you experienced
@@ -83,35 +124,35 @@ class SignupPage extends React.Component {
         </section>
         <div id="signup-form-container">
           <div id="signup-image-sepeartor">
-            <img src={signupSVG}/>
-            <div id='signup-fields-container'>
-            <div id="signup-labels-container">
-              <div>Full Name:</div>
-              <div>User name:</div>
-              <div>Password:</div>
-            </div>
-            <div id="signup-inputs-container">
-              <input
-                className="field-decoration"
-                type="text"
-                placeholder="Type here your full name..."
-                onChange={this.handleFullNameChange}
-              ></input>
-              <input
-                className="field-decoration"
-                type="text"
-                placeholder="Type here your user name..."
-                onChange={this.handleUserNameChange}
-              ></input>
-              <input
-                className="field-decoration"
-                type="password"
-                placeholder="Type here your password..."
-                onChange={this.handlePasswordChange}
-              ></input>
+            <img src={signupSVG} />
+            <div id="signup-fields-container">
+              <div id="signup-labels-container">
+                <div>Full Name:</div>
+                <div>User name:</div>
+                <div>Password:</div>
+              </div>
+              <div id="signup-inputs-container">
+                <input
+                  className="field-decoration"
+                  type="text"
+                  placeholder="Type here your full name..."
+                  onChange={this.handleFullNameChange}
+                ></input>
+                <input
+                  className="field-decoration"
+                  type="text"
+                  placeholder="Type here your user name..."
+                  onChange={this.handleUserNameChange}
+                ></input>
+                <input
+                  className="field-decoration"
+                  type="password"
+                  placeholder="Type here your password..."
+                  onChange={this.handlePasswordChange}
+                ></input>
+              </div>
             </div>
           </div>
-            </div>
         </div>
         <button id="signup-button" type="submit">
           Sign Up
