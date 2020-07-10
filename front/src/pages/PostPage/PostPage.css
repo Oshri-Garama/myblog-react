@@ -129,6 +129,7 @@
   font-size: 20px;
   text-align: justify;
   text-shadow: 2px 2px #cad6d5;
+  word-wrap:break-word;
 }
 
 .post-view-page #post-page-seperator {
