@@ -1,10 +1,8 @@
 import React from "react";
 import "./AddNewPost.css";
 import axios from "axios";
-import bookSVG from '../../images/book.svg'
-
-// const port = '5000';
-// const url = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}/posts`;
+import bookSVG from "../../images/book.svg";
+import AlertMessage from "../../components/AlertMessage/AlertMessage";
 
 class AddNewPost extends React.Component {
   constructor(props) {
@@ -17,7 +15,11 @@ class AddNewPost extends React.Component {
         imageUrl: "",
         author: "",
       },
-      saved: false,
+      popup: {
+        message: null,
+        isPopupOpen: false,
+        success: false,
+      },
     };
   }
   handleTitleChange = (event) => {
@@ -50,33 +52,72 @@ class AddNewPost extends React.Component {
   onSubmit = (event) => {
     event.preventDefault();
     const { post } = this.state;
-    const { title , content} = post;
-    if (title && content && (title.length <= 30)) {
+    const { title, content } = post;
+    if (title && content && title.length <= 30) {
       axios.post("/api/posts", post).then((res) => {
         if (res.status === 200) {
-          post.published = res.data.published;
-          post.id = res.data.id;
-          post.author = res.data.author;
-          alert("Post saved successfully");
-          this.props.history.push("/posts");
+          post.published = res.data.post.published;
+          post.id = res.data.post.id;
+          post.author = res.data.post.author;
+          this.setState({
+            ...this.state,
+            popup: {
+              message: "Post saved successfully",
+              isPopupOpen: true,
+              success: true,
+            },
+          });
+          setTimeout(() => {
+            this.props.history.push(`/posts/${post.id}`);
+          }, 3000)
         }
       });
     } else if (title.length > 30) {
-      console.log('here')
-      alert("Title must be 30 letters max");
+      this.setState({
+        ...this.state,
+        popup: {
+          message: "Title must be 30 letters max",
+          isPopupOpen: true,
+          success: false,
+        },
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        popup: {
+          message: "Title and Content are required",
+          isPopupOpen: true,
+          success: false,
+        },
+      });
     }
-    else {
-      alert("Title and Content are required");
+  };
+
+  closePopupIfOpen = () => {
+    const { isPopupOpen } = this.state.popup;
+    if (isPopupOpen) {
+      setTimeout(() => {
+        this.setState({
+          ...this.state,
+          popup: {
+            isPopupOpen: false,
+            message: null,
+          },
+        });
+      }, 4000);
     }
   };
 
   render() {
+    const { message, success } = this.state.popup;
+    const type = success ? "success" : "failed";
+    this.closePopupIfOpen();
     return (
       <form className="new-post-container" onSubmit={this.onSubmit}>
+        <AlertMessage message={message} type={type} />
         <header id="create-new-post-title">Create New Post</header>
-        <div id='new-post-form-container'>
-
-        <img id='icon-header-new-post' src={bookSVG}/>
+        <div id="new-post-form-container">
+          <img id="icon-header-new-post" src={bookSVG} />
           <input
             id="input-add-title"
             type="text"
