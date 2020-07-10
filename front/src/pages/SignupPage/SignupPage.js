@@ -48,7 +48,17 @@ class SignupPage extends React.Component {
     if (location && location.from) {
       lastUrlPath = location.from;
     }
-    if (username === "" || password === "" || fullName === "") {
+    if (username.length > 10) {
+      this.setState({
+        ...this.state,
+        popup: {
+          message: "Username must be 10 letters max",
+          isPopupOpen: true,
+          success: false,
+        },
+      });
+    }
+    else if (username === "" || password === "" || fullName === "") {
       this.setState({
         ...this.state,
         popup: {
