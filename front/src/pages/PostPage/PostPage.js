@@ -17,9 +17,11 @@ class PostPage extends React.Component {
       comment: "",
       username: "",
       comments: [],
-      message: null,
-      isPopupOpen: false,
-      success: false
+      popup: {
+        message: null,
+        isPopupOpen: false,
+        success: false,
+      },
     };
     this.comp = React.createRef();
   }
@@ -73,9 +75,11 @@ class PostPage extends React.Component {
           if (res.status === 200) {
             this.setState({
               ...this.state,
-              message: "Your comment should be on the top",
-              isPopupOpen: true,
-              success: true,
+              popup: {
+                message: "Your comment should be on the top",
+                isPopupOpen: true,
+                success: true,
+              },
               comment: ''
             });
             this.fetchPostPage()
@@ -85,9 +89,11 @@ class PostPage extends React.Component {
     } else {
       this.setState({
         ...this.state,
-        message: "Comment can not be empty",
-        isPopupOpen: true,
-        success: false
+        popup: {
+          message: "Comment can not be empty",
+          isPopupOpen: true,
+          success: false
+        }
       });
     }
   };
@@ -100,20 +106,23 @@ class PostPage extends React.Component {
   };
 
   closePopupIfOpen = () => {
-    const { isPopupOpen } = this.state
+    const { isPopupOpen } = this.state.popup
     if (isPopupOpen) {
       setTimeout(() => {
         this.setState({
           ...this.state,
-          isPopupOpen: false,
-          message: null,
+          popup: {
+            isPopupOpen: false,
+            message: null,
+          }
         })
       }, 4000)
     }
   }
 
   render() {
-    const { id, post, message, success, comments, isPopupOpen } = this.state;
+    const { post, comments,  } = this.state;
+    const { message, success, isPopupOpen } = this.state.popup
     const { isLoggedIn } = this.props;
     const type = success ? 'success' : 'failed';
     this.closePopupIfOpen()
