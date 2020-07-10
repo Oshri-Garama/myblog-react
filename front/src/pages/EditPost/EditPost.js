@@ -54,8 +54,8 @@ class EditPost extends React.Component {
     if (post.title && post.content && post.title.length <= 30) {
       axios.post("/api/posts/edit", post).then((res) => {
         if (res.status === 200) {
-          post.published = res.data.published;
-          post.author = res.data.author;
+          post.published = res.data.post.published;
+          post.author = res.data.post.author;
           this.setState({
             ...this.state,
             popup: {
@@ -65,7 +65,7 @@ class EditPost extends React.Component {
             },
           });
           setTimeout(() => {
-            this.props.history.push(`/posts`);
+            this.props.history.push(`/posts/${post.id}`);
           }, 3000)
         }
       });

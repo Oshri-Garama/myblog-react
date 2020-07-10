@@ -3,9 +3,7 @@ import "./LoginPage.css";
 import axios from "axios";
 import loginSVG from "../../images/signin.svg";
 import loginLogoSVG from "../../images/login-logo.svg";
-
-// const port = '5000';
-// const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
+import AlertMessage from "../../components/AlertMessage/AlertMessage";
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -13,6 +11,11 @@ class LoginPage extends React.Component {
     this.state = {
       username: "",
       password: "",
+      popup: {
+        message: null,
+        isPopupOpen: false,
+        success: false,
+      },
     };
   }
 
@@ -32,13 +35,20 @@ class LoginPage extends React.Component {
     event.preventDefault();
     const { username, password } = this.state;
     // added state from to save the last page and then on success redirect there.
-    let lastUrlPath = '/'
-    const location = this.props.location.state
+    let lastUrlPath = "/";
+    const location = this.props.location.state;
     if (location && location.from) {
       lastUrlPath = location.from;
     }
     if (username === "" || password === "") {
-      alert("Please provide a valid input");
+      this.setState({
+        ...this.state,
+        popup: {
+          message: "Please provide a valid input",
+          isPopupOpen: true,
+          success: false,
+        },
+      });
       this.refs.form.reset();
       return;
     }
@@ -52,21 +62,52 @@ class LoginPage extends React.Component {
       })
       .catch((err) => {
         if (err.response.status === 404) {
-          alert(
-            "There is a problem connecting to the server, please contact the administrator"
-          );
+          this.setState({
+            ...this.state,
+            popup: {
+              message: "Problem connecting to the server, please contact support",
+              isPopupOpen: true,
+              success: false,
+            },
+          });
           console.log(err, "Couldn't connect to database");
         } else if (err.response.status === 401) {
-          alert("The username or the password you provided is incorrect");
+          this.setState({
+            ...this.state,
+            popup: {
+              message: "The username or the password you provided is incorrect",
+              isPopupOpen: true,
+              success: false,
+            },
+          });
           this.refs.form.reset();
         }
       });
   };
 
+  closePopupIfOpen = () => {
+    const { isPopupOpen } = this.state.popup;
+    if (isPopupOpen) {
+      setTimeout(() => {
+        this.setState({
+          ...this.state,
+          popup: {
+            isPopupOpen: false,
+            message: null,
+          },
+        });
+      }, 4000);
+    }
+  };
+
   render() {
+    const { message, success } = this.state.popup;
+    const type = success ? "success" : "failed";
+    this.closePopupIfOpen();
     return (
       <form id="login-container-page" onSubmit={this.handleLogin} ref="form">
-        <img id='login-logo-svg' src={loginLogoSVG}/>
+        <AlertMessage message={message} type={type} />
+        <img id="login-logo-svg" src={loginLogoSVG} />
         <div className="form-container">
           <div className="image-sepeartor">
             <img src={loginSVG} />
