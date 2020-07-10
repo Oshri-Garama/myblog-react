@@ -32,7 +32,7 @@ class Homepage extends React.Component {
           <text>All Posts</text>
         </div>
         <div className="button-container">
-          <Link className="button-homepage" to="/">
+          <Link className="button-homepage" to="/user/posts">
             <img src={myPostsSVG} />
           </Link>
           <text>My Posts</text>

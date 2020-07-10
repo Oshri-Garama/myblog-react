@@ -112,8 +112,13 @@ class App extends React.Component {
               render={(props) => <PostPage {...props} username={username} isLoggedIn={isLoggedIn}/>}
             ></Route>
             <Route
-              path="/posts"
+              path="/user/posts"
+              //continue here... check for posts is there need for that?
               render={(props) => <Posts {...props} posts={posts} isLoggedIn={isLoggedIn} userId={userId}/>}
+            ></Route>
+            <Route
+              path="/posts"
+              render={(props) => <Posts {...props} isLoggedIn={isLoggedIn} userId={userId}/>}
             ></Route>
             <Route 
               path="/login"

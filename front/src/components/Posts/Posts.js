@@ -108,9 +108,9 @@ class Posts extends React.Component {
     };
   }
 
-  getAllPosts = () => {
+  getAllPosts = pathname => {
     axios
-      .get("/api/posts", { withCredentials: true })
+      .get(`/api/${pathname}`, { withCredentials: true })
       .then((res) => {
         if (res.status === 200) {
           this.setState({
@@ -122,12 +122,20 @@ class Posts extends React.Component {
   };
 
   componentDidMount = () => {
-    this.getAllPosts();
+    const { pathname } = this.props.location
+    this.getAllPosts(pathname);
+  };
+
+  componentDidUpdate = () => {
+    const { pathname } = this.props.location
+    this.getAllPosts(pathname);
   };
 
   render() {
     const { userId, isLoggedIn } = this.props;
     const { posts } = this.state;
+    const { pathname } = this.props.location
+    const headerTitle = pathname === '/posts' ? 'Recent Posts' : 'My Posts'
     const postsJSX = posts.map((post) => {
       return (
         <Post
@@ -144,7 +152,7 @@ class Posts extends React.Component {
       );
     });
     return <div id='all-posts-page-container'>
-      <header id='recent-posts-title'>Recent Posts</header>
+      <header id='recent-posts-title'>{headerTitle}</header>
       <div id="add-new-post-container">
           <Link id="add-new-post-button" to="/posts/new">
             <img src={newPostSVG} />

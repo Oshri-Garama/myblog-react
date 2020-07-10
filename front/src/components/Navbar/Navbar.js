@@ -24,7 +24,7 @@ class Navbar extends React.Component {
               All Posts
             </Link>
           {isLoggedIn && (
-            <Link className="vr-line-right" to="#">
+            <Link className="vr-line-right" to="/user/posts">
               My Posts
             </Link>
           )}
