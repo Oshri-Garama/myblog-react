@@ -70,6 +70,10 @@
   outline: none;
 }
 
+#comment-button:disabled {
+  opacity: 50%;
+}
+
 #comment-icon {
     transition-duration: 500ms;
     border: none;
