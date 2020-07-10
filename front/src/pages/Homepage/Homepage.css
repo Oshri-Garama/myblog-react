@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Great+Vibes');
 @import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah');
 
-@media screen and (min-width: 1290px) {
+@media screen and (min-height: 650px) {
   #buttons-homepage {
     min-height: 324px;
     max-width: 38%;
@@ -14,6 +14,22 @@
     font-size: 300px !important;
     margin-bottom: 6%;
   }
+
+  .home-container #buttons-homepage {
+    margin-bottom: 4.5%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  #buttons-homepage {
+    width: 50% !important;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  #buttons-homepage {
+    min-width: 55% !important;
+  }
 }
 
 .home-container {
@@ -23,7 +39,6 @@
   /* height: 100%; */
   background: linear-gradient(to bottom, #009688 65%, #F3FAEC 20%);
   background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 #top-five-title {
@@ -33,20 +48,6 @@
   height: 80%;
   width: 6%;
   align-self: center;
-}
-
-#top-five {
-  display: flex;
-  justify-content: center;
-  height: 160px;
-  background-color: #F3FAEC;  
-}
-
-#posts-container {
-  display: flex;
-  width: 98%;
-  justify-content: space-between;
-  flex-wrap: wrap;
 }
 
 #buttons-homepage {
