@@ -27,6 +27,10 @@ body, html {
   -webkit-box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
   box-shadow: 0 3px 6px -4px rgba(0,0,0,.12), 0 6px 16px 0 rgba(0,0,0,.08), 0 9px 28px 8px rgba(0,0,0,.05);
   pointer-events: all;
+  -webkit-animation: fadeinout 4s forwards ;
+  -moz-animation: fadeinout 4s forwards;
+  -o-animation: fadeinout 4s forwards;
+  animation: fadeinout 4s forwards;
 }
 
 .ps__rail-x {
@@ -45,6 +49,28 @@ body, html {
 		opacity: 1;
 	}
 }
+
+
+@keyframes fadeinout {
+  0%   { opacity:0; }
+  50%  { opacity:1; }
+  100% { opacity:0; }
+}
+@-o-keyframes fadeinout{
+  0%   { opacity:0; }
+  50%  { opacity:1; }
+  100% { opacity:0; }
+}
+@-moz-keyframes fadeinout{
+  0%   { opacity:0; }
+  50%  { opacity:1; }
+  100% { opacity:0; }
+}
+@-webkit-keyframes fadeinout{
+  0%   { opacity:0; }
+  50%  { opacity:1; }
+  100% { opacity:0; }
+}   
 
 #loader-container {
   display: flex;

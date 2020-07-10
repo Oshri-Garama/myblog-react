@@ -128,9 +128,7 @@
 }
 
 .post-view-page #post-page-seperator {
-  /* display: flex; */
   width: 65%;
-  /* display: table; */
 }
 
 .post-view-page #comment-unlogged-error {

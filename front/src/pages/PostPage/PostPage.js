@@ -6,7 +6,7 @@ import commentSVG from "../../images/icons/comment.svg";
 import { Link } from "react-router-dom";
 import Scrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
-import successSVG from "../../images/icons/success.svg";
+import AlertMessage from '../../components/AlertMessage/AlertMessage'
 
 class PostPage extends React.Component {
   constructor(props) {
@@ -17,8 +17,8 @@ class PostPage extends React.Component {
       comment: "",
       username: "",
       comments: [],
-      isPopupOpen: false,
       message: null,
+      isPopupOpen: false
     };
     this.comp = React.createRef();
   }
@@ -68,17 +68,16 @@ class PostPage extends React.Component {
           if (res.status === 200) {
             this.setState({
               ...this.state,
-              isPopupOpen: true,
               message: "Your comment should be on the top",
+              isPopupOpen: true
             });
-            // window.location.reload();
           }
         });
     } else {
       this.setState({
         ...this.state,
-        isPopupOpen: true,
         message: "Comment can not be empty",
+        isPopupOpen: true
       });
     }
   };
@@ -90,18 +89,15 @@ class PostPage extends React.Component {
     return null;
   };
 
-  showPopupIfNeeded = () => {
-    const { message, isPopupOpen } = this.state;
-    if (isPopupOpen) {
-      return (
-        <div class="alert-success-message">
-          <img src={successSVG} />
-          {message}
-        </div>
-      );
+  renderPopupIfNeeded = () => {
+    const { message } = this.state
+    if (message) {
+      return <AlertMessage message={message} type='success' />
     }
-    return null;
-  };
+    else {
+      return null
+    }
+  }
 
   closePopupIfOpen = () => {
     const { isPopupOpen } = this.state
@@ -112,7 +108,7 @@ class PostPage extends React.Component {
           isPopupOpen: false,
           message: null
         })
-      }, 3000)
+      }, 7000)
     }
   }
 
@@ -122,7 +118,7 @@ class PostPage extends React.Component {
     this.closePopupIfOpen()
     return (
       <div className="post-view-page">
-        {this.showPopupIfNeeded()}
+        {this.renderPopupIfNeeded()}
         <header id="post-view-title">{post.title}</header>
         <div className="post-view-container">
           <div id="post-page-seperator">
