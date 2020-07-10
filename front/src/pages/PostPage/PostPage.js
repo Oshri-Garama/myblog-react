@@ -24,6 +24,10 @@ class PostPage extends React.Component {
   }
 
   componentDidMount() {
+    this.fetchPostPage()
+  }
+
+  fetchPostPage = () => {
     const { id } = this.state;
     axios
       .get(`/api/posts/${id}`, { withCredentials: true })
@@ -71,6 +75,7 @@ class PostPage extends React.Component {
               message: "Your comment should be on the top",
               isPopupOpen: true
             });
+            this.fetchPostPage()
           }
         });
     } else {
