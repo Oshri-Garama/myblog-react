@@ -105,6 +105,7 @@ class Posts extends React.Component {
     super(props);
     this.state = {
       posts: [],
+      pathname: this.props.location.pathname
     };
   }
 
@@ -123,13 +124,24 @@ class Posts extends React.Component {
 
   componentDidMount = () => {
     const { pathname } = this.props.location
+    this.setState({
+      ...this.state,
+      pathname: pathname
+    })
     this.getAllPosts(pathname);
   };
 
+  componentDidUpdate = (prevProps) => {
+    const { pathname } = this.props.location;
+    if (prevProps.location.pathname !== pathname) {
+      this.getAllPosts(pathname)
+    }
+  }
+
   render() {
+    const { pathname } = this.props.location
     const { userId, isLoggedIn } = this.props;
     const { posts } = this.state;
-    const { pathname } = this.props.location
     const headerTitle = pathname === '/posts' ? 'Recent Posts' : 'My Posts'
     const postsJSX = posts.map((post) => {
       return (
