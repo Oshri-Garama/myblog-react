@@ -66,7 +66,7 @@ class Post extends React.Component {
               {title}
             </Link>
           </div>
-          <img src={imageUrl} alt="" />
+          <img className='post-image' src={imageUrl} alt="" />
           <div className="post-content">{content}</div>
         </div>
         <div className="published-time">
