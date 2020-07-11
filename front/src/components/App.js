@@ -37,12 +37,14 @@ class App extends React.Component {
     this.setState({
       isLoggedIn: true,
       ...details,
+      isLoading: false
     })
   };
 
   handleLogin = (data) => {
     this.setState({
       isLoggedIn: true,
+      isLoading: false,
       ...data
     })
   };
