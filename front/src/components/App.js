@@ -22,7 +22,7 @@ const initialState = {
   fullName: null,
   isAdmin: false,
   isLoggedIn: null,
-  isLoading: null,
+  isLoading: true,
 }
 
 class App extends React.Component {
@@ -83,7 +83,6 @@ class App extends React.Component {
     })
   }
   
-
   render() {
     const { posts, isLoggedIn, userId, username } = this.state;
     if (this.state.isLoading) return <div id='loader-container'><img id='loader' src={loader}></img></div>

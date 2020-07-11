@@ -3,10 +3,9 @@ import "./Posts.css";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
-import deleteSVG from '../../images/icons/delete.svg'
-import editSVG from '../../images/icons/edit.svg'
+import deleteSVG from "../../images/icons/delete.svg";
+import editSVG from "../../images/icons/edit.svg";
 import newPostSVG from "../../images/newPost.svg";
-
 
 class Post extends React.Component {
   constructor(props) {
@@ -32,7 +31,7 @@ class Post extends React.Component {
       .post("/api/posts/delete", { post_id: id })
       .then((res) => {
         if (res.status === 200) {
-          setTimeout(this.props.getAllPosts(pathname), 300)
+          setTimeout(this.props.getAllPosts(pathname), 300);
         }
       })
       .catch((err) => {
@@ -61,41 +60,43 @@ class Post extends React.Component {
 
     return (
       <div className="post-container">
-        <div className='post-content-container'>
-          <div className='post-title-container'>
-              <Link className='post-title' to={`/posts/${id}`}>{title}</Link>
+        <div className="post-content-container">
+          <div className="post-title-container">
+            <Link className="post-title" to={`/posts/${id}`}>
+              {title}
+            </Link>
           </div>
-          <img src={imageUrl} alt=""/>
-        <div className="post-content">{content}</div>
+          <img src={imageUrl} alt="" />
+          <div className="post-content">{content}</div>
         </div>
         <div className="published-time">
-            Published{" "}
-            {daysOfPublished === 0 ? "today" : `${daysOfPublished} days ago`} by{" "}
-            {author}
+          Published{" "}
+          {daysOfPublished === 0 ? "today" : `${daysOfPublished} days ago`} by{" "}
+          {author}
         </div>
-          {userLoggedInId && userLoggedInId === authorId && (
-            <div className="post-buttons-container">
-              <Link
-                to={{
-                  pathname: `/posts/edit/${id}`,
-                  state: {
-                    id: id,
-                    title: title,
-                    content: content,
-                    imageUrl: imageUrl,
-                  },
-                }}
-              >
-                <img className='edit-post-icon' src={editSVG}/>
-              </Link>
-              <div className='delete-post-container'>
-              <button className='delete-post-icon' onClick={this.handleDelete}>
-                <img src={deleteSVG}/>
+        {userLoggedInId && userLoggedInId === authorId && (
+          <div className="post-buttons-container">
+            <Link
+              to={{
+                pathname: `/posts/edit/${id}`,
+                state: {
+                  id: id,
+                  title: title,
+                  content: content,
+                  imageUrl: imageUrl,
+                },
+              }}
+            >
+              <img className="edit-post-icon" src={editSVG} />
+            </Link>
+            <div className="delete-post-container">
+              <button className="delete-post-icon" onClick={this.handleDelete}>
+                <img src={deleteSVG} />
               </button>
-              </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
+      </div>
     );
   }
 }
@@ -105,11 +106,12 @@ class Posts extends React.Component {
     super(props);
     this.state = {
       posts: [],
-      pathname: this.props.location.pathname
+      pathname: this.props.location.pathname,
     };
+    this._mounted = false;
   }
 
-  getAllPosts = pathname => {
+  getAllPosts = (pathname) => {
     axios
       .get(`/api/${pathname}`, { withCredentials: true })
       .then((res) => {
@@ -123,15 +125,12 @@ class Posts extends React.Component {
   };
 
   componentDidMount = () => {
-    const { pathname } = this.props.location
+    const { pathname } = this.props.location;
     this.setState({
       ...this.state,
-      pathname: pathname
-    })
-    if (!this.mounted) {
-      this.getAllPosts(pathname);
-    }
-    this.mounted = true;
+      pathname: pathname,
+    });
+    this.getAllPosts(pathname);
   };
 
   componentWillReceiveProps = (newProps) => {
@@ -139,18 +138,13 @@ class Posts extends React.Component {
     if (newProps.location.pathname !== pathname) {
       this.getAllPosts(newProps.location.pathname)
     }
-    this.mounted = true;
   }
 
-  componentWillUnmount(){
-    this.mounted = false;
-}
-
   render() {
-    const { pathname } = this.props.location
+    const { pathname } = this.props.location;
     const { userId, isLoggedIn } = this.props;
     const { posts } = this.state;
-    const headerTitle = pathname === '/posts' ? 'Recent Posts' : 'My Posts'
+    const headerTitle = pathname === "/posts" ? "Recent Posts" : "My Posts";
     const postsJSX = posts.map((post) => {
       return (
         <Post
@@ -168,16 +162,18 @@ class Posts extends React.Component {
         />
       );
     });
-    return <div id='all-posts-page-container'>
-      <header id='recent-posts-title'>{headerTitle}</header>
-      <div id="add-new-post-container">
+    return (
+      <div id="all-posts-page-container">
+        <header id="recent-posts-title">{headerTitle}</header>
+        <div id="add-new-post-container">
           <Link id="add-new-post-button" to="/posts/new">
             <img src={newPostSVG} />
           </Link>
-          <header id='recent-posts-button-header'>New Post</header>
+          <header id="recent-posts-button-header">New Post</header>
         </div>
-      <div id='recent-posts-container'>{postsJSX}</div>
-    </div>
+        <div id="recent-posts-container">{postsJSX}</div>
+      </div>
+    );
   }
 }
 
