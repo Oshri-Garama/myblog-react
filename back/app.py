@@ -148,7 +148,7 @@ def get_post(post_id):
     cursor.close()
     headers = ['id', 'author', 'authorId', 'title', 'content', 'imageUrl', 'published']
     post = dict(zip(headers, post_record))
-    headers = ['postId', 'content', 'username']
+    headers = ['commentId', 'postId', 'content', 'username']
     comments = []
     for comment in comments_record:
         comments.append(dict(zip(headers, comment)))
@@ -297,7 +297,7 @@ def manage_comments(post_id):
 
 
 def get_all_comments(post_id):
-    query_select = 'select post_id, content, user_name from comments'
+    query_select = 'select comment_id, post_id, content, user_name from comments'
     query_join_comments = 'join users on users.user_id = comments.user_id where post_id = %s'
     query_order = 'order by comment_id desc'
     query = '%s %s %s' % (query_select, query_join_comments, query_order)
@@ -307,7 +307,7 @@ def get_all_comments(post_id):
     cursor.execute(query, values)
     comment_records = cursor.fetchall()
     cursor.close()
-    headers = ['postId', 'content', 'username']
+    headers = ['commentId', 'postId', 'content', 'username']
     for comment in comment_records:
         data.append(dict(zip(headers, comment)))
     return comment_records
