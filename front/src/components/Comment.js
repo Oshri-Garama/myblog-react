@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 
 const Comment = (props) => {
   return (
@@ -16,6 +15,7 @@ const Comments = (props) => {
         <Comment
           username={commentData.username}
           comment={commentData.content}
+          key={commentData.commentId}
         />
       );
     });

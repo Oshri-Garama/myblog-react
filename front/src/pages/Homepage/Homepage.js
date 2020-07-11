@@ -23,19 +23,19 @@ class Homepage extends React.Component {
           <Link className="button-homepage" to="/posts/new">
             <img src={newPostSVG} />
           </Link>
-          <text>New Post</text>
+          <header className='button-header-container-homepage'>New Post</header>
         </div>
         <div className="button-container">
           <Link className="button-homepage" to="/posts">
             <img src={allPostsSVG} />
           </Link>
-          <text>All Posts</text>
+          <header className='button-header-container-homepage'>All Posts</header>
         </div>
         <div className="button-container">
           <Link className="button-homepage" to="/user/posts">
             <img src={myPostsSVG} />
           </Link>
-          <text>My Posts</text>
+          <header className='button-header-container-homepage'>My Posts</header>
         </div>
       </div>
     );
@@ -48,19 +48,19 @@ class Homepage extends React.Component {
           <Link className="button-homepage" to="/login">
             <img src={signInSVG} />
           </Link>
-          <text>Login</text>
+          <header className='button-header-container-homepage'>Login</header>
         </div>
         <div className="button-container">
           <Link className="button-homepage" to="/signup">
             <img src={signUpSVG} />
           </Link>
-          <text>Sign Up</text>
+          <header className='button-header-container-homepage'>Sign Up</header>
         </div>
         <div className="button-container">
           <Link className="button-homepage" to="/about">
             <img src={writerSVG} />
           </Link>
-          <text>About Me</text>
+          <header className='button-header-container-homepage'>About Me</header>
         </div>
       </div>
     );

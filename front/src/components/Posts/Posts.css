@@ -156,7 +156,7 @@
 	animation-duration: 1s;
 }
 
-#all-posts-page-container #add-new-post-container text {
+#all-posts-page-container #add-new-post-container #recent-posts-button-header {
   align-self: flex;
   align-self: center;
   font-size: 17px;

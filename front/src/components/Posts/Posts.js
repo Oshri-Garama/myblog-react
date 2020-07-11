@@ -131,11 +131,13 @@ class Posts extends React.Component {
     this.getAllPosts(pathname);
   };
 
-  componentDidUpdate = (prevProps) => {
+  componentWillReceiveProps = (newProps) => {
     const { pathname } = this.props.location;
-    if (prevProps.location.pathname !== pathname) {
-      this.getAllPosts(pathname)
+    if (newProps.location.pathname !== pathname) {
+      this.getAllPosts(newProps.location.pathname)
     }
+    console.log('this', pathname)
+    console.log('new', newProps.location.pathname)
   }
 
   render() {
@@ -146,6 +148,7 @@ class Posts extends React.Component {
     const postsJSX = posts.map((post) => {
       return (
         <Post
+          key={post.id}
           id={post.id}
           author={post.author}
           authorId={post.authorId}
@@ -165,7 +168,7 @@ class Posts extends React.Component {
           <Link id="add-new-post-button" to="/posts/new">
             <img src={newPostSVG} />
           </Link>
-          <text>New Post</text>
+          <header id='recent-posts-button-header'>New Post</header>
         </div>
       <div id='recent-posts-container'>{postsJSX}</div>
     </div>

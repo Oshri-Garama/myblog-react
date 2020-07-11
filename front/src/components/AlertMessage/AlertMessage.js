@@ -18,9 +18,9 @@ class AlertMessage extends React.Component {
         SVG = failedSVG;
       }
       return (
-        <div class="alert-message-container">
-          <img class="svg-alert" src={SVG} />
-          <text class="alert-message">{message}</text>
+        <div className="alert-message-container">
+          <img className="svg-alert" src={SVG} />
+          <p className="alert-message">{message}</p>
         </div>
       );
     } else {
