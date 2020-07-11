@@ -128,7 +128,10 @@ class Posts extends React.Component {
       ...this.state,
       pathname: pathname
     })
-    this.getAllPosts(pathname);
+    if (!this.mounted) {
+      this.getAllPosts(pathname);
+    }
+    this.mounted = true;
   };
 
   componentWillReceiveProps = (newProps) => {
@@ -136,9 +139,12 @@ class Posts extends React.Component {
     if (newProps.location.pathname !== pathname) {
       this.getAllPosts(newProps.location.pathname)
     }
-    console.log('this', pathname)
-    console.log('new', newProps.location.pathname)
+    this.mounted = true;
   }
+
+  componentWillUnmount(){
+    this.mounted = false;
+}
 
   render() {
     const { pathname } = this.props.location
