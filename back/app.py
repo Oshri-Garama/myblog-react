@@ -245,19 +245,14 @@ def get_all_posts():
 
 @app.route('/api/user/posts')
 def get_user_posts():
-    session_id = request.cookies.get('session_id')
-    if not session_id:
-        abort(401)
-    user_id = check_login()[0]
-    values = (user_id, )
+    user_id = check_login()
     query_select = 'select post_id, author_id, title, content, image_url, created_at, full_name from users'
-    query_join_sessions = 'join sessions on users.user_id = sessions.user_id'
     query_join_posts = 'join posts on users.user_id = posts.author_id where users.user_id = %s'
     query_order = 'order by post_id desc'
-    query = '%s %s %s %s' % (query_select, query_join_sessions, query_join_posts, query_order)
+    query = '%s %s %s' % (query_select, query_join_posts, query_order)
     data = []
     cursor = g.db.cursor()
-    cursor.execute(query, values)
+    cursor.execute(query, user_id)
     post_records = cursor.fetchall()
     headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published', 'author']
     for post in post_records:
@@ -281,9 +276,6 @@ def create_new_post():
 
 @app.route('/api/posts/edit', methods=['POST'])
 def edit_post():
-    session_id = request.cookies.get('session_id')
-    if not session_id:
-        abort(401)
     check_login()
     data = request.get_json()
     post_id = data['id']
@@ -322,10 +314,7 @@ def get_all_comments(post_id):
 
 
 def add_new_comment():
-    session_id = request.cookies.get('session_id')
-    if not session_id:
-        abort(401)
-    user_id = check_login()[0]  # returns tuple
+    user_id = check_login()[0]  # check_login() returns a tuple, need only the number
     data = request.get_json()
     query = 'insert into comments (user_id, post_id, content) values (%s, %s, %s)'
     values = (user_id, data['postId'], data['comment'])
