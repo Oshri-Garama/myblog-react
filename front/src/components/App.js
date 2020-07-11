@@ -51,7 +51,8 @@ class App extends React.Component {
     axios.post('/api/logout', {withCredentials: true}).then(() => {
     }).catch((error) => console.log(error, "Theres no such a session_id"))
     this.setState({
-      ...initialState
+      ...initialState,
+      isLoading: false
     })
   }
   
