@@ -142,13 +142,14 @@ def get_post(post_id):
     query = '%s %s' % (query_select, query_join)
     values = (post_id, )
     comments = get_all_comments(post_id)
+    tags = get_post_tags(post_id)
     cursor = g.db.cursor()
     cursor.execute(query, values)
     post_record = cursor.fetchone()
     cursor.close()
     headers = ['id', 'author', 'authorId', 'title', 'content', 'imageUrl', 'published']
     post = dict(zip(headers, post_record))
-    post_data = {"post": post, "comments": comments}
+    post_data = {"post": post, "comments": comments, "tags": tags}
     return jsonify(post_data)
 
 
@@ -317,6 +318,23 @@ def get_tag(tag_id):
     cursor.close()
     headers = ['tagId', 'tagName']
     return jsonify(dict(zip(headers, comment_record)))
+
+
+def get_post_tags(post_id):
+    query_select = 'select post_id, tags.tag_id, name from post_tags'
+    query_join_tags = 'join tags on post_tags.tag_id = tags.tag_id where post_id = %s'
+    query_ordering = 'order by name desc'
+    query = '%s %s %s' % (query_select, query_join_tags, query_ordering)
+    values = (post_id, )
+    cursor = g.db.cursor()
+    cursor.execute(query, values)
+    tag_records = cursor.fetchall()
+    cursor.close()
+    data = []
+    headers = ['tagId', 'tagName']
+    for tag in tag_records:
+        data.append(dict(zip(headers, tag)))
+    return data  # Return data instead of jsonify- since it is not a route.
 
 
 @app.route('/api/tags', methods=['GET'])
