@@ -288,6 +288,41 @@ def edit_post():
     return get_post(post_id)
 
 
+@app.route('/api/tags/<post_id>', methods=['POST'])
+def add_new_tag(post_id):
+    check_login()[0]
+    data = request.get_json()
+    query = 'insert into tags (name) values (%s)'
+    values = (data['tagName'],)
+    cursor = g.db.cursor()
+    cursor.execute(query, values)
+    new_tag_id = cursor.lastrowid
+    cursor.close()
+    g.db.commit()
+    return add_tag_to_post(post_id, new_tag_id)
+
+
+def add_tag_to_post(post_id, tag_id):
+    query = 'insert into post_tags (post_id, tag_id) values (%s, %s)'
+    values = (post_id, tag_id)
+    cursor = g.db.cursor()
+    cursor.execute(query, values)
+    cursor.close()
+    g.db.commit()
+    return get_tag(tag_id)
+
+
+def get_tag(tag_id):
+    query = 'select tag_id, name from tags where tag_id = %s'
+    values = (tag_id, )
+    cursor = g.db.cursor()
+    cursor.execute(query, values)
+    comment_record = cursor.fetchone()
+    cursor.close()
+    headers = ['tagId', 'tagName']
+    return jsonify(dict(zip(headers, comment_record)))
+
+
 @app.route('/api/comments/<post_id>', methods=['GET', 'POST'])
 def manage_comments(post_id):
     if request.method == 'GET':
