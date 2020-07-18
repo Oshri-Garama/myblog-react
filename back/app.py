@@ -323,6 +323,20 @@ def get_tag(tag_id):
     return jsonify(dict(zip(headers, comment_record)))
 
 
+@app.route('/api/tags', methods=['GET'])
+def get_all_tags():
+    query = 'select tag_id, name from tags'
+    cursor = g.db.cursor()
+    cursor.execute(query)
+    tag_records = cursor.fetchall()
+    cursor.close()
+    data = []
+    headers = ['tagId', 'tagName']
+    for tag in tag_records:
+        data.append(dict(zip(headers, tag)))
+    return jsonify(data)
+
+
 @app.route('/api/comments/<post_id>', methods=['GET', 'POST'])
 def manage_comments(post_id):
     if request.method == 'GET':
