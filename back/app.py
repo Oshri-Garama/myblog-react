@@ -141,17 +141,13 @@ def get_post(post_id):
     query_join = 'join users on users.user_id = posts.author_id where post_id= %s'
     query = '%s %s' % (query_select, query_join)
     values = (post_id, )
-    comments_record = get_all_comments(post_id)
+    comments = get_all_comments(post_id)
     cursor = g.db.cursor()
     cursor.execute(query, values)
     post_record = cursor.fetchone()
     cursor.close()
     headers = ['id', 'author', 'authorId', 'title', 'content', 'imageUrl', 'published']
     post = dict(zip(headers, post_record))
-    headers = ['commentId', 'postId', 'content', 'username']
-    comments = []
-    for comment in comments_record:
-        comments.append(dict(zip(headers, comment)))
     post_data = {"post": post, "comments": comments}
     return jsonify(post_data)
 
@@ -359,7 +355,7 @@ def get_all_comments(post_id):
     headers = ['commentId', 'postId', 'content', 'username']
     for comment in comment_records:
         data.append(dict(zip(headers, comment)))
-    return comment_records
+    return data
 
 
 def add_new_comment():
