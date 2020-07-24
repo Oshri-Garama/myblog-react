@@ -345,8 +345,11 @@ def get_all_tags():
     tag_records = cursor.fetchall()
     cursor.close()
     data = []
-    headers = ['tagId', 'tagName']
+    headers = ['id', 'name']
     for tag in tag_records:
+        id = str(tag[0])
+        name = tag[1]
+        tag = (id, name)
         data.append(dict(zip(headers, tag)))
     return jsonify(data)
 
