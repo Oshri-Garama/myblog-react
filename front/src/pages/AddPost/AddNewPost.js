@@ -131,12 +131,12 @@ class AddNewPost extends React.Component {
             placeholder="Paste here your image url"
             onChange={this.handleImageChange}
           ></input>
-          <TagsSelector />
           <textarea
             id="input-add-content"
             placeholder="Post content goes here..."
             onChange={this.handleContentChange}
           ></textarea>
+          <TagsSelector />
           <button
             id="create-post-button"
             type="submit"
