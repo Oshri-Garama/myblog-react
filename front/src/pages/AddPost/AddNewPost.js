@@ -3,6 +3,7 @@ import "./AddNewPost.css";
 import axios from "axios";
 import bookSVG from "../../images/book.svg";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
+import TagsSelector from "../../components/TagsSelector/TagsSelector";
 
 class AddNewPost extends React.Component {
   constructor(props) {
@@ -130,6 +131,7 @@ class AddNewPost extends React.Component {
             placeholder="Paste here your image url"
             onChange={this.handleImageChange}
           ></input>
+          <TagsSelector />
           <textarea
             id="input-add-content"
             placeholder="Post content goes here..."
