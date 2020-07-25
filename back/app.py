@@ -268,6 +268,8 @@ def create_new_post():
     new_post_id = cursor.lastrowid
     cursor.close()
     g.db.commit()
+    tags = data['tags']
+    add_new_tags(new_post_id, tags)
     return get_post(new_post_id)
 
 
@@ -285,18 +287,19 @@ def edit_post():
     return get_post(post_id)
 
 
-@app.route('/api/tags/<post_id>', methods=['POST'])
-def add_new_tag(post_id):
-    check_login()[0]
-    data = request.get_json()
+def add_new_tags(post_id, tags):
     query = 'insert into tags (name) values (%s)'
-    values = (data['tagName'],)
-    cursor = g.db.cursor()
-    cursor.execute(query, values)
-    new_tag_id = cursor.lastrowid
-    cursor.close()
-    g.db.commit()
-    return add_tag_to_post(post_id, new_tag_id)
+    if not tags:
+        return []
+    for tag in tags:
+        values = (tag['name'], )
+        cursor = g.db.cursor()
+        cursor.execute(query, values)
+        new_tag_id = cursor.lastrowid
+        cursor.close()
+        g.db.commit()
+        add_tag_to_post(post_id, new_tag_id)
+    return True
 
 
 def add_tag_to_post(post_id, tag_id):
@@ -321,7 +324,7 @@ def get_tag(tag_id):
 
 
 def get_post_tags(post_id):
-    query_select = 'select post_id, tags.tag_id, name from post_tags'
+    query_select = 'select tags.tag_id, name from post_tags'
     query_join_tags = 'join tags on post_tags.tag_id = tags.tag_id where post_id = %s'
     query_ordering = 'order by name desc'
     query = '%s %s %s' % (query_select, query_join_tags, query_ordering)
@@ -331,7 +334,7 @@ def get_post_tags(post_id):
     tag_records = cursor.fetchall()
     cursor.close()
     data = []
-    headers = ['tagId', 'tagName']
+    headers = ['id', 'name']
     for tag in tag_records:
         data.append(dict(zip(headers, tag)))
     return data  # Return data instead of jsonify- since it is not a route.
