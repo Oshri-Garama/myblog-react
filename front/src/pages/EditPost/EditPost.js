@@ -3,6 +3,7 @@ import "./EditPost.css";
 import axios from "axios";
 import editSVG from "../../images/edit-logo.svg";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
+import TagsSelector from "../../components/TagsSelector/TagsSelector";
 
 class EditPost extends React.Component {
   constructor(props) {
@@ -138,6 +139,7 @@ class EditPost extends React.Component {
             placeholder="Post content goes here..."
             onChange={this.handleContentChange}
           ></textarea>
+          <TagsSelector />
           <button
             id="create-post-button"
             type="submit"
