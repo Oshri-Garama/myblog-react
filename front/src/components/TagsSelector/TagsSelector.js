@@ -2,6 +2,7 @@ import React from "react";
 import "./TagsSelector.css";
 import axios from "axios";
 import { WithContext as ReactTags } from 'react-tag-input';
+import AlertMessage from "../../components/AlertMessage/AlertMessage";
 
 
 const KeyCodes = {
@@ -17,6 +18,10 @@ class TagsSelector extends React.Component {
     this.state = {
       tags: [],
       suggestions: [],
+      popup: {
+        message: null,
+        isPopupOpen: false,
+      },
     };
   }
 
@@ -46,7 +51,19 @@ class TagsSelector extends React.Component {
       .catch((error) => console.log(error, "Couldn't get suggestions tags"));
   };
 
-  handleSelectTag = (tag) => {
+  handleAddTag = (tag) => {
+    const { tags } = this.state
+    if (tags.length === 5) {
+      this.setState({
+        ...this.state,
+        popup: {
+          ...this.state.popup,
+          message: 'You can choose up to 5 tags',
+          isPopupOpen: true,
+        }
+      })
+      return
+    }
     this.setState((state) => ({ tags: [...state.tags, tag] }));
   };
 
@@ -73,28 +90,37 @@ class TagsSelector extends React.Component {
     }
   }
 
+  closePopupIfOpen = () => {
+    const { isPopupOpen } = this.state.popup;
+    if (isPopupOpen) {
+      setTimeout(() => {
+        this.setState({
+          ...this.state,
+          popup: {
+            isPopupOpen: false,
+            message: null,
+          },
+        });
+      }, 4000);
+    }
+  };
+
   render() {
-    const { tags, suggestions } = this.state
+    const { popup, tags, suggestions } = this.state
+    const { message, isPopupOpen } = popup
+    this.closePopupIfOpen()
     return (
       <div id="tags-container">
-        {/* <input
-          type="email"
-          list="tags"
-          multiple="multiple"
-          name="blog-tags"
-          placeholder="#"
-          onChange={this.handleSelectTag}
-          onKeyDown={this.handleRemoveTag}
-        />
-        <datalist id="tags">{this.getAllTagsJSX()}</datalist> */}
+        {isPopupOpen && <AlertMessage message={message} type='failed' />}
         <ReactTags
           tags={tags}
           labelField={'name'}
           inputFieldPosition="top"
+          maxLength='12'
           placeholder='#'
           suggestions={suggestions}
           handleDelete={this.handleRemoveTag}
-          handleAddition={this.handleSelectTag}
+          handleAddition={this.handleAddTag}
           handleDrag={this.handleDrag}
           delimiters={delimiters}
         />
