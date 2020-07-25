@@ -53,12 +53,12 @@ class TagsSelector extends React.Component {
 
   handleAddTag = (tag) => {
     const { tags } = this.state
-    if (tags.length === 5) {
+    if (tags.length === 10) {
       return this.setState({
         ...this.state,
         popup: {
           ...this.state.popup,
-          message: 'You can choose up to 5 tags',
+          message: 'You can choose max 10 tags',
           isPopupOpen: true,
         }
       })
