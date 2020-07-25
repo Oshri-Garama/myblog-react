@@ -15,6 +15,7 @@ class AddNewPost extends React.Component {
         title: "",
         imageUrl: "",
         author: "",
+        tags: []
       },
       popup: {
         message: null,
@@ -109,6 +110,16 @@ class AddNewPost extends React.Component {
     }
   };
 
+  getSelectedTags = (tags) => {
+    this.setState({
+      ...this.state,
+      post: {
+        ...this.state.post,
+        tags
+      }
+    })
+  }
+
   render() {
     const { message, success } = this.state.popup;
     const type = success ? "success" : "failed";
@@ -136,7 +147,7 @@ class AddNewPost extends React.Component {
             placeholder="Post content goes here..."
             onChange={this.handleContentChange}
           ></textarea>
-          <TagsSelector />
+          <TagsSelector getSelectedTags={this.getSelectedTags} />
           <button
             id="create-post-button"
             type="submit"

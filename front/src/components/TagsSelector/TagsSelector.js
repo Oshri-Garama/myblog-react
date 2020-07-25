@@ -29,19 +29,9 @@ class TagsSelector extends React.Component {
             ...this.state,
             suggestions: res.data,
           });
-          console.log(res.data)
         }
       })
       .catch((error) => console.log(error, "Couldn't get tags"));
-  };
-
-  getAllTagsJSX = () => {
-    const { tags } = this.state;
-    const tagsJSX = tags.map((tag) => {
-      const { tagId, tagName } = tag;
-      return <option key={tagId}>#{tagName}</option>;
-    });
-    return tagsJSX;
   };
 
   handleSelectTag = (tag) => {
@@ -64,6 +54,12 @@ class TagsSelector extends React.Component {
     // re-render
     this.setState({ tags: newTags });
   };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.tags !== this.state.tags) {
+      this.props.getSelectedTags(this.state.tags)
+    }
+  }
 
   render() {
     const { tags, suggestions } = this.state
