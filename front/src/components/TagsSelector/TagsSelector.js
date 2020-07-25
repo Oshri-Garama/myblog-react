@@ -28,7 +28,7 @@ class TagsSelector extends React.Component {
   componentDidMount = () => {
     if (this.props.updatePost) {
       const { postId } = this.props
-      axios.get(`/api/tags/${postId}`, {is_route: true, withCredentials: true }).then(res => {
+      axios.get(`/api/tags/${postId}`, {withCredentials: true }).then(res => {
         if (res.status === 200) {
           this.setState({
             ...this.state,
@@ -46,6 +46,7 @@ class TagsSelector extends React.Component {
             suggestions: res.data,
           });
         }
+        this.filterSuggestions()
       })
       .catch((error) => console.log(error, "Couldn't get suggestions tags"));
   };
@@ -68,6 +69,8 @@ class TagsSelector extends React.Component {
 
   handleRemoveTag = (i) => {
     this.setState({
+      ...this.state,
+      suggestions: [...this.state.suggestions, this.state.tags[i]],
       tags: this.state.tags.filter((tag, index) => index !== i),
     });
   };
@@ -85,15 +88,22 @@ class TagsSelector extends React.Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.tags !== this.state.tags) {
-      const { tags, suggestions } = this.state
+      const { tags } = this.state
       this.props.getSelectedTags(tags)
-      const filteredSuggestions = suggestions.filter(value => !tags.some(tag => tag.name === value.name && 
-        tag.name === value.name))
-      this.setState({
-        ...this.state,
-        suggestions: filteredSuggestions
-      })
+      this.filterSuggestions()
     }
+  }
+
+  filterSuggestions = () => {
+    const { tags, suggestions } = this.state
+    console.log(tags)
+    console.log(suggestions, 'suggest')
+    const filteredSuggestions = suggestions.filter(value => !tags.some(tag => tag.name === value.name && 
+      tag.name === value.name))
+    this.setState({
+      ...this.state,
+      suggestions: filteredSuggestions
+    })
   }
 
   closePopupIfOpen = () => {
@@ -122,7 +132,7 @@ class TagsSelector extends React.Component {
           tags={tags}
           labelField={'name'}
           inputFieldPosition="top"
-          maxLength='12'
+          maxLength={12}
           placeholder='#'
           suggestions={suggestions}
           handleDelete={this.handleRemoveTag}
