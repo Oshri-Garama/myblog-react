@@ -5,9 +5,9 @@ import bcrypt
 
 
 pool = mysql.connector.pooling.MySQLConnectionPool(
-    host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
-    user = "admin",
-    passwd = "Oshri123456",
+    host = "localhost",
+    user = "root",
+    passwd = "123456",
     database = "blog",
     buffered = True,
     pool_size = 32
@@ -284,6 +284,8 @@ def edit_post():
     cursor.execute(query, values)
     cursor.close()
     g.db.commit()
+    tags = data['tags']
+    add_new_tags(post_id, tags)
     return get_post(post_id)
 
 
