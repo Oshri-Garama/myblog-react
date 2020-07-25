@@ -68,6 +68,8 @@ class TagsSelector extends React.Component {
   };
 
   handleRemoveTag = (i) => {
+    const { tags } = this.state
+    if (tags.length === 0) return
     this.setState({
       ...this.state,
       suggestions: [...this.state.suggestions, this.state.tags[i]],
