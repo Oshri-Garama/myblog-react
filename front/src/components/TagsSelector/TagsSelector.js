@@ -30,7 +30,6 @@ class TagsSelector extends React.Component {
       const { postId } = this.props
       axios.get(`/api/tags/${postId}`, {is_route: true, withCredentials: true }).then(res => {
         if (res.status === 200) {
-          console.log(res.data)
           this.setState({
             ...this.state,
             tags: res.data
@@ -86,7 +85,14 @@ class TagsSelector extends React.Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     if (prevState.tags !== this.state.tags) {
-      this.props.getSelectedTags(this.state.tags)
+      const { tags, suggestions } = this.state
+      this.props.getSelectedTags(tags)
+      const filteredSuggestions = suggestions.filter(value => !tags.some(tag => tag.name === value.name && 
+        tag.name === value.name))
+      this.setState({
+        ...this.state,
+        suggestions: filteredSuggestions
+      })
     }
   }
 
