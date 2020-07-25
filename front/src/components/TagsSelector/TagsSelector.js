@@ -21,6 +21,18 @@ class TagsSelector extends React.Component {
   }
 
   componentDidMount = () => {
+    if (this.props.updatePost) {
+      const { postId } = this.props
+      axios.get(`/api/tags/${postId}`, {is_route: true, withCredentials: true }).then(res => {
+        if (res.status === 200) {
+          console.log(res.data)
+          this.setState({
+            ...this.state,
+            tags: res.data
+          })
+        }
+      }).catch((error) => console.log(error, "Couldn't get post tags"));
+    }
     axios
       .get("/api/tags")
       .then((res) => {
@@ -31,7 +43,7 @@ class TagsSelector extends React.Component {
           });
         }
       })
-      .catch((error) => console.log(error, "Couldn't get tags"));
+      .catch((error) => console.log(error, "Couldn't get suggestions tags"));
   };
 
   handleSelectTag = (tag) => {
