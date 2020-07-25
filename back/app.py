@@ -4,6 +4,15 @@ import uuid
 import bcrypt
 
 
+# pool = mysql.connector.pooling.MySQLConnectionPool(
+#     host = "blog-db.caobksrxxsqg.us-east-1.rds.amazonaws.com",
+#     user = "admin",
+#     passwd = "Oshri123456",
+#     database = "blog",
+#     buffered = True,
+#     pool_size = 32
+# )
+
 pool = mysql.connector.pooling.MySQLConnectionPool(
     host = "localhost",
     user = "root",
@@ -294,14 +303,29 @@ def add_new_tags(post_id, tags):
     if not tags:
         return []
     for tag in tags:
-        values = (tag['name'], )
-        cursor = g.db.cursor()
-        cursor.execute(query, values)
-        new_tag_id = cursor.lastrowid
-        cursor.close()
-        g.db.commit()
-        add_tag_to_post(post_id, new_tag_id)
+        tag_name = tag['name']
+        tag_id = check_if_tag_exists(tag_name)
+        if not tag_id:
+            values = (tag_name, )
+            cursor = g.db.cursor()
+            cursor.execute(query, values)
+            tag_id = cursor.lastrowid
+            cursor.close()
+            g.db.commit()
+        add_tag_to_post(post_id, tag_id)
     return True
+
+
+def check_if_tag_exists(tag_name):
+    query = 'select tag_id from tags where name = %s'
+    values = (tag_name, )
+    cursor = g.db.cursor()
+    cursor.execute(query, values)
+    tag_record = cursor.fetchone()
+    cursor.close()
+    if not tag_record:
+        return False
+    return tag_record[0]  # returns the id
 
 
 def add_tag_to_post(post_id, tag_id):
@@ -338,8 +362,16 @@ def get_post_tags(post_id):
     data = []
     headers = ['id', 'name']
     for tag in tag_records:
+        id = str(tag[0])
+        name = tag[1]
+        tag = (id, name)
         data.append(dict(zip(headers, tag)))
-    return data  # Return data instead of jsonify- since it is not a route.
+    return data
+
+
+@app.route('/api/tags/<post_id>')
+def get_post_tags_route(post_id):
+    return jsonify(get_post_tags(post_id))
 
 
 @app.route('/api/tags', methods=['GET'])
