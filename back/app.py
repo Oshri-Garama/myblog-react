@@ -302,6 +302,7 @@ def add_new_tags(post_id, tags):
     query = 'insert into tags (name) values (%s)'
     if not tags:
         return []
+    reset_tags(post_id)
     for tag in tags:
         tag_name = tag['name']
         tag_id = check_if_tag_exists(tag_name)
@@ -326,6 +327,16 @@ def check_if_tag_exists(tag_name):
     if not tag_record:
         return False
     return tag_record[0]  # returns the id
+
+
+def reset_tags(post_id):
+    query = 'delete from post_tags where post_id = %s'
+    cursor = g.db.cursor()
+    values = (post_id, )
+    cursor.execute(query, values)
+    cursor.close()
+    g.db.commit()
+    return True
 
 
 def add_tag_to_post(post_id, tag_id):
