@@ -14,6 +14,7 @@ class EditPost extends React.Component {
         content: props.location.state.content || "",
         title: props.location.state.title || "",
         imageUrl: props.location.state.imageUrl || "",
+        tags: []
       },
       popup: {
         message: null,
@@ -108,6 +109,16 @@ class EditPost extends React.Component {
     }
   };
 
+  getSelectedTags = (tags) => {
+    this.setState({
+      ...this.state,
+      post: {
+        ...this.state.post,
+        tags
+      }
+    })
+  }
+
   render() {
     const { title, content, imageUrl } = this.state.post;
     const { message, success } = this.state.popup;
@@ -139,7 +150,7 @@ class EditPost extends React.Component {
             placeholder="Post content goes here..."
             onChange={this.handleContentChange}
           ></textarea>
-          <TagsSelector />
+          <TagsSelector getSelectedTags={this.getSelectedTags} />
           <button
             id="create-post-button"
             type="submit"
