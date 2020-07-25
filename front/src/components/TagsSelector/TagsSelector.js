@@ -143,6 +143,7 @@ class TagsSelector extends React.Component {
           labelField={'name'}
           inputFieldPosition="top"
           maxLength={12}
+          allowUnique={false}
           placeholder='#'
           suggestions={suggestions}
           handleDelete={this.handleRemoveTag}
