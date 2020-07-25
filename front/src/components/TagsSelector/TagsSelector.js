@@ -54,7 +54,7 @@ class TagsSelector extends React.Component {
   handleAddTag = (tag) => {
     const { tags } = this.state
     if (tags.length === 5) {
-      this.setState({
+      return this.setState({
         ...this.state,
         popup: {
           ...this.state.popup,
@@ -62,7 +62,17 @@ class TagsSelector extends React.Component {
           isPopupOpen: true,
         }
       })
-      return
+    }
+
+    if (tags.find(val => val.name === tag.name)) {
+      return this.setState({
+        ...this.state,
+        popup: {
+          ...this.state.popup,
+          message: 'Tag is already added to your post',
+          isPopupOpen: true,
+        }
+      })
     }
     this.setState((state) => ({ tags: [...state.tags, tag] }));
   };
@@ -98,8 +108,6 @@ class TagsSelector extends React.Component {
 
   filterSuggestions = () => {
     const { tags, suggestions } = this.state
-    console.log(tags)
-    console.log(suggestions, 'suggest')
     const filteredSuggestions = suggestions.filter(value => !tags.some(tag => tag.name === value.name && 
       tag.name === value.name))
     this.setState({
