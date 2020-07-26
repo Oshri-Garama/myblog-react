@@ -17,6 +17,7 @@ class PostPage extends React.Component {
       comment: "",
       username: "",
       comments: [],
+      tags: [],
       popup: {
         message: null,
         isPopupOpen: false,
@@ -39,6 +40,7 @@ class PostPage extends React.Component {
           this.setState({
             post: res.data.post,
             comments: res.data.comments,
+            tags: res.data.tags
           });
         }
       })
@@ -120,8 +122,19 @@ class PostPage extends React.Component {
     }
   }
 
+  renderTags = () => {
+    const { tags } = this.state
+    console.log(tags)
+    const tagsJSX = tags.map(tag => {
+      return (
+        <div className='tag-label' key={parseInt(tag.id)}>#{tag.name}</div>
+      )
+    })
+    return <div id='tags-container'>{tagsJSX}</div>
+  }
+
   render() {
-    const { post, comments,  } = this.state;
+    const { post, comments  } = this.state;
     const { message, success, isPopupOpen } = this.state.popup
     const { isLoggedIn } = this.props;
     const type = success ? 'success' : 'failed';
@@ -134,6 +147,7 @@ class PostPage extends React.Component {
           <div id="post-page-seperator">
             {this.renderPostImage()}
             <div className="post-view-content">{post.content}</div>
+            {this.renderTags()}
           </div>
           <form
             className="comment-input-container"
