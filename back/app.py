@@ -249,16 +249,17 @@ def get_all_posts():
     return jsonify(data)
 
 
-@app.route('/api/posts/filter/<tag_id>')
-def filter_posts(tag_id):
-    tag_id = int(tag_id)
+@app.route('/api/posts/filter/')
+def filter_posts():
+    data = request.get_json()
+    tag_name = data['tagName']
+    values = get_tag_id(tag_name)
     query_select = 'select posts.post_id, author_id, title, content, image_url, created_at, full_name from users'
     query_join_posts = 'join posts on users.user_id = posts.author_id'
     query_join_tags = 'join post_tags on posts.post_id = post_tags.post_id'
     query_where_clause = 'where post_tags.tag_id = %s'
     query_order = 'order by posts.post_id desc'
     query = '%s %s %s %s %s' % (query_select, query_join_posts, query_join_tags, query_where_clause, query_order)
-    values = (tag_id, )
     data = []
     cursor = g.db.cursor()
     cursor.execute(query, values)
@@ -268,6 +269,18 @@ def filter_posts(tag_id):
     for post in post_records:
         data.append(dict(zip(headers, post)))
     return jsonify(data)
+
+
+def get_tag_id(tag_name):
+    query = 'select tag_id from tags where name = %s'
+    values = (tag_name, )
+    cursor = g.db.cursor()
+    cursor.execute(query, values)
+    tag_id = cursor.fetchone()
+    if not tag_id:
+        abort(409)
+    cursor.close()
+    return tag_id
 
 
 @app.route('/api/user/posts')
@@ -367,18 +380,18 @@ def add_tag_to_post(post_id, tag_id):
     cursor.execute(query, values)
     cursor.close()
     g.db.commit()
-    return get_tag(tag_id)
+    return get_tag_by_id(tag_id)
 
 
-def get_tag(tag_id):
+def get_tag_by_id(tag_id):
     query = 'select tag_id, name from tags where tag_id = %s'
     values = (tag_id, )
     cursor = g.db.cursor()
     cursor.execute(query, values)
-    comment_record = cursor.fetchone()
+    tag_record = cursor.fetchone()
     cursor.close()
-    headers = ['tagId', 'tagName']
-    return jsonify(dict(zip(headers, comment_record)))
+    headers = ['id', 'name']
+    return jsonify(dict(zip(headers, tag_record)))
 
 
 def get_post_tags(post_id):
