@@ -249,6 +249,27 @@ def get_all_posts():
     return jsonify(data)
 
 
+@app.route('/api/posts/filter/<tag_id>')
+def filter_posts(tag_id):
+    tag_id = int(tag_id)
+    query_select = 'select posts.post_id, author_id, title, content, image_url, created_at, full_name from users'
+    query_join_posts = 'join posts on users.user_id = posts.author_id'
+    query_join_tags = 'join post_tags on posts.post_id = post_tags.post_id'
+    query_where_clause = 'where post_tags.tag_id = %s'
+    query_order = 'order by posts.post_id desc'
+    query = '%s %s %s %s %s' % (query_select, query_join_posts, query_join_tags, query_where_clause, query_order)
+    values = (tag_id, )
+    data = []
+    cursor = g.db.cursor()
+    cursor.execute(query, values)
+    post_records = cursor.fetchall()
+    cursor.close()
+    headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published', 'author']
+    for post in post_records:
+        data.append(dict(zip(headers, post)))
+    return jsonify(data)
+
+
 @app.route('/api/user/posts')
 def get_user_posts():
     user_id = check_login()
