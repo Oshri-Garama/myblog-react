@@ -64,7 +64,7 @@ class TagsSelector extends React.Component {
       })
     }
 
-    if (tags.find(val => val.name === tag.name)) {
+    if (tags.find(val => val.name.toLowerCase() === tag.name.toLowerCase()) && tags.length) {
       return this.setState({
         ...this.state,
         popup: {

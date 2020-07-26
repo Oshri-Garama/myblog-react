@@ -124,7 +124,6 @@ class PostPage extends React.Component {
 
   renderTags = () => {
     const { tags } = this.state
-    console.log(tags)
     const tagsJSX = tags.map(tag => {
       return (
         <div className='tag-label' key={parseInt(tag.id)}>#{tag.name}</div>
