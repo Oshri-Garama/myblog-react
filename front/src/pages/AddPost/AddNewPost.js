@@ -155,6 +155,7 @@ class AddNewPost extends React.Component {
             id="create-post-button"
             type="submit"
             onClick={this.handleSavePost}
+            disabled={success}
           >
             Create Post
           </button>
