@@ -26,13 +26,7 @@ class TagsSelector extends React.Component {
   }
 
   componentDidMount = () => {
-    if (this.props.updatePost) {
-      console.log(this.props.tags)
-      this.setState({
-        ...this.state,
-        tags: this.props.tags
-      })
-    }
+    const { tags } = this.props
     axios
       .get("/api/tags")
       .then((res) => {
@@ -40,6 +34,7 @@ class TagsSelector extends React.Component {
           this.setState({
             ...this.state,
             suggestions: res.data,
+            tags
           });
         }
         this.filterSuggestions()
@@ -132,6 +127,7 @@ class TagsSelector extends React.Component {
       e.preventDefault();
     }
   };
+
 
   render() {
     const { popup, tags, suggestions } = this.state

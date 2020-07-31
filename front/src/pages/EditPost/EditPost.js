@@ -143,25 +143,24 @@ class EditPost extends React.Component {
 
   renderTagSelector = () => {
     const { isLoading } = this.state
-    if (this.state.post.tags.length) {
-      const { tags } = this.state.post
+    const { tags } = this.state.post
+    if (tags.length) {
       return (
-        <TagsSelector getSelectedTags={this.getSelectedTags} updatePost={true} tags={tags} />
+        <TagsSelector getSelectedTags={this.getSelectedTags} action='update' tags={tags} />
       )
     }
     else if (this.state.post.tags.length === 0 && !isLoading) {
       return (
-        <TagsSelector getSelectedTags={this.getSelectedTags} updatePost={true} tags={[]} />
+        <TagsSelector getSelectedTags={this.getSelectedTags} action='update' tags={[]} />
       )
     }
   }
 
   render() {
-    const {id, title, content, imageUrl, tags } = this.state.post;
+    const { title, content, imageUrl } = this.state.post;
     const { message, success } = this.state.popup;
     const type = success ? "success" : "failed";
     this.closePopupIfOpen();
-    console.log('this.state', this.props)
     return (
       <form className="new-post-container" onSubmit={this.onSubmit}>
         <AlertMessage message={message} type={type} />

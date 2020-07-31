@@ -3,8 +3,8 @@ import "./Posts.css";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
 import newPostSVG from "../../images/newPost.svg";
-import TagSearcher from '../../components/TagSearcher/TagSearcher'
 import Post from './Post'
+import TagsSelector from "../TagsSelector/TagsSelector";
 const DISPLAY_NONE = {display: 'none' }
 const DISPLAY_BLOCK = {display: 'block' }
 
@@ -14,6 +14,7 @@ class Posts extends React.Component {
     this.state = {
       posts: [],
       pathname: this.props.location.pathname,
+      tags: []
     };
     this._mounted = false;
   }
@@ -47,11 +48,36 @@ class Posts extends React.Component {
     }
   }
 
+  getSelectedTags = (tags) => {
+    this.setState({
+      ...this.state,
+        tags: tags
+    })
+    this.filterPosts(tags)
+  }
+
+  filterPosts = (tags) => {
+    const { pathname } = this.props.location;
+    if (!tags.length) {
+      this.getAllPosts(pathname)
+    }
+    for (let tag of tags ) {
+      axios.get(`/api/posts/filter/${tag.name}`).then(res => {
+        if (res.status === 200) {
+          this.setState({
+            ...this.state,
+            posts: res.data
+          })
+        }
+      })
+    }
+  }
+
   render() {
     const { pathname } = this.props.location;
     const { userId, isLoggedIn } = this.props;
     if (pathname === '/user/posts' && !isLoggedIn) return <Redirect to='/posts'/>
-    const { posts } = this.state;
+    const { posts, tags } = this.state;
     const headerTitle = pathname === "/posts" ? "Recent Posts" : "My Posts";
     const postsJSX = posts.map((post) => {
       return (
@@ -73,7 +99,7 @@ class Posts extends React.Component {
     return (
       <div id="all-posts-page-container">
         <header id="recent-posts-title">{headerTitle}</header>
-        <TagSearcher />
+        <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} readOnly={true} />
         <div style={isLoggedIn ? DISPLAY_BLOCK : DISPLAY_NONE} id="add-new-post-container">
           <Link id="add-new-post-button" to="/posts/new">
             <img src={newPostSVG} />
