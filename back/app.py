@@ -162,15 +162,18 @@ def get_post(post_id):
     return jsonify(post_data)
 
 
-@app.route('/api/posts', methods=['GET', 'POST'])
+@app.route('/api/posts', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def manage_posts():
     if request.method == 'GET':
         return get_all_posts()
-    else:
+    elif request.method == 'POST':
         return create_new_post()
+    elif request.method == 'PUT':
+        return edit_post()
+    elif request.method == 'DELETE':
+        return delete_post()
 
 
-@app.route('/api/posts/delete', methods=['POST'])
 def delete_post():
     check_login()
     data = request.get_json()
@@ -249,10 +252,8 @@ def get_all_posts():
     return jsonify(data)
 
 
-@app.route('/api/posts/filter/')
-def filter_posts():
-    data = request.get_json()
-    tag_name = data['tagName']
+@app.route('/api/posts/filter/<tag_name>')
+def filter_posts(tag_name):
     values = get_tag_id(tag_name)
     query_select = 'select posts.post_id, author_id, title, content, image_url, created_at, full_name from users'
     query_join_posts = 'join posts on users.user_id = posts.author_id'
@@ -278,7 +279,7 @@ def get_tag_id(tag_name):
     cursor.execute(query, values)
     tag_id = cursor.fetchone()
     if not tag_id:
-        abort(409)
+        abort(204)  # no content
     cursor.close()
     return tag_id
 
@@ -316,7 +317,6 @@ def create_new_post():
     return get_post(new_post_id)
 
 
-@app.route('/api/posts/edit', methods=['POST'])
 def edit_post():
     check_login()
     data = request.get_json()
