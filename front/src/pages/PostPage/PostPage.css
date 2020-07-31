@@ -102,7 +102,7 @@
   color: rgb(106, 173, 91);
   text-shadow: 1px 1px #cad6d5;
   max-width: 90%;
-  word-wrap:break-word;
+  word-wrap: break-word;
   white-space: pre-line;
 }
 
@@ -130,6 +130,7 @@
   text-align: justify;
   text-shadow: 2px 2px #cad6d5;
   word-wrap:break-word;
+  white-space: pre-line;
 }
 
 .post-view-page #tags-container {
