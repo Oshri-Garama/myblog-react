@@ -27,15 +27,11 @@ class TagsSelector extends React.Component {
 
   componentDidMount = () => {
     if (this.props.updatePost) {
-      const { postId } = this.props
-      axios.get(`/api/tags/${postId}`, {withCredentials: true }).then(res => {
-        if (res.status === 200) {
-          this.setState({
-            ...this.state,
-            tags: res.data
-          })
-        }
-      }).catch((error) => console.log(error, "Couldn't get post tags"));
+      console.log(this.props.tags)
+      this.setState({
+        ...this.state,
+        tags: this.props.tags
+      })
     }
     axios
       .get("/api/tags")

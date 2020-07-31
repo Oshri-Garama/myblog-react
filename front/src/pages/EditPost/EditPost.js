@@ -10,17 +10,18 @@ class EditPost extends React.Component {
     super(props);
     this.state = {
       post: {
-        id: props.location.state.id || "",
-        content: props.location.state.content || "",
-        title: props.location.state.title || "",
-        imageUrl: props.location.state.imageUrl || "",
-        tags: props.location.state.tags || [],
+        id: props.location.state.id,
+        content: "",
+        title: "",
+        imageUrl: "",
+        tags: []
       },
       popup: {
         message: null,
         isPopupOpen: false,
         success: false,
       },
+      isLoading: true
     };
   }
   handleTitleChange = (event) => {
@@ -119,11 +120,48 @@ class EditPost extends React.Component {
     })
   }
 
+  componentDidMount = () => {
+    const { id } = this.props.location.state
+    axios.get(`/api/posts/${id}`).then(res => {
+      if (res.status === 200) {
+        const { content, title, imageUrl } = res.data.post
+        const { tags } = res.data
+        this.setState({
+          ...this.state,
+          post: {
+            ...this.state.post,
+            tags,
+            content,
+            title,
+            imageUrl,
+          },
+          isLoading: false,
+        })
+      }
+    })
+  }
+
+  renderTagSelector = () => {
+    const { isLoading } = this.state
+    if (this.state.post.tags.length) {
+      const { tags } = this.state.post
+      return (
+        <TagsSelector getSelectedTags={this.getSelectedTags} updatePost={true} tags={tags} />
+      )
+    }
+    else if (this.state.post.tags.length === 0 && !isLoading) {
+      return (
+        <TagsSelector getSelectedTags={this.getSelectedTags} updatePost={true} tags={[]} />
+      )
+    }
+  }
+
   render() {
-    const { title, content, imageUrl } = this.state.post;
+    const {id, title, content, imageUrl, tags } = this.state.post;
     const { message, success } = this.state.popup;
     const type = success ? "success" : "failed";
     this.closePopupIfOpen();
+    console.log('this.state', this.props)
     return (
       <form className="new-post-container" onSubmit={this.onSubmit}>
         <AlertMessage message={message} type={type} />
@@ -150,7 +188,7 @@ class EditPost extends React.Component {
             placeholder="Post content goes here..."
             onChange={this.handleContentChange}
           ></textarea>
-          <TagsSelector getSelectedTags={this.getSelectedTags} updatePost={true} />
+          {this.renderTagSelector()}
           <button
             id="create-post-button"
             type="submit"
