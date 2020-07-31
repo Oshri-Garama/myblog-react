@@ -131,12 +131,18 @@ class TagsSelector extends React.Component {
     }
   };
 
+  disableSpace = e => {
+    if (e.charCode === 32) {
+      e.preventDefault();
+    }
+  };
+
   render() {
     const { popup, tags, suggestions } = this.state
     const { message, isPopupOpen } = popup
     this.closePopupIfOpen()
     return (
-      <div id="tags-container">
+      <div onKeyPress={this.disableSpace} id="tags-container">
         {isPopupOpen && <AlertMessage message={message} type='failed' />}
         <ReactTags
           tags={tags}
