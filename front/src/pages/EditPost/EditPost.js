@@ -14,7 +14,7 @@ class EditPost extends React.Component {
         content: props.location.state.content || "",
         title: props.location.state.title || "",
         imageUrl: props.location.state.imageUrl || "",
-        tags: [],
+        tags: props.location.state.tags || [],
       },
       popup: {
         message: null,
@@ -120,7 +120,7 @@ class EditPost extends React.Component {
   }
 
   render() {
-    const {id, title, content, imageUrl } = this.state.post;
+    const { title, content, imageUrl } = this.state.post;
     const { message, success } = this.state.popup;
     const type = success ? "success" : "failed";
     this.closePopupIfOpen();
@@ -150,11 +150,12 @@ class EditPost extends React.Component {
             placeholder="Post content goes here..."
             onChange={this.handleContentChange}
           ></textarea>
-          <TagsSelector getSelectedTags={this.getSelectedTags} updatePost={true} postId={id} />
+          <TagsSelector getSelectedTags={this.getSelectedTags} updatePost={true} />
           <button
             id="create-post-button"
             type="submit"
             onClick={this.handleSavePost}
+            disabled={success}
           >
             Update Post
           </button>
