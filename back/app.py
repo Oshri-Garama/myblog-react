@@ -182,6 +182,7 @@ def delete_post():
     if not deleted_post:
         abort(400)
     delete_post_comments_if_exists(post_id)
+    reset_tags(post_id)  # in that case removing tags before deleting the post
     delete_query = 'delete from posts where post_id= %s'
     values = (post_id,)
     cursor = g.db.cursor()
