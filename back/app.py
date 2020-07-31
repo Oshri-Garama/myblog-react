@@ -175,14 +175,15 @@ def manage_posts():
 
 
 def delete_post():
-    check_login()
+    user_id = check_login()
     data = request.get_json()
     post_id = data['post_id']
+    is_post_belongs_to_user(user_id, post_id)  # abort with 401 if not
     deleted_post = get_post(post_id)
     if not deleted_post:
         abort(400)
     delete_post_comments_if_exists(post_id)
-    reset_tags(post_id)  # in that case removing tags before deleting the post
+    reset_tags(post_id)  # in that case removing tags before deleting the post(if exists)
     delete_query = 'delete from posts where post_id= %s'
     values = (post_id,)
     cursor = g.db.cursor()
@@ -190,6 +191,18 @@ def delete_post():
     cursor.close()
     g.db.commit()
     return deleted_post
+
+
+def is_post_belongs_to_user(user_id, post_id):
+    query = 'select author_id from posts where author_id = %s and post_id = %s'
+    values = (user_id[0], post_id)
+    cursor = g.db.cursor()
+    cursor.execute(query, values)
+    record = cursor.fetchone()
+    cursor.close()
+    if not record:
+        abort(401)
+    return True
 
 
 def delete_post_comments_if_exists(post_id):
