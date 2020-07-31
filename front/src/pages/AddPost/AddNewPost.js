@@ -4,6 +4,7 @@ import axios from "axios";
 import bookSVG from "../../images/book.svg";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
 import TagsSelector from "../../components/TagsSelector/TagsSelector";
+import { Redirect } from "react-router-dom";
 
 class AddNewPost extends React.Component {
   constructor(props) {
@@ -121,6 +122,8 @@ class AddNewPost extends React.Component {
   }
 
   render() {
+    const { isLoggedIn } = this.props;
+    if (!isLoggedIn) return <Redirect to='/' />
     const { message, success } = this.state.popup;
     const type = success ? "success" : "failed";
     this.closePopupIfOpen();
