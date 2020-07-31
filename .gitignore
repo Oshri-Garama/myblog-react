@@ -11,6 +11,9 @@
 # production
 /front/build
 
+# vs
+/front/.vscode
+
 # misc
 /front/.DS_Store
 /front/.env.local
