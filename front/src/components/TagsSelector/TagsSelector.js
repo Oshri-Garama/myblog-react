@@ -34,7 +34,7 @@ class TagsSelector extends React.Component {
           this.setState({
             ...this.state,
             suggestions: res.data,
-            tags
+            tags: tags || []
           });
         }
         this.filterSuggestions()
