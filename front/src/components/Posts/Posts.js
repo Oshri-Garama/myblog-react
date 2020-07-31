@@ -1,11 +1,12 @@
 import React from "react";
 import "./Posts.css";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 import deleteSVG from "../../images/icons/delete.svg";
 import editSVG from "../../images/icons/edit.svg";
 import newPostSVG from "../../images/newPost.svg";
+import TagSearcher from '../../components/TagSearcher/TagSearcher'
 
 class Post extends React.Component {
   constructor(props) {
@@ -143,6 +144,7 @@ class Posts extends React.Component {
   render() {
     const { pathname } = this.props.location;
     const { userId, isLoggedIn } = this.props;
+    if (pathname === '/user/posts' && !isLoggedIn) return <Redirect to='/posts'/>
     const { posts } = this.state;
     const headerTitle = pathname === "/posts" ? "Recent Posts" : "My Posts";
     const postsJSX = posts.map((post) => {
@@ -165,6 +167,7 @@ class Posts extends React.Component {
     return (
       <div id="all-posts-page-container">
         <header id="recent-posts-title">{headerTitle}</header>
+        <TagSearcher />
         <div id="add-new-post-container">
           <Link id="add-new-post-button" to="/posts/new">
             <img src={newPostSVG} />

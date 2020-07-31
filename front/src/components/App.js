@@ -101,7 +101,7 @@ class App extends React.Component {
             <Route
               path="/posts/new"
               render={(props) => (
-                <AddNewPost {...props} />
+                <AddNewPost {...props} isLoggedIn={isLoggedIn} />
               )}
             ></Route>
             <Route
