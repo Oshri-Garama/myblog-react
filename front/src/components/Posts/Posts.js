@@ -61,8 +61,9 @@ class Posts extends React.Component {
     if (!tags.length) {
       this.getAllPosts(pathname)
     }
-    for (let tag of tags ) {
-      axios.get(`/api/posts/filter/${tag.name}`).then(res => {
+    else {
+      const lastTag = tags[tags.length - 1].name
+      axios.get(`/api/posts/filter/${lastTag}`).then(res => {
         if (res.status === 200) {
           this.setState({
             ...this.state,
@@ -99,7 +100,7 @@ class Posts extends React.Component {
     return (
       <div id="all-posts-page-container">
         <header id="recent-posts-title">{headerTitle}</header>
-        <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} readOnly={true} />
+        <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} />
         <div style={isLoggedIn ? DISPLAY_BLOCK : DISPLAY_NONE} id="add-new-post-container">
           <Link id="add-new-post-button" to="/posts/new">
             <img src={newPostSVG} />
