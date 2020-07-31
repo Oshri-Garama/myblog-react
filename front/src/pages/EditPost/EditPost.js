@@ -54,7 +54,7 @@ class EditPost extends React.Component {
     event.preventDefault();
     const { post } = this.state;
     if (post.title && post.content && post.title.length <= 30) {
-      axios.post("/api/posts/edit", post).then((res) => {
+      axios.put("/api/posts", post).then((res) => {
         if (res.status === 200) {
           post.published = res.data.post.published;
           post.author = res.data.post.author;

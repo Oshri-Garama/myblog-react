@@ -27,7 +27,7 @@ class Post extends React.Component {
     if (!answer) return;
     const { id, pathname } = this.props;
     axios
-      .post("/api/posts/delete", { post_id: id })
+      .delete("/api/posts", { data: {post_id: id} })
       .then((res) => {
         if (res.status === 200) {
           setTimeout(this.props.getAllPosts(pathname), 300);
