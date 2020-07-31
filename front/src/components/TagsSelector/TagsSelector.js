@@ -10,7 +10,6 @@ const KeyCodes = {
   enter: 13,
 };
 
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 class TagsSelector extends React.Component {
   constructor(props) {
@@ -18,6 +17,8 @@ class TagsSelector extends React.Component {
     this.state = {
       tags: [],
       suggestions: [],
+      hasResults: true,
+      delimiters: [KeyCodes.comma, KeyCodes.enter],
       popup: {
         message: null,
         isPopupOpen: false,
@@ -44,14 +45,6 @@ class TagsSelector extends React.Component {
 
   handleAddTag = (tag) => {
     const { tags } = this.state
-    if (this.props.action === 'search') {
-      const { suggestions } = this.state
-      const isTagExist = suggestions.find(suggestion => suggestion.name === tag.name)
-      if (!isTagExist) {
-        console.log('tag not exist')
-        return
-      }
-    }
     if (tags.length === 10) {
       return this.setState({
         ...this.state,
@@ -136,13 +129,30 @@ class TagsSelector extends React.Component {
     }
   };
 
+  handleInputChange = (tag) => {
+    if (this.props.action === 'search') {
+      this.setState({
+        ...this.state,
+        delimiters: [KeyCodes.comma, KeyCodes.enter]
+      })
+      const { suggestions } = this.state
+      const isTagExist = suggestions.find(suggestion => suggestion.name === tag)
+      if (!isTagExist) {
+        this.setState({
+          ...this.state,
+          delimiters: [KeyCodes.comma]
+        })
+      }
+    }
+  }
+
 
   render() {
-    const { popup, tags, suggestions } = this.state
+    const { popup, tags, suggestions, hasResults } = this.state
     const { message, isPopupOpen } = popup
     this.closePopupIfOpen()
     return (
-      <div onKeyPress={this.disableSpace} id="tags-container">
+      <div id="tags-container" onKeyPress={this.disableSpace}>
         {isPopupOpen && <AlertMessage message={message} type='failed' />}
         <ReactTags
           tags={tags}
@@ -155,7 +165,8 @@ class TagsSelector extends React.Component {
           handleDelete={this.handleRemoveTag}
           handleAddition={this.handleAddTag}
           handleDrag={this.handleDrag}
-          delimiters={delimiters}
+          delimiters={this.state.delimiters}
+          handleInputChange={this.handleInputChange}
         />
       </div>
     );
