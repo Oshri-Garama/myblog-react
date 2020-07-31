@@ -7,6 +7,8 @@ import deleteSVG from "../../images/icons/delete.svg";
 import editSVG from "../../images/icons/edit.svg";
 import newPostSVG from "../../images/newPost.svg";
 import TagSearcher from '../../components/TagSearcher/TagSearcher'
+const DISPLAY_NONE = {display: 'none' }
+const DISPLAY_BLOCK = {display: 'block' }
 
 class Post extends React.Component {
   constructor(props) {
@@ -168,7 +170,7 @@ class Posts extends React.Component {
       <div id="all-posts-page-container">
         <header id="recent-posts-title">{headerTitle}</header>
         <TagSearcher />
-        <div id="add-new-post-container">
+        <div style={isLoggedIn ? DISPLAY_BLOCK : DISPLAY_NONE} id="add-new-post-container">
           <Link id="add-new-post-button" to="/posts/new">
             <img src={newPostSVG} />
           </Link>
