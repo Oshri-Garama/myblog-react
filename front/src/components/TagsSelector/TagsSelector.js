@@ -44,6 +44,14 @@ class TagsSelector extends React.Component {
 
   handleAddTag = (tag) => {
     const { tags } = this.state
+    if (this.props.action === 'search') {
+      const { suggestions } = this.state
+      const isTagExist = suggestions.find(suggestion => suggestion.name === tag.name)
+      if (!isTagExist) {
+        console.log('tag not exist')
+        return
+      }
+    }
     if (tags.length === 10) {
       return this.setState({
         ...this.state,
