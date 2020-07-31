@@ -349,7 +349,7 @@ def edit_post():
 def add_new_tags(post_id, tags):
     query = 'insert into tags (name) values (%s)'
     if not tags:
-        return []
+        reset_tags(post_id)  # in that case the user maybe removed all tags from post
     reset_tags(post_id)
     for tag in tags:
         tag_name = tag['name']
