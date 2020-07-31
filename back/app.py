@@ -327,7 +327,8 @@ def create_new_post():
     cursor.close()
     g.db.commit()
     tags = data['tags']
-    add_new_tags(new_post_id, tags)
+    if tags:
+        add_new_tags(new_post_id, tags)
     return get_post(new_post_id)
 
 
@@ -342,15 +343,13 @@ def edit_post():
     cursor.close()
     g.db.commit()
     tags = data['tags']
+    remove_tags(post_id)  # tags might be removed
     add_new_tags(post_id, tags)
     return get_post(post_id)
 
 
 def add_new_tags(post_id, tags):
     query = 'insert into tags (name) values (%s)'
-    if not tags:
-        reset_tags(post_id)  # in that case the user maybe removed all tags from post
-    reset_tags(post_id)
     for tag in tags:
         tag_name = tag['name']
         tag_id = check_if_tag_exists(tag_name)
@@ -363,6 +362,37 @@ def add_new_tags(post_id, tags):
             g.db.commit()
         add_tag_to_post(post_id, tag_id)
     return True
+
+
+# This function responsible for deleting tags if no longer related to any post
+def remove_tags(post_id):
+    query = 'delete from tags where tag_id = %s'
+    tags = get_post_tags(post_id)
+    if not tags:
+        return []
+    reset_tags(post_id)
+    for tag in tags:
+        tag_id = tag['id']
+        belongs_to_others = is_tag_belongs_to_other_post(tag_id)
+        if not belongs_to_others:
+            values = (tag_id, )
+            cursor = g.db.cursor()
+            cursor.execute(query, values)
+            cursor.close()
+            g.db.commit()
+    return True
+
+
+def is_tag_belongs_to_other_post(tag_id):
+    query = 'select post_id from post_tags where tag_id = %s'
+    values = (tag_id,)
+    cursor = g.db.cursor()
+    cursor.execute(query, values)
+    records = cursor.fetchall()
+    cursor.close()
+    if len(records) > 0:
+        return True
+    return False
 
 
 def check_if_tag_exists(tag_name):
