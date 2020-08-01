@@ -35,6 +35,14 @@
   font-size: 18px;
 }
 
+#all-posts-page-container #no-resuts-header {
+  align-self: center;
+  font-size: 30px;
+  margin-top: 2%;
+  color: #009688;
+  text-shadow: 0.5px 0.5px #7D9977;
+}
+
 #recent-posts-container {
   display: flex;
   justify-content: center;

@@ -129,6 +129,7 @@ class Posts extends React.Component {
           <header id="recent-posts-button-header">New Post</header>
         </div>
         <div id="recent-posts-container">{this.renderPosts()}</div>
+        {isEmptyFiltered && <header id='no-resuts-header'>No results found</header>}
       </div>
     );
   }
