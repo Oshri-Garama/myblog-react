@@ -155,6 +155,7 @@ class TagsSelector extends React.Component {
   render() {
     const { popup, tags, suggestions } = this.state
     const { message, isPopupOpen } = popup
+    const { classNames } = this.props
     this.closePopupIfOpen()
     return (
       <div id="tags-selector-container" onKeyPress={this.disableSpace}>
@@ -172,6 +173,7 @@ class TagsSelector extends React.Component {
           handleDrag={this.handleDrag}
           delimiters={this.state.delimiters}
           handleInputChange={this.handleInputChange}
+          autocomplete={true}
         />
       </div>
     );

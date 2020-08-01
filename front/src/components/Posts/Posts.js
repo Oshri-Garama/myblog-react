@@ -100,7 +100,10 @@ class Posts extends React.Component {
     return (
       <div id="all-posts-page-container">
         <header id="recent-posts-title">{headerTitle}</header>
-        <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} />
+        <div id='tag-selector-search'>
+          <header id='tag-search-header'>Filter using hashtags</header>
+          <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} />
+        </div>
         <div style={isLoggedIn ? DISPLAY_BLOCK : DISPLAY_NONE} id="add-new-post-container">
           <Link id="add-new-post-button" to="/posts/new">
             <img src={newPostSVG} />

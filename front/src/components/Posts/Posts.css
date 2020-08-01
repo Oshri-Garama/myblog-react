@@ -21,6 +21,20 @@
   letter-spacing: 5px;
 }
 
+#all-posts-page-container #tag-selector-search {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 20px 20px 20px;
+  width: 16%;
+  align-items: center;
+  color: #009688;
+  text-shadow: 0.5px 0.5px #7D9977;
+}
+
+#all-posts-page-container #tag-search-header {
+  font-size: 18px;
+}
+
 #recent-posts-container {
   display: flex;
   justify-content: center;
@@ -28,7 +42,6 @@
   flex-wrap: wrap;
   width: 100%;
 }
-
 
 .post-container {
   display: flex;
