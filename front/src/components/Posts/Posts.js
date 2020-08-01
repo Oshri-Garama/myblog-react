@@ -73,13 +73,11 @@ class Posts extends React.Component {
     }
   }
 
-  render() {
+  renderPosts = () => {
     const { pathname } = this.props.location;
+    const { posts } = this.state
     const { userId, isLoggedIn } = this.props;
-    if (pathname === '/user/posts' && !isLoggedIn) return <Redirect to='/posts'/>
-    const { posts, tags } = this.state;
-    const headerTitle = pathname === "/posts" ? "Recent Posts" : "My Posts";
-    const postsJSX = posts.map((post) => {
+    const postJSX = posts.map(post => {
       return (
         <Post
           key={post.id}
@@ -95,7 +93,17 @@ class Posts extends React.Component {
           pathname={pathname}
         />
       );
-    });
+    })
+    return postJSX
+  }
+
+  render() {
+    const { pathname } = this.props.location;
+    const { isLoggedIn } = this.props;
+    if (pathname === '/user/posts' && !isLoggedIn) return <Redirect to='/posts'/>
+    const { tags } = this.state;
+    const headerTitle = pathname === "/posts" ? "Recent Posts" : "My Posts";
+    
     return (
       <div id="all-posts-page-container">
         <header id="recent-posts-title">{headerTitle}</header>
@@ -109,7 +117,7 @@ class Posts extends React.Component {
           </Link>
           <header id="recent-posts-button-header">New Post</header>
         </div>
-        <div id="recent-posts-container">{postsJSX}</div>
+        <div id="recent-posts-container">{this.renderPosts()}</div>
       </div>
     );
   }
