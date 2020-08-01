@@ -266,15 +266,25 @@ def get_all_posts():
     return jsonify(data)
 
 
-@app.route('/api/posts/filter/<tag_name>')
-def filter_posts(tag_name):
-    values = get_tag_id(tag_name)
-    query_select = 'select posts.post_id, author_id, title, content, image_url, created_at, full_name from users'
+@app.route('/api/posts/filter', methods=['POST'])
+def filter_posts():
+    query_select = 'select distinct (posts.post_id), author_id, title, content, image_url, created_at, full_name ' \
+                   'from users'
     query_join_posts = 'join posts on users.user_id = posts.author_id'
-    query_join_tags = 'join post_tags on posts.post_id = post_tags.post_id'
-    query_where_clause = 'where post_tags.tag_id = %s'
-    query_order = 'order by posts.post_id desc'
-    query = '%s %s %s %s %s' % (query_select, query_join_posts, query_join_tags, query_where_clause, query_order)
+    query_join_tags = 'join post_tags on posts.post_id = post_tags.post_id where '
+    query = '%s %s %s' % (query_select, query_join_posts, query_join_tags)
+    tags = request.get_json()
+    num_of_tags = len(tags) - 1
+    values = ()
+    for i, tag in enumerate(tags):
+        tag_id = int(tag['id'])
+        values = values + (tag_id, )
+        if num_of_tags != i:
+            query += 'post_tags.tag_id = %s'
+            query += ' or '
+    query += 'post_tags.tag_id = %s'
+    query_order = ' order by posts.post_id desc'
+    query += query_order
     data = []
     cursor = g.db.cursor()
     cursor.execute(query, values)
