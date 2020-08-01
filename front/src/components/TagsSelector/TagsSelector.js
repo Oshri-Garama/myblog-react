@@ -44,6 +44,11 @@ class TagsSelector extends React.Component {
   };
 
   handleAddTag = (tag) => {
+    const newTag = {
+      id: tag.id.toLowerCase(),
+      name: tag.name.toLowerCase()
+    }
+    
     const { tags } = this.state
     if (tags.length === 10) {
       return this.setState({
@@ -56,7 +61,7 @@ class TagsSelector extends React.Component {
       })
     }
 
-    if (tags.find(val => val.name.toLowerCase() === tag.name.toLowerCase()) && tags.length) {
+    if (tags.find(val => val.name.toLowerCase() === newTag.name) && tags.length) {
       return this.setState({
         ...this.state,
         popup: {
@@ -66,7 +71,7 @@ class TagsSelector extends React.Component {
         }
       })
     }
-    this.setState((state) => ({ tags: [...state.tags, tag] }));
+    this.setState((state) => ({ tags: [...state.tags, newTag] }));
   };
 
   handleRemoveTag = (i) => {
@@ -148,11 +153,11 @@ class TagsSelector extends React.Component {
 
 
   render() {
-    const { popup, tags, suggestions, hasResults } = this.state
+    const { popup, tags, suggestions } = this.state
     const { message, isPopupOpen } = popup
     this.closePopupIfOpen()
     return (
-      <div id="tags-container" onKeyPress={this.disableSpace}>
+      <div id="tags-selector-container" onKeyPress={this.disableSpace}>
         {isPopupOpen && <AlertMessage message={message} type='failed' />}
         <ReactTags
           tags={tags}
