@@ -14,7 +14,8 @@ class Posts extends React.Component {
     this.state = {
       posts: [],
       pathname: this.props.location.pathname,
-      tags: []
+      tags: [],
+      isEmptyFiltered: false,
     };
     this._mounted = false;
   }
@@ -64,10 +65,20 @@ class Posts extends React.Component {
     else {
       axios.post('/api/posts/filter', tags).then(res => {
         if (res.status === 200) {
-          this.setState({
-            ...this.state,
-            posts: res.data
-          })
+          if (!res.data.length) {
+            this.setState({
+              ...this.state,
+              posts: res.data,
+              isEmptyFiltered: true
+            })
+          }
+          else {
+            this.setState({
+              ...this.state,
+              posts: res.data,
+              isEmptyFiltered: false
+            })
+          }
         }
       })
     }
@@ -101,7 +112,7 @@ class Posts extends React.Component {
     const { pathname } = this.props.location;
     const { isLoggedIn } = this.props;
     if (pathname === '/user/posts' && !isLoggedIn) return <Redirect to='/posts'/>
-    const { tags } = this.state;
+    const { tags, isEmptyFiltered } = this.state;
     const headerTitle = pathname === "/posts" ? "Recent Posts" : "My Posts";
     
     return (
@@ -109,7 +120,7 @@ class Posts extends React.Component {
         <header id="recent-posts-title">{headerTitle}</header>
         <div id='tag-selector-search'>
           <header id='tag-search-header'>Filter using hashtag</header>
-          <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} />
+          <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} isEmptyFiltered={isEmptyFiltered} />
         </div>
         <div style={isLoggedIn ? DISPLAY_BLOCK : DISPLAY_NONE} id="add-new-post-container">
           <Link id="add-new-post-button" to="/posts/new">

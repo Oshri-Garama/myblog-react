@@ -132,6 +132,9 @@ class TagsSelector extends React.Component {
     if (e.charCode === 32) {
       e.preventDefault();
     }
+    if (this.props.isEmptyFiltered && this.props.action === 'search') {
+      e.preventDefault()
+    }
   };
 
   handleInputChange = (tag) => {
@@ -151,11 +154,10 @@ class TagsSelector extends React.Component {
     }
   }
 
-
   render() {
     const { popup, tags, suggestions } = this.state
     const { message, isPopupOpen } = popup
-    const { classNames } = this.props
+    const { isEmptyFiltered } = this.props
     this.closePopupIfOpen()
     return (
       <div id="tags-selector-container" onKeyPress={this.disableSpace}>
