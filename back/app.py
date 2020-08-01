@@ -266,10 +266,15 @@ def get_all_posts():
     return jsonify(data)
 
 
+# The goal of that route is to filter the posts according to the tags given,
+# meaning if post has tag A and tag B and so on... he will be returned from that route,
+# Did it by selecting with OR operator, which show all the posts having either tag A or B or C, and so on
+# Then counted the number of rows for each post_id. the max is the number of tags that was filtered.
+# If a post has all the tags then the number of rows in post_tags table will be the same as len(tags)
+# If there's no such a post then it will return empty array.
 @app.route('/api/posts/filter', methods=['POST'])
 def filter_posts():
-    query_select = 'select distinct (posts.post_id), author_id, title, content, image_url, created_at, full_name ' \
-                   'from users'
+    query_select = 'select post_tags.post_id, author_id, title, content, image_url, created_at, full_name from users'
     query_join_posts = 'join posts on users.user_id = posts.author_id'
     query_join_tags = 'join post_tags on posts.post_id = post_tags.post_id where '
     query = '%s %s %s' % (query_select, query_join_posts, query_join_tags)
@@ -283,8 +288,11 @@ def filter_posts():
             query += 'post_tags.tag_id = %s'
             query += ' or '
     query += 'post_tags.tag_id = %s'
-    query_order = ' order by posts.post_id desc'
-    query += query_order
+    query_group_by = 'group by post_tags.post_id, author_id, title, content, image_url, created_at, full_name'
+    query_count_check = 'having count(post_tags.post_id) = %s'
+    query_order = 'order by posts.post_id desc'
+    query = '%s %s %s %s' % (query, query_group_by, query_count_check, query_order)
+    values += (len(tags), )  # check for posts which has len(tags) rows in post_tags
     data = []
     cursor = g.db.cursor()
     cursor.execute(query, values)
