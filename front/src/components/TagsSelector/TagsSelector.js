@@ -44,12 +44,12 @@ class TagsSelector extends React.Component {
   };
 
   handleAddTag = (tag) => {
+    const { tags } = this.state
     const newTag = {
       id: tag.id.toLowerCase(),
       name: tag.name.toLowerCase()
     }
     
-    const { tags } = this.state
     if (tags.length === 10) {
       return this.setState({
         ...this.state,

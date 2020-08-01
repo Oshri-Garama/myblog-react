@@ -62,8 +62,7 @@ class Posts extends React.Component {
       this.getAllPosts(pathname)
     }
     else {
-      const lastTag = tags[tags.length - 1].name
-      axios.get(`/api/posts/filter/${lastTag}`).then(res => {
+      axios.post('/api/posts/filter', tags).then(res => {
         if (res.status === 200) {
           this.setState({
             ...this.state,
@@ -101,7 +100,7 @@ class Posts extends React.Component {
       <div id="all-posts-page-container">
         <header id="recent-posts-title">{headerTitle}</header>
         <div id='tag-selector-search'>
-          <header id='tag-search-header'>Filter using hashtags</header>
+          <header id='tag-search-header'>Filter using hashtag</header>
           <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} />
         </div>
         <div style={isLoggedIn ? DISPLAY_BLOCK : DISPLAY_NONE} id="add-new-post-container">
