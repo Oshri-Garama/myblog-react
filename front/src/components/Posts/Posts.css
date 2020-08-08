@@ -26,7 +26,6 @@
   flex-direction: column;
   margin: 5px 20px 20px 20px;
   width: 16%;
-  align-items: center;
   color: #009688;
   text-shadow: 0.5px 0.5px #7D9977;
 }
@@ -45,7 +44,6 @@
 
 #all-posts-page-container #search-filter-container {
   display: flex;
-  align-items: center;
   color: #009688;
   text-shadow: 0.5px 0.5px #7D9977;
 } 
@@ -55,7 +53,7 @@
   width: 310px;
   justify-content: space-around;
   margin-bottom: 6.8%;
-  height: 30.5px;
+  height: 27px;
 }
 
 #all-posts-page-container #tag-search-header {
@@ -67,7 +65,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  margin-top: 5px;
+  height: 50px;
   width: 280px;
 }
 

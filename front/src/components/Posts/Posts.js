@@ -118,18 +118,18 @@ class Posts extends React.Component {
           this.setState({
             ...this.state,
             posts: res.data,
-            isEmptyFiltered: true
+            isEmptyFiltered: true,
           })
         }
         else {
           this.setState({
             ...this.state,
             posts: res.data,
-            isEmptyFiltered: false
+            isEmptyFiltered: false,
           })
         }
       }
-    })
+    }).catch((error) => console.log(error, "Couldn't search posts"));
   }
 
   onChangeConent = (event) => {
