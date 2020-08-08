@@ -16,6 +16,7 @@ class Posts extends React.Component {
       pathname: this.props.location.pathname,
       tags: [],
       isEmptyFiltered: false,
+      contentToSearch: '',
     };
     this._mounted = false;
   }
@@ -108,6 +109,27 @@ class Posts extends React.Component {
     return postJSX
   }
 
+  handleOnSearch = () => {
+    const { contentToSearch } = this.state
+    if (contentToSearch) {
+      axios.post('/api/posts/search', {content: contentToSearch}).then(res => {
+        if (res.status === 200) {
+          this.setState({
+            ...this.state,
+            posts: res.data
+          })
+        }
+      })
+    }
+  }
+
+  handleChangeSearch = (event) => {
+    this.setState({
+      ...this.state,
+      contentToSearch: event.target.value
+    })
+  }
+
   render() {
     const { pathname } = this.props.location;
     const { isLoggedIn } = this.props;
@@ -126,8 +148,8 @@ class Posts extends React.Component {
           <div id='search-by-content-container'>
             <header id='tag-search-header'>Search by content</header>
             <div className='row-flex'>
-              <input className='search-input' type='text'></input>
-              <button className='search-button'>Search</button>
+              <input className='search-input' type='text' onChange={this.handleChangeSearch}></input>
+              <button className='search-button' onClick={this.handleOnSearch}>Search</button>
             </div>
           </div>
         </div>
