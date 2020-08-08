@@ -5,6 +5,8 @@ import bookSVG from "../../images/book.svg";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
 import TagsSelector from "../../components/TagsSelector/TagsSelector";
 import { Redirect } from "react-router-dom";
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 class AddNewPost extends React.Component {
   constructor(props) {
@@ -16,7 +18,7 @@ class AddNewPost extends React.Component {
         title: "",
         imageUrl: "",
         author: "",
-        tags: []
+        tags: [],
       },
       popup: {
         message: null,
@@ -72,7 +74,7 @@ class AddNewPost extends React.Component {
           });
           setTimeout(() => {
             this.props.history.push(`/posts/${post.id}`);
-          }, 3000)
+          }, 3000);
         }
       });
     } else if (title.length > 30) {
@@ -116,14 +118,14 @@ class AddNewPost extends React.Component {
       ...this.state,
       post: {
         ...this.state.post,
-        tags
-      }
-    })
-  }
+        tags,
+      },
+    });
+  };
 
   render() {
     const { isLoggedIn } = this.props;
-    if (!isLoggedIn) return <Redirect to='/' />
+    if (!isLoggedIn) return <Redirect to="/" />;
     const { message, success } = this.state.popup;
     const type = success ? "success" : "failed";
     this.closePopupIfOpen();
@@ -145,11 +147,29 @@ class AddNewPost extends React.Component {
             placeholder="Paste here your image url"
             onChange={this.handleImageChange}
           ></input>
-          <textarea
+          {/* <textarea
             id="input-add-content"
             placeholder="Post content goes here..."
             onChange={this.handleContentChange}
-          ></textarea>
+          ></textarea> */}
+          <CKEditor
+            editor={ClassicEditor}
+            data="<p>Hello from CKEditor 5!</p>"
+            onInit={(editor) => {
+              // You can store the "editor" and use when it is needed.
+              console.log("Editor is ready to use!", editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              console.log({ event, editor, data });
+            }}
+            onBlur={(event, editor) => {
+              console.log("Blur.", editor);
+            }}
+            onFocus={(event, editor) => {
+              console.log("Focus.", editor);
+            }}
+          />
           <TagsSelector getSelectedTags={this.getSelectedTags} />
           <button
             id="create-post-button"
