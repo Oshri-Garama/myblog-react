@@ -10,4 +10,12 @@
   --ck-color-button-on-background: #a5d7d2;
   --ck-color-button-on-hover-background: #a5d7d2;
   --ck-color-text: #f3faec;
+  --ck-color-list-background: #009688;
+  --ck-color-list-button-on-background: #a5d7d2;
+  --ck-color-list-button-on-background-focus: #a5d7d2;
+}
+
+.ck-editor__editable {
+  min-height: 200px !important;
+  line-height: 1.0px;
 }
