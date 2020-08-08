@@ -111,16 +111,14 @@ class Posts extends React.Component {
 
   handleOnSearch = () => {
     const { contentToSearch } = this.state
-    if (contentToSearch) {
-      axios.post('/api/posts/search', {content: contentToSearch}).then(res => {
-        if (res.status === 200) {
-          this.setState({
-            ...this.state,
-            posts: res.data
-          })
-        }
-      })
-    }
+    axios.post('/api/posts/search', {content: contentToSearch}).then(res => {
+      if (res.status === 200) {
+        this.setState({
+          ...this.state,
+          posts: res.data
+        })
+      }
+    })
   }
 
   handleChangeSearch = (event) => {
