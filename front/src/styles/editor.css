@@ -1,0 +1,13 @@
+
+.ck-editor {
+  /* color: blue; */
+}
+
+:root {
+  --ck-color-toolbar-background: #009688;
+  --ck-color-button-default-hover-background: #6ab5af;
+  --ck-color-button-default-active-background: #6ab5af;
+  --ck-color-button-on-background: #a5d7d2;
+  --ck-color-button-on-hover-background: #a5d7d2;
+  --ck-color-text: #f3faec;
+}

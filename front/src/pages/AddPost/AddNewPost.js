@@ -7,6 +7,7 @@ import TagsSelector from "../../components/TagsSelector/TagsSelector";
 import { Redirect } from "react-router-dom";
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import '../../styles/editor.css';
 
 class AddNewPost extends React.Component {
   constructor(props) {
@@ -36,11 +37,11 @@ class AddNewPost extends React.Component {
     });
   };
 
-  handleContentChange = (event) => {
+  handleContentChange = (data) => {
     this.setState({
       post: {
         ...this.state.post,
-        content: event.target.value,
+        content: data
       },
     });
   };
@@ -123,6 +124,7 @@ class AddNewPost extends React.Component {
     });
   };
 
+
   render() {
     const { isLoggedIn } = this.props;
     if (!isLoggedIn) return <Redirect to="/" />;
@@ -152,24 +154,24 @@ class AddNewPost extends React.Component {
             placeholder="Post content goes here..."
             onChange={this.handleContentChange}
           ></textarea> */}
-          <CKEditor
-            editor={ClassicEditor}
-            data="<p>Hello from CKEditor 5!</p>"
-            onInit={(editor) => {
-              // You can store the "editor" and use when it is needed.
-              console.log("Editor is ready to use!", editor);
-            }}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              console.log({ event, editor, data });
-            }}
-            onBlur={(event, editor) => {
-              console.log("Blur.", editor);
-            }}
-            onFocus={(event, editor) => {
-              console.log("Focus.", editor);
-            }}
-          />
+          <div id='ck-editor'>
+            <CKEditor
+              editor={ClassicEditor}
+              onInit={(editor) => {
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                {this.handleContentChange(data)}
+                console.log({ event, editor, data });
+              }}
+              onBlur={(event, editor) => {
+                console.log("Blur.", editor);
+              }}
+              onFocus={(event, editor) => {
+                console.log("Focus.", editor);
+              }}
+            />
+          </div>
           <TagsSelector getSelectedTags={this.getSelectedTags} />
           <button
             id="create-post-button"
