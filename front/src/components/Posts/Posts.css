@@ -46,6 +46,11 @@
   display: flex;
   color: #009688;
   text-shadow: 0.5px 0.5px #7D9977;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
 } 
 
 #all-posts-page-container .row-flex {
