@@ -118,9 +118,18 @@ class Posts extends React.Component {
     return (
       <div id="all-posts-page-container">
         <header id="recent-posts-title">{headerTitle}</header>
-        <div id='tag-selector-search'>
-          <header id='tag-search-header'>Filter using hashtag</header>
-          <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} isEmptyFiltered={isEmptyFiltered} />
+        <div id='search-filter-container'>
+          <div id='tag-selector-search'>
+            <header id='tag-search-header'>Filter using hashtag</header>
+            <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} isEmptyFiltered={isEmptyFiltered} />
+          </div>
+          <div id='search-by-content-container'>
+            <header id='tag-search-header'>Search by content</header>
+            <div className='row-flex'>
+              <input className='search-input' type='text'></input>
+              <button className='search-button'>Search</button>
+            </div>
+          </div>
         </div>
         <div style={isLoggedIn ? DISPLAY_BLOCK : DISPLAY_NONE} id="add-new-post-container">
           <Link id="add-new-post-button" to="/posts/new">

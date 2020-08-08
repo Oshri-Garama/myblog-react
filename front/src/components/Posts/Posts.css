@@ -43,6 +43,67 @@
   text-shadow: 0.5px 0.5px #7D9977;
 }
 
+#all-posts-page-container #search-filter-container {
+  display: flex;
+  align-items: center;
+  color: #009688;
+  text-shadow: 0.5px 0.5px #7D9977;
+} 
+
+#all-posts-page-container .row-flex {
+  display: flex;
+  width: 310px;
+  justify-content: space-around;
+  margin-bottom: 6.8%;
+  height: 30.5px;
+}
+
+#all-posts-page-container #tag-search-header {
+  align-self: flex-start;
+}
+
+#all-posts-page-container #search-by-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 280px;
+}
+
+#all-posts-page-container .search-input {
+  outline: none;
+  align-self: flex-start;
+  border: 1px solid rgb(78, 171, 148);
+  box-shadow: 1px 1px 1px 1px #7D9977;
+  background-color: transparent;
+  height: 30px;
+  width: 200px;
+  border-radius: 2px;
+  color: black;
+  font-weight: 900;
+  font-size: 15px;
+}
+
+#all-posts-page-container .search-button {
+  box-shadow: 2px 2px 2px 2px #7D9977;
+  border: 1px solid green;
+  outline: none;
+  color: #009688;
+  font-size: 15px;
+  font-weight: 500;
+  text-shadow: 2px 2px rgb(221, 243, 199);
+  transition-duration: 500ms;
+  background-color: transparent;
+  border-radius: 45%;
+  height: 35px;
+  width: 70px;
+}
+
+#all-posts-page-container .search-button:hover {
+  background-color:rgb(201, 234, 194);
+}
+
 #recent-posts-container {
   display: flex;
   justify-content: center;
