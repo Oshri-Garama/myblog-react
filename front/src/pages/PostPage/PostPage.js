@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Scrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import AlertMessage from '../../components/AlertMessage/AlertMessage'
+import parse from 'html-react-parser';
 
 class PostPage extends React.Component {
   constructor(props) {
@@ -132,6 +133,16 @@ class PostPage extends React.Component {
     return <div id='tags-container'>{tagsJSX}</div>
   }
 
+  renderContent = () => {
+    const { post } = this.state
+    const contentParsedToString = parse(`${post.content}`)
+    return (
+      <div className="post-view-content">
+        {contentParsedToString}
+      </div>
+    )
+  }
+
   render() {
     const { post, comments  } = this.state;
     const { message, success, isPopupOpen } = this.state.popup
@@ -145,7 +156,7 @@ class PostPage extends React.Component {
         <div className="post-view-container">
           <div id="post-page-seperator">
             {this.renderPostImage()}
-            <div className="post-view-content">{post.content}</div>
+            {this.renderContent()}
             {this.renderTags()}
           </div>
           <form
