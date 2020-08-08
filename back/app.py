@@ -304,6 +304,26 @@ def filter_posts():
     return jsonify(data)
 
 
+@app.route('/api/posts/search', methods=['POST'])
+def search_by_content():
+    params = request.get_json()
+    query_select = 'select post_id, author_id, title, content, image_url, created_at, full_name from users'
+    query_join_posts = "join posts on users.user_id = posts.author_id where content like %s"
+    query_order = 'order by post_id desc'
+    query = '%s %s %s' % (query_select, query_join_posts, query_order)
+    content_like = params['content'] + '%'
+    values = (content_like, )
+    data = []
+    cursor = g.db.cursor()
+    cursor.execute(query, values)
+    post_records = cursor.fetchall()
+    cursor.close()
+    headers = ['id', 'authorId', 'title', 'content', 'imageUrl', 'published', 'author']
+    for post in post_records:
+        data.append(dict(zip(headers, post)))
+    return jsonify(data)
+
+
 def get_tag_id(tag_name):
     query = 'select tag_id from tags where name = %s'
     values = (tag_name, )
