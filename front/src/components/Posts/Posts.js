@@ -112,16 +112,27 @@ class Posts extends React.Component {
   handleOnSearch = () => {
     const { contentToSearch } = this.state
     axios.post('/api/posts/search', {content: contentToSearch}).then(res => {
+      console.log(this.state.posts.length)
       if (res.status === 200) {
-        this.setState({
-          ...this.state,
-          posts: res.data
-        })
+        if (!res.data.length) {
+          this.setState({
+            ...this.state,
+            posts: res.data,
+            isEmptyFiltered: true
+          })
+        }
+        else {
+          this.setState({
+            ...this.state,
+            posts: res.data,
+            isEmptyFiltered: false
+          })
+        }
       }
     })
   }
 
-  handleChangeSearch = (event) => {
+  onChangeConent = (event) => {
     this.setState({
       ...this.state,
       contentToSearch: event.target.value
@@ -146,7 +157,7 @@ class Posts extends React.Component {
           <div id='search-by-content-container'>
             <header id='tag-search-header'>Search by content</header>
             <div className='row-flex'>
-              <input className='search-input' type='text' onChange={this.handleChangeSearch}></input>
+              <input className='search-input' type='text' onChange={this.onChangeConent}></input>
               <button className='search-button' onClick={this.handleOnSearch}>Search</button>
             </div>
           </div>
