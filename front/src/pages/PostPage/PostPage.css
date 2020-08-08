@@ -128,9 +128,10 @@
   padding-left: 10px;
   font-size: 20px;
   text-align: justify;
-  text-shadow: 2px 2px #cad6d5;
-  word-wrap:break-word;
+  text-shadow: 1px 2px #cad6d5;
+  word-wrap: break-word;
   white-space: pre-line;
+  line-height: 0.2;
 }
 
 .post-view-page #tags-container {

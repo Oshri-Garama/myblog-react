@@ -4,6 +4,9 @@ import axios from "axios";
 import editSVG from "../../images/edit-logo.svg";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
 import TagsSelector from "../../components/TagsSelector/TagsSelector";
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import '../../styles/editor.css';
 
 class EditPost extends React.Component {
   constructor(props) {
@@ -33,11 +36,11 @@ class EditPost extends React.Component {
     });
   };
 
-  handleContentChange = (event) => {
+  handleContentChange = (data) => {
     this.setState({
       post: {
         ...this.state.post,
-        content: event.target.value,
+        content: data,
       },
     });
   };
@@ -181,12 +184,22 @@ class EditPost extends React.Component {
             placeholder="Paste here your image url"
             onChange={this.handleImageChange}
           ></input>
-          <textarea
+          {/* <textarea
             id="input-add-content"
             value={content}
             placeholder="Post content goes here..."
             onChange={this.handleContentChange}
-          ></textarea>
+          ></textarea> */}
+          <div id='ck-editor'>
+            <CKEditor
+              data={content}
+              editor={ClassicEditor}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                {this.handleContentChange(data)}
+              }}
+            />
+          </div>
           {this.renderTagSelector()}
           <button
             id="create-post-button"
