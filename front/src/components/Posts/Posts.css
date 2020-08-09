@@ -186,27 +186,23 @@
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  height: 85%;
+  height: 82%;
   width: 100%;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .post-content {
-  margin-top: 8%;
-  margin-bottom: 5%;
-  max-width: 93%;
   max-height: 65%;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  /* text-overflow: ellipsis; */
-  /* white-space: nowrap; */
+  max-width: 93%;
   text-align: justify;
   word-break: break-all;
+  display: inline;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word; /* Important for long words! */
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 7;
+
 }
 
 
