@@ -4,6 +4,7 @@ import editSVG from "../../images/icons/edit.svg";
 import moment from "moment";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import parse from 'html-react-parser';
 
 
 class Post extends React.Component {
@@ -66,7 +67,7 @@ class Post extends React.Component {
             </Link>
           </div>
           <img className='post-image' src={imageUrl} alt="" />
-          <div className="post-content">{content}</div>
+          <div className="post-content">{parse(`${content}`)}</div>
         </div>
         <div className="published-time">
           Published{" "}

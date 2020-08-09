@@ -119,8 +119,6 @@
 .post-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
   width: 22%;
   padding: 1%;
   margin-right: 0.75%;
@@ -141,12 +139,12 @@
   width: auto;
   height: auto;
   max-width: 200px;
-  max-height: 160px;
+  max-height: 150px;
 }
 
 .post-container .post-buttons-container {
   display: flex;
-  height: 50px;
+  height: 30px;
   width: 100%;
   justify-content: center;
 }
@@ -187,23 +185,28 @@
 .post-content-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 100%;
+  box-sizing: border-box;
+  height: 85%;
   width: 100%;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .post-content {
   margin-top: 8%;
   margin-bottom: 5%;
   max-width: 93%;
+  max-height: 65%;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
+  /* text-overflow: ellipsis; */
+  /* white-space: nowrap; */
   text-align: justify;
   word-break: break-all;
-
 }
 
 
@@ -212,6 +215,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .post-title-container .post-title {
@@ -227,6 +231,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: justify;
+  box-sizing: border-box;
 }
 
 .post-title-container .post-title:hover {
