@@ -311,7 +311,7 @@ def search_by_content():
     query_join_posts = "join posts on users.user_id = posts.author_id where content like %s"
     query_order = 'order by post_id desc'
     query = '%s %s %s' % (query_select, query_join_posts, query_order)
-    content_like = params['content'] + '%'
+    content_like = '%' + params['content'] + '%'
     values = (content_like, )
     data = []
     cursor = g.db.cursor()
