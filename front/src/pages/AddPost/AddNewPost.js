@@ -152,6 +152,7 @@ class AddNewPost extends React.Component {
           <div id='ck-editor'>
             <CKEditor
               editor={ClassicEditor}
+              config={{removePlugins: [ 'List', 'Table', 'MediaEmbed', 'BlockQuote', 'Indent']}}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 {this.handleContentChange(data)}

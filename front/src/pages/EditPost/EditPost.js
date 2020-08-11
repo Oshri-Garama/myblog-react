@@ -184,16 +184,11 @@ class EditPost extends React.Component {
             placeholder="Paste here your image url"
             onChange={this.handleImageChange}
           ></input>
-          {/* <textarea
-            id="input-add-content"
-            value={content}
-            placeholder="Post content goes here..."
-            onChange={this.handleContentChange}
-          ></textarea> */}
           <div id='ck-editor'>
             <CKEditor
               data={content}
               editor={ClassicEditor}
+              config={{removePlugins: [ 'List', 'Table', 'MediaEmbed', 'BlockQuote', 'Indent']}}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 {this.handleContentChange(data)}

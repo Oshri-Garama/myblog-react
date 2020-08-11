@@ -13,9 +13,11 @@
   --ck-color-list-background: #009688;
   --ck-color-list-button-on-background: #a5d7d2;
   --ck-color-list-button-on-background-focus: #a5d7d2;
+  --ck-color-toolbar-border: none;
 }
 
 .ck-editor__editable {
   min-height: 200px !important;
+  min-width: 384px;
   line-height: 1.0px;
 }
