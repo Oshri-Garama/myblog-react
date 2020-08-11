@@ -195,14 +195,17 @@
   max-width: 93%;
   text-align: justify;
   word-break: break-all;
-  display: inline;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   word-wrap: break-word; /* Important for long words! */
   text-overflow: ellipsis;
   -webkit-line-clamp: 7;
+  white-space: pre-wrap;
+}
 
+.min-content-lines {
+  -webkit-line-clamp: 2;
 }
 
 

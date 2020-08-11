@@ -4,7 +4,7 @@ import editSVG from "../../images/icons/edit.svg";
 import moment from "moment";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import parse from 'html-react-parser';
+import { fromHTMLtoString } from '../../utils/utils'
 
 
 class Post extends React.Component {
@@ -57,7 +57,7 @@ class Post extends React.Component {
     } = this.props;
     const publishedDate = this.getFormattedDate(published);
     const daysOfPublished = moment().diff(publishedDate, "days");
-
+    
     return (
       <div className="post-container">
         <div className="post-content-container">
@@ -67,7 +67,7 @@ class Post extends React.Component {
             </Link>
           </div>
           <img className='post-image' src={imageUrl} alt="" />
-          <div className="post-content">{parse(`${content}`)}</div>
+          <div className={imageUrl ? "post-content min-content-lines" : "post-content"}>{fromHTMLtoString(`${content}`)}</div>
         </div>
         <div className="published-time">
           Published{" "}
