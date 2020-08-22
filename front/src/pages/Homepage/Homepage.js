@@ -10,13 +10,13 @@ import writerSVG from "../../images/writer.svg";
 import useWindowSize from '../../utils/useWindowSize'
 
 const Homepage = (props) => {
-  
+
   const renderUserHomepage = () => {
     return (
       <div id="buttons-homepage">
         <div className="button-container">
           <Link className="button-homepage" to="/posts/new">
-            <img className='icon-svg' src={newPostSVG} />
+            <img className='new-post-svg' src={newPostSVG} />
           </Link>
           <header className='button-header-container-homepage'>New Post</header>
         </div>

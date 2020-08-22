@@ -50,6 +50,10 @@
   margin-top: 20px;
 }
 
+.home-mobile .new-post-svg {
+  max-height: 280px;
+}
+
 .home-mobile #web-title {
   font-size: 130px !important;
   margin-top: 100px;

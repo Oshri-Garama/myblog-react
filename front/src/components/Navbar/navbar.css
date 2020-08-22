@@ -1,4 +1,21 @@
-#navbar-container {
+.navbar-mobile {
+}
+
+.navbar-mobile a {
+  /* border: 1px solid red; */
+  font-size: 12px;
+  width: 80px;
+}
+
+.navbar-mobile #left-navbar {
+  width: 55%;
+}
+
+.navbar-mobile #right-navbar {
+  width: 50%;
+}
+
+.navbar-container {
   display: flex;
   justify-content: space-between;
   background-color: #F3FAEC;
@@ -7,7 +24,7 @@
   position: fixed;
 }
 
-#navbar-container a {
+.navbar-container a {
   color: #009688;
   text-decoration: none;
   font-weight: 900;
@@ -18,11 +35,11 @@
   transition-duration: 500ms;  
 }
 
-#navbar-container a:visited {
+.navbar-container a:visited {
   color: #009688;
 }
 
-#navbar-container a:hover {
+.navbar-container a:hover {
   background-color:rgb(216, 239, 211);
 }
 
