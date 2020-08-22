@@ -1,8 +1,5 @@
 import React from "react";
-import Posts from "../../components/Posts/Posts";
 import "./Homepage.css";
-import TopFive from "../../components/TopFive/TopFive";
-import Sidebar from "../../components/Sidebar/Sidebar";
 import { Link } from "react-router-dom";
 import newPostSVG from "../../images/newPost.svg";
 import allPostsSVG from "../../images/allPosts.svg";
@@ -66,10 +63,9 @@ class Homepage extends React.Component {
     );
   };
 
-  componentDidMount = () => {};
 
   render() {
-    const { posts, userId, isLoggedIn } = this.props;
+    const { isLoggedIn } = this.props;
     return (
       <div className="home-container">
         <div id="title-container">
