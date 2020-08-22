@@ -7,30 +7,28 @@ import myPostsSVG from "../../images/myPosts.svg";
 import signInSVG from "../../images/signin.svg";
 import signUpSVG from "../../images/signup.svg";
 import writerSVG from "../../images/writer.svg";
+import useWindowSize from '../../utils/useWindowSize'
 
-class Homepage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  renderUserHomepage = () => {
+const Homepage = (props) => {
+  
+  const renderUserHomepage = () => {
     return (
       <div id="buttons-homepage">
         <div className="button-container">
           <Link className="button-homepage" to="/posts/new">
-            <img src={newPostSVG} />
+            <img className='icon-svg' src={newPostSVG} />
           </Link>
           <header className='button-header-container-homepage'>New Post</header>
         </div>
         <div className="button-container">
           <Link className="button-homepage" to="/posts">
-            <img src={allPostsSVG} />
+            <img className='icon-svg' src={allPostsSVG} />
           </Link>
           <header className='button-header-container-homepage'>All Posts</header>
         </div>
         <div className="button-container">
           <Link className="button-homepage" to="/user/posts">
-            <img src={myPostsSVG} />
+            <img className='icon-svg' src={myPostsSVG} />
           </Link>
           <header className='button-header-container-homepage'>My Posts</header>
         </div>
@@ -38,44 +36,41 @@ class Homepage extends React.Component {
     );
   };
 
-  renderGuestHomepage = () => {
+  const renderGuestHomepage = () => {
     return (
       <div id="buttons-homepage">
         <div className="button-container">
           <Link className="button-homepage" to="/login">
-            <img src={signInSVG} />
+            <img className='icon-svg' src={signInSVG} />
           </Link>
           <header className='button-header-container-homepage'>Login</header>
         </div>
         <div className="button-container">
           <Link className="button-homepage" to="/signup">
-            <img src={signUpSVG} />
+            <img className='icon-svg' src={signUpSVG} />
           </Link>
           <header className='button-header-container-homepage'>Sign Up</header>
         </div>
         <div className="button-container">
           <Link className="button-homepage" to="/about">
-            <img src={writerSVG} />
+            <img className='icon-svg' src={writerSVG} />
           </Link>
           <header className='button-header-container-homepage'>About Me</header>
         </div>
       </div>
     );
   };
-
-
-  render() {
-    const { isLoggedIn } = this.props;
-    return (
-      <div className="home-container">
-        <div id="title-container">
-          <header id="web-title">Writee</header>
-          <header id="web-subtitle">Memories Don't Last Forever</header>
-        </div>
-        {isLoggedIn ? this.renderUserHomepage() : this.renderGuestHomepage()}
+  const { innerWidth } = useWindowSize()
+  
+  return (
+    <div className={innerWidth > 600 ? "home-container" : "home-container home-mobile"}>
+      <div id="title-container">
+        <header id="web-title">Writee</header>
+        <header id="web-subtitle">Memories Don't Last Forever</header>
       </div>
-    );
-  }
+      {props.isLoggedIn ? renderUserHomepage() : renderGuestHomepage()}
+    </div>
+  );
 }
 
 export default Homepage;
