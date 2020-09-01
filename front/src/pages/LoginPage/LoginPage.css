@@ -1,4 +1,4 @@
-@media screen and (min-height: 650px) {
+@media screen and (min-height: 650px), (min-width: 1281px) {
   #login-container-page #login-logo-svg {
     padding-top: 9%;
   }
@@ -10,12 +10,24 @@
   }
 }
 
+/* mobile */
+@media only screen and (max-width: 500px) {
+  #login-container-page { 
+    padding-top: 9vh;
+    background: linear-gradient(to bottom, #009688 80%, #F3FAEC 20%) !important;
+    max-height: 60vh;
+  }
+  #login-container-page #login-logo-svg { 
+    padding-bottom: 2vh;
+  }
+}
+
 #login-container-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to bottom, #009688 65%, #F3FAEC 20%);
+  background: linear-gradient(to bottom, #009688 63%, #F3FAEC 20%);
   background-repeat: no-repeat;
 }
 
