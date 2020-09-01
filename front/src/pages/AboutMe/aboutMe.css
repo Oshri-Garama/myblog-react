@@ -1,8 +1,25 @@
-@media screen and (min-height: 650px) {
+@media screen and (min-height: 650px), (min-width: 1281px)  {
   #aboutme-container header {
     font-size: 95px !important;
     padding-top: 5%;
     padding-bottom: 4%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  #aboutme-container {
+    padding-top: 9vh;
+    background: linear-gradient(to bottom, #009688 80%, #F3FAEC 20%) !important;
+    max-height: 60vh;
+  }
+  #aboutme-container header { 
+    margin-top: 70px !important;
+    font-size: 14vw !important;
+    margin-bottom: 50px !important;
+  }
+  #aboutme-container p { 
+    width: 69% !important;
+    font-size: 2.8vw !important;
   }
 }
 
