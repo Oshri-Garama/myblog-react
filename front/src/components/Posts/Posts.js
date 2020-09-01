@@ -151,11 +151,11 @@ class Posts extends React.Component {
         <header id="recent-posts-title">{headerTitle}</header>
         <div id='search-filter-container'>
           <div id='tag-selector-search'>
-            <header id='tag-search-header'>Filter using hashtag</header>
+            <header className='tag-search-header'>Filter using hashtag</header>
             <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} isEmptyFiltered={isEmptyFiltered} />
           </div>
           <div id='search-by-content-container'>
-            <header id='tag-search-header'>Search by content</header>
+            <header className='tag-search-header'>Search by content</header>
             <div className='row-flex'>
               <input className='search-input' type='text' onChange={this.onChangeConent}></input>
               <button className='search-button' onClick={this.handleOnSearch}>Search</button>
@@ -169,7 +169,7 @@ class Posts extends React.Component {
           <header id="recent-posts-button-header">New Post</header>
         </div>
         <div id="recent-posts-container">{this.renderPosts()}</div>
-        {isEmptyFiltered && <header id='no-resuts-header'>No results found</header>}
+        {isEmptyFiltered && <header id='no-results-header'>No results found</header>}
       </div>
     );
   }
