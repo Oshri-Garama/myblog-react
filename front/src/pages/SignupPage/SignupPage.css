@@ -1,4 +1,4 @@
-@media screen and (min-height: 650px) {
+@media screen and (min-height: 650px), (min-width: 1281px) {
   #signup-page-container #signup-title {
     margin-bottom: 6%;
     font-size: 95px !important;
@@ -14,12 +14,32 @@
   }
 }
 
+/* mobile */
+@media only screen and (max-width: 500px) { 
+  #signup-page-container {
+    padding-top: 9vh;
+    background: linear-gradient(to bottom, #009688 80%, #F3FAEC 20%) !important;
+    max-height: 60vh;
+  }
+  #signup-page-container #signup-title {
+    font-size: 9vw !important;
+    margin-bottom: 0px;
+  }
+  #signup-page-container #signup-description {
+    font-size: 4vw !important;
+    margin-top: -30px !important;
+  }
+  #signup-page-container #signup-button {
+    width: 150px !important;
+  }
+}
+
 #signup-page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to bottom, #009688 65%, #F3FAEC 20%);
+  background: linear-gradient(to bottom, #009688 66%, #F3FAEC 20%);
   background-repeat: no-repeat;
 }
 
