@@ -1,3 +1,34 @@
+/* mobile */
+@media only screen and (max-width: 500px) {
+  .post-view-page #post-view-title {
+    font-size: 9vw !important;
+    padding-top: 40px !important;
+  }
+  .comment-input-container {
+    width: 44% !important;
+  }
+  #comment-button { 
+    margin-top: 2%;
+  }
+  #comment-icon {
+    width: 30%;
+  }
+  .post-view-page #post-view-comments-header {
+    font-size: 100% !important;
+  }
+
+  .post-view-page #comments-list {
+    margin-top: 5% !important;
+  }
+  .post-view-page .comment-user-name {
+    font-size: 20px;
+    margin-bottom: -5px !important;
+  }
+  .post-view-page .comment-comment-content {
+    font-size: 14px;
+  }
+}
+
 .post-view-page {
   background-color: #F3FAEC;
   height: 100%;
@@ -91,14 +122,14 @@
   font-size: 20px;
 }
 
-#comment-user-name {
+.comment-user-name {
   font-size: 20px;
   font-weight: 500;
   color: #0d0d0d;
   text-shadow: 1px 1px #cad6d5;
 }
 
-#comment-comment-content {
+.comment-comment-content {
   color: rgb(106, 173, 91);
   text-shadow: 1px 1px #cad6d5;
   max-width: 90%;
