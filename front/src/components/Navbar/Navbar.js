@@ -8,10 +8,9 @@ const Navbar = (props) => {
     props.handleLogout();
   };
   const { isLoggedIn } = props;
-  const { innerWidth } = useWindowSize()
 
   return (
-    <div className={innerWidth > 600 ? "navbar-container" : "navbar-container navbar-mobile" }>
+    <div className="navbar-container">
       <div id="left-navbar">
         <Link className="vr-line-right" to="/">
           Home
@@ -24,7 +23,7 @@ const Navbar = (props) => {
             My Posts
           </Link>
         )}
-        <Link className={innerWidth > 600 ? "vr-line-right" : ""} to="/about">
+        <Link className="vr-line-right mobile-vr-line-right"to="/about">
           About Me
         </Link>
       </div>
