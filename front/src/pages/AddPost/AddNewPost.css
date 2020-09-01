@@ -1,10 +1,22 @@
+/* mobile */
+@media only screen and (max-width: 500px) {
+  .new-post-container #create-new-post-title {
+    font-size: 9vw !important;
+    padding-top: 40px !important;
+  }
+
+  .new-post-container #icon-header-new-post {
+    min-height: 50%;
+    width: 15%;
+  }
+}
+
 .new-post-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   opacity: 1;
   height: 100vh;
-  /* background: linear-gradient(to bottom, #009688 65%, #F3FAEC 20%); */
   background-color: #F3FAEC;
   background-attachment: fixed;
   background-repeat: no-repeat;
