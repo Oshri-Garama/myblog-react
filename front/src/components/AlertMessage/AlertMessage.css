@@ -1,8 +1,8 @@
 /* mobile */
 @media only screen and (max-width: 500px) {
   .alert-message-container {
-    width: 50%;
-    left: 28% !important;
+    width: 70%;
+    left: 15% !important;
   }
   .svg-alert {
     width: 15%;
