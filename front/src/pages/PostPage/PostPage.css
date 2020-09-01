@@ -27,6 +27,13 @@
   .post-view-page .comment-comment-content {
     font-size: 14px;
   }
+  .post-view-container #post-image-post-page {
+    width: 38%;
+    height: 38%;
+  }
+  .post-view-content {
+    font-size: 2.8vw !important;
+  }
 }
 
 .post-view-page {
