@@ -1,3 +1,37 @@
+/* mobile */
+@media only screen and (max-width: 500px) {
+  #all-posts-page-container #recent-posts-title {
+    font-size: 9vw !important;
+    padding-top: 40px !important;
+  }
+  #all-posts-page-container .row-flex {
+    width: 62% !important;
+  }
+
+  #all-posts-page-container .search-input {
+    height: 15px !important;
+    width: 80px !important;
+  }
+  #all-posts-page-container .search-button {
+    width: 55px !important;
+    height: 20px !important;
+    font-size: 2vw !important;
+  }
+
+  #all-posts-page-container .tag-search-header {
+    font-size: 3vw !important;
+  }
+
+  #all-posts-page-container div.ReactTags__tagInput {
+    height: 20px !important;
+    width: 100px !important;
+  }
+  #all-posts-page-container input.ReactTags__tagInputField {
+    height: 20px !important;
+    width: 100px !important;
+  }
+}
+
 #all-posts-page-container {
   display: flex;
   flex-direction: column;
@@ -30,11 +64,11 @@
   text-shadow: 0.5px 0.5px #7D9977;
 }
 
-#all-posts-page-container #tag-search-header {
+#all-posts-page-container .tag-search-header {
   font-size: 18px;
 }
 
-#all-posts-page-container #no-resuts-header {
+#all-posts-page-container #no-results-header {
   align-self: center;
   font-size: 30px;
   margin-top: 2%;
@@ -61,7 +95,7 @@
   height: 27px;
 }
 
-#all-posts-page-container #tag-search-header {
+#all-posts-page-container .tag-search-header {
   align-self: flex-start;
 }
 
