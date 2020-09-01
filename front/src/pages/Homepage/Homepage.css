@@ -1,4 +1,4 @@
-@media screen and (min-height: 650px) {
+@media screen and (min-height: 650px), (min-width: 1281px) {
   #buttons-homepage {
     min-height: 324px;
     max-width: 38%;
@@ -29,46 +29,38 @@
   }
 }
 
-.home-mobile {
-  width: 450px;
-  height: 800px;
-}
-
-.home-mobile .button-homepage {
-  width: 120px;
-  min-height: 120px;
-  margin-top: 63px;
-  margin-right: 10px;
-}
-
-.home-mobile #buttons-homepage {
-  margin-top: 180px;
-}
-
-.home-mobile .icon-svg {
-  height: 60%;
-  margin-top: 20px;
-}
-
-.home-mobile .new-post-svg {
-  max-height: 280px;
-}
-
-.home-mobile #web-title {
-  font-size: 130px !important;
-  margin-top: 100px;
-}
-
-.home-mobile #web-subtitle {
-  font-size: 30px !important;
-  margin-left: 30px;
+/* mobile */
+@media only screen and (max-width: 500px) {
+  .home-container .icon-svg {
+    height: 60%;
+    margin-top: 20px;
+  }
+  .home-container .button-homepage {
+    width: 110px;
+    height: 110px;
+    margin-top: 44%;
+    margin-right: 10px;
+  }
+  .home-container .new-post-svg {
+    max-height: 280px;
+  }
+  
+  .home-container #web-title {
+    font-size: 33vw !important;
+    margin-left: 50px;
+    margin-top: 100px;
+  }
+  
+  .home-container #web-subtitle {
+    font-size: 20px;
+    margin-top: -10%;
+  }
 }
 
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* height: 100%; */
   background: linear-gradient(to bottom, #009688 65%, #F3FAEC 20%);
   background-repeat: no-repeat;
 }
