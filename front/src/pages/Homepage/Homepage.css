@@ -1,7 +1,7 @@
 @media screen and (min-height: 650px), (min-width: 1281px) {
   #buttons-homepage {
     min-height: 324px;
-    max-width: 38%;
+    max-width: 50%;
   }
   #title-container {
     margin-top: 5%;
@@ -11,21 +11,55 @@
     font-size: 300px !important;
     margin-bottom: 6%;
   }
+  
+  .home-container #web-subtitle {
+    margin-top: 4%;
+    margin-left: 6%;
+  }
 
   .home-container #buttons-homepage {
     margin-bottom: 4.5%;
+    max-width: 35% !important;
   }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-height: 650px), (min-width: 1571px) {
   #buttons-homepage {
+    max-width: 40%;
+  }
+  #web-title {
+    margin-bottom: 5%;
+  }
+}
+
+@media screen and (max-width: 1588px) {
+  #buttons-homepage {
+    min-width: 40% !important;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  #buttons-homepage {
+    max-width: 80% !important;
+  }
+  #web-title {
+    font-size: 20vw !important;
+    margin-top: 4.5%;
+  }
+}
+
+@media screen and (max-height: 650px), (min-width: 1279px) {
+  .home-container #buttons-homepage {
     width: 50% !important;
   }
-}
-
-@media screen and (max-width: 1280px) {
-  #buttons-homepage {
-    min-width: 55% !important;
+  .home-container #web-subtitle {
+    margin-top: 6%;
+  }
+  .home-container {
+    background: linear-gradient(to bottom, #009688 68%, #F3FAEC 20%) !important;
+  }
+  #web-title {
+    margin-top: -0.2%;
   }
 }
 
@@ -53,7 +87,7 @@
   
   .home-container #web-subtitle {
     font-size: 20px;
-    margin-top: -10%;
+    margin-top: -7%;
   }
 }
 
