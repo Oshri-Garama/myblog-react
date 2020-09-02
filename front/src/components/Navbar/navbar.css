@@ -25,6 +25,7 @@
   height: 40px;
   width: 100%;
   position: fixed;
+  box-shadow: 1px 1px 1px 1px #afadad;
 }
 
 .navbar-container a {
