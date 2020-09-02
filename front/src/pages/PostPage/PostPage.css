@@ -1,7 +1,7 @@
 /* mobile */
 @media only screen and (max-width: 500px) {
   .post-view-page #post-view-title {
-    font-size: 9vw !important;
+    font-size: 7vw !important;
     padding-top: 40px !important;
   }
   .comment-input-container {
@@ -30,9 +30,18 @@
   .post-view-container #post-image-post-page {
     width: 38%;
     height: 38%;
+    align-self: center;
+    margin-bottom: 4%;
   }
   .post-view-content {
     font-size: 4vw !important;
+    line-height: 100% !important;
+    margin-right: 10%;
+  }
+  #post-page-seperator {
+    display: flex;
+    flex-direction: column;
+    align-content: center !important;
   }
 }
 
@@ -169,7 +178,7 @@
   text-shadow: 1px 2px #cad6d5;
   word-wrap: break-word;
   white-space: pre-line;
-  line-height: 0.2;
+  line-height: 100% !important;
 }
 
 .post-view-page #tags-container {
