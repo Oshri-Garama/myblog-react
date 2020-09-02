@@ -86,8 +86,9 @@ class Post extends React.Component {
                   imageUrl: imageUrl,
                 },
               }}
+              className='edit-post-icon'
             >
-              <img className="edit-post-icon" src={editSVG} />
+              <img style={{width: '100%'}} src={editSVG} />
             </Link>
             <div className="delete-post-container">
               <button className="delete-post-icon" onClick={this.handleDelete}>

@@ -53,9 +53,6 @@
   .post-container .post-buttons-container {
     height: 34px;
   }
-  .post-container .delete-post-container {
-    width: 32px;
-  }
   .post-container .edit-post-icon {
     width: 32px;
     margin-top: 7px !important;
@@ -65,6 +62,7 @@
     justify-content: flex-start;
     align-items: flex-start;
     align-content: flex-start;
+    margin-top: 20%;
   }
 }
 
@@ -220,11 +218,12 @@
 }
 
 .post-container .edit-post-icon {
-  min-width: 50px;
-  max-width: 50px;
+  min-width: 20px;
+  max-width: 20px;
   max-height: 23px;
   min-height: 23px;
-  margin-top: 8%;
+  margin-top: 2.5%;
+  margin-right: 3%;
 } 
 
 .post-container .delete-post-container {
