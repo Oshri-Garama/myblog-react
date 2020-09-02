@@ -5,7 +5,9 @@
     padding-top: 40px !important;
   }
   #all-posts-page-container .row-flex {
-    width: 62% !important;
+    width: 45% !important;
+    flex-direction: column;
+    min-height: 50px !important;
   }
 
   #all-posts-page-container .search-input {
@@ -13,9 +15,10 @@
     width: 80px !important;
   }
   #all-posts-page-container .search-button {
-    width: 55px !important;
+    width: 50px !important;
     height: 20px !important;
     font-size: 2vw !important;
+    align-self: center;
   }
 
   #all-posts-page-container .tag-search-header {
@@ -29,6 +32,39 @@
   #all-posts-page-container input.ReactTags__tagInputField {
     height: 20px !important;
     width: 100px !important;
+  }
+  .post-container {
+    width: 50% !important
+  }
+  .post-container .delete-post-icon {
+    min-width: 45px !important;
+  }
+
+  #all-posts-page-container .search-by-content-mobile {
+    width: 50% !important;
+  }
+  #all-posts-page-container .search-header-mobile {
+    align-self: center !important;
+  }
+  #all-posts-page-container #tag-selector-search {
+    width: 50% !important;
+  }
+
+  .post-container .post-buttons-container {
+    height: 34px;
+  }
+  .post-container .delete-post-container {
+    width: 32px;
+  }
+  .post-container .edit-post-icon {
+    width: 32px;
+    margin-top: 7px !important;
+  }
+  .post-container .delete-post-icon {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
   }
 }
 
@@ -99,7 +135,7 @@
   align-self: flex-start;
 }
 
-#all-posts-page-container #search-by-content-container {
+#all-posts-page-container .search-by-content-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

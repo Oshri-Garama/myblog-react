@@ -91,7 +91,7 @@ class Post extends React.Component {
             </Link>
             <div className="delete-post-container">
               <button className="delete-post-icon" onClick={this.handleDelete}>
-                <img src={deleteSVG} />
+                <img style={{width: '100%'}} src={deleteSVG} />
               </button>
             </div>
           </div>

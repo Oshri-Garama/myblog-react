@@ -154,8 +154,8 @@ class Posts extends React.Component {
             <header className='tag-search-header'>Filter using hashtag</header>
             <TagsSelector action='search' getSelectedTags={this.getSelectedTags} tags={tags} isEmptyFiltered={isEmptyFiltered} />
           </div>
-          <div id='search-by-content-container'>
-            <header className='tag-search-header'>Search by content</header>
+          <div className='search-by-content-container search-by-content-mobile'>
+            <header className='tag-search-header search-header-mobile'>Search by content</header>
             <div className='row-flex'>
               <input className='search-input' type='text' onChange={this.onChangeConent}></input>
               <button className='search-button' onClick={this.handleOnSearch}>Search</button>
