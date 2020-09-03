@@ -53,13 +53,14 @@
     width: 50% !important;
   }
   .home-container #web-subtitle {
-    margin-top: 6%;
+    margin-top: -1%;
   }
   .home-container {
-    background: linear-gradient(to bottom, #009688 68%, #F3FAEC 20%) !important;
+    background: linear-gradient(to bottom, #009688 66%, #F3FAEC 20%) !important;
   }
   #web-title {
-    margin-top: -0.2%;
+    margin-top: 0.5%;
+    font-size: 14.5vw !important;
   }
 }
 
