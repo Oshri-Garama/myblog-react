@@ -142,12 +142,14 @@ class AddNewPost extends React.Component {
             type="text"
             placeholder="Post title goes here..."
             onChange={this.handleTitleChange}
+            readonly
           ></input>
           <input
             id="input-add-img"
             type="url"
             placeholder="Paste here your image url"
             onChange={this.handleImageChange}
+            readonly
           ></input>
           <div id='ck-editor'>
             <CKEditor

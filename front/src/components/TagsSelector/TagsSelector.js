@@ -175,6 +175,7 @@ class TagsSelector extends React.Component {
           delimiters={this.state.delimiters}
           handleInputChange={this.handleInputChange}
           autocomplete={true}
+          autofocus={false}
         />
       </div>
     );
