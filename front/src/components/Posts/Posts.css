@@ -64,6 +64,9 @@
     align-content: flex-start;
     margin-top: 20%;
   }
+  .post-container .post-image {
+    width: 50% !important;
+  }
 }
 
 #all-posts-page-container {
@@ -204,10 +207,8 @@
 }
 
 .post-container .post-image {
-  width: auto;
+  width: 50%;
   height: auto;
-  max-width: 200px;
-  max-height: 150px;
 }
 
 .post-container .post-buttons-container {
