@@ -64,8 +64,8 @@ class AddNewPost extends React.Component {
   onSubmit = async (event) => {
     event.preventDefault();
     const { post } = this.state;
-    const { image } = post;
-    if (image) {
+    const { image, title, content } = post;
+    if (image && title && content && title.length <= 30) {
       const randomString = uuid();
       const uploadTask = storage
         .ref(`/images/${randomString}-${image.name}`)
@@ -222,7 +222,7 @@ class AddNewPost extends React.Component {
               readonly
             ></input>
           </div>
-          <progress value={progressUploadingImage} max="100" />
+          <div className='progress-bar' style={{'--progress': `${progressUploadingImage}%`}}></div>
           <button
             id="create-post-button"
             type="submit"
