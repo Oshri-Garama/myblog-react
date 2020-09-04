@@ -9,6 +9,14 @@
   }
 }
 
+@media screen and (min-height: 650px), (min-width: 1281px) {
+  .alert-message-container {
+    width: 30%;
+    height: 4% !important;
+    left: 32% !important;
+  }
+}
+
 .alert-message-container {
   display: flex;
   position: fixed;
