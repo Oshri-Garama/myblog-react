@@ -65,7 +65,8 @@ class LoginPage extends React.Component {
           this.setState({
             ...this.state,
             popup: {
-              message: "Problem connecting to the server, please contact support",
+              message:
+                "Problem connecting to the server, please contact support",
               isPopupOpen: true,
               success: false,
             },
@@ -131,11 +132,11 @@ class LoginPage extends React.Component {
                 ></input>
               </div>
             </div>
+            <button className="login-button" type="submit">
+              Login
+            </button>
           </div>
         </div>
-        <button className="login-button" type="submit">
-          Login
-        </button>
       </form>
     );
   }
