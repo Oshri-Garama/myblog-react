@@ -1,10 +1,4 @@
-/* @media screen and (min-height: 650px), (min-width: 1281px)  {
-  #aboutme-container header {
-    font-size: 95px !important;
-    padding-top: 5%;
-    padding-bottom: 4%;
-  }
-} */
+/*Default width: 1280px*/
 
 #aboutme-container {
   display: flex;
