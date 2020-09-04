@@ -5,9 +5,11 @@ import bookSVG from "../../images/book.svg";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
 import TagsSelector from "../../components/TagsSelector/TagsSelector";
 import { Redirect } from "react-router-dom";
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import '../../styles/editor.css';
+import CKEditor from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import "../../styles/editor.css";
+import { storage } from "../../firebase";
+import { v4 as uuid } from "uuid";
 
 class AddNewPost extends React.Component {
   constructor(props) {
@@ -20,12 +22,14 @@ class AddNewPost extends React.Component {
         imageUrl: "",
         author: "",
         tags: [],
+        image: "",
       },
       popup: {
         message: null,
         isPopupOpen: false,
         success: false,
       },
+      progressUploadingImage: 0,
     };
   }
   handleTitleChange = (event) => {
@@ -41,24 +45,91 @@ class AddNewPost extends React.Component {
     this.setState({
       post: {
         ...this.state.post,
-        content: data
+        content: data,
       },
     });
   };
 
   handleImageChange = (event) => {
+    if (event.target.files[0]) {
+      this.setState({
+        post: {
+          ...this.state.post,
+          image: event.target.files[0],
+        },
+      });
+    }
+  };
+
+  onSubmit = async (event) => {
+    event.preventDefault();
+    const { post } = this.state;
+    const { image } = post;
+    if (image) {
+      const randomString = uuid();
+      const uploadTask = storage
+        .ref(`/images/${randomString}-${image.name}`)
+        .put(image);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          this.setState({
+            ...this.state,
+            progressUploadingImage: progress,
+          });
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          storage
+            .ref("images")
+            .child(`${randomString}-${image.name}`)
+            .getDownloadURL()
+            .then((url) => {
+              this.postNew(url);
+            });
+        }
+      );
+    } else {
+      this.postNew();
+    }
+  };
+
+  closePopupIfOpen = () => {
+    const { isPopupOpen } = this.state.popup;
+    if (isPopupOpen) {
+      setTimeout(() => {
+        this.setState({
+          ...this.state,
+          popup: {
+            isPopupOpen: false,
+            message: null,
+          },
+        });
+      }, 4000);
+    }
+  };
+
+  getSelectedTags = (tags) => {
     this.setState({
+      ...this.state,
       post: {
         ...this.state.post,
-        imageUrl: event.target.value,
+        tags,
       },
     });
   };
 
-  onSubmit = (event) => {
-    event.preventDefault();
+  postNew = (imageUrl) => {
     const { post } = this.state;
     const { title, content } = post;
+    if (imageUrl) {
+      post.imageUrl = imageUrl;
+    }
     if (title && content && title.length <= 30) {
       axios.post("/api/posts", post).then((res) => {
         if (res.status === 200) {
@@ -99,34 +170,9 @@ class AddNewPost extends React.Component {
     }
   };
 
-  closePopupIfOpen = () => {
-    const { isPopupOpen } = this.state.popup;
-    if (isPopupOpen) {
-      setTimeout(() => {
-        this.setState({
-          ...this.state,
-          popup: {
-            isPopupOpen: false,
-            message: null,
-          },
-        });
-      }, 4000);
-    }
-  };
-
-  getSelectedTags = (tags) => {
-    this.setState({
-      ...this.state,
-      post: {
-        ...this.state.post,
-        tags,
-      },
-    });
-  };
-
-
   render() {
     const { isLoggedIn } = this.props;
+    const { progressUploadingImage } = this.state;
     if (!isLoggedIn) return <Redirect to="/" />;
     const { message, success } = this.state.popup;
     const type = success ? "success" : "failed";
@@ -144,24 +190,39 @@ class AddNewPost extends React.Component {
             onChange={this.handleTitleChange}
             readonly
           ></input>
-          <input
-            id="input-add-img"
-            type="url"
-            placeholder="Paste here your image url"
-            onChange={this.handleImageChange}
-            readonly
-          ></input>
-          <div id='ck-editor'>
+          <div id="ck-editor">
             <CKEditor
               editor={ClassicEditor}
-              config={{removePlugins: [ 'List', 'Table', 'MediaEmbed', 'BlockQuote', 'Indent']}}
+              config={{
+                removePlugins: [
+                  "List",
+                  "Table",
+                  "MediaEmbed",
+                  "BlockQuote",
+                  "Indent",
+                  "ImageUpload",
+                ],
+              }}
               onChange={(event, editor) => {
                 const data = editor.getData();
-                {this.handleContentChange(data)}
+                {
+                  this.handleContentChange(data);
+                }
               }}
             />
           </div>
           <TagsSelector getSelectedTags={this.getSelectedTags} />
+          <div className="image-addition-input">
+            <label className='upload-pic-label' for="upload">Upload Picture</label>
+            <input
+              type="file"
+              id='upload'
+              accept="image/*"
+              onChange={this.handleImageChange}
+              readonly
+            ></input>
+          </div>
+          <progress value={progressUploadingImage} max="100" />
           <button
             id="create-post-button"
             type="submit"
