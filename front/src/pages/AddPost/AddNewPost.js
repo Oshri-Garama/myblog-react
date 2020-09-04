@@ -172,7 +172,8 @@ class AddNewPost extends React.Component {
 
   render() {
     const { isLoggedIn } = this.props;
-    const { progressUploadingImage } = this.state;
+    const { progressUploadingImage, post } = this.state;
+    const { image } = post;
     if (!isLoggedIn) return <Redirect to="/" />;
     const { message, success } = this.state.popup;
     const type = success ? "success" : "failed";
@@ -213,7 +214,7 @@ class AddNewPost extends React.Component {
           </div>
           <TagsSelector getSelectedTags={this.getSelectedTags} />
           <div className="image-addition-input">
-            <label className='upload-pic-label' for="upload">Upload Picture</label>
+            <label className='upload-pic-label' for="upload">{image ? image.name : 'Upload Picture'}</label>
             <input
               type="file"
               id='upload'

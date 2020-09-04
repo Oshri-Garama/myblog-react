@@ -97,6 +97,13 @@
   background-color: #009688;
   font-size: 16px;
   color: #fff;
+  max-width: 100px;
+  max-height: 41px;
+  min-width: 100px;
+  min-height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .new-post-container input[type="file"] {
@@ -106,6 +113,24 @@
   left: 0;
   font-size: 15px;
   color: transparent;
+}
+
+.new-post-container .progress-bar {
+  width: 100%;
+  height: 1.2em;
+  background-color: #8fc3be;
+  border-radius: 1.5em;
+  color: white;
+}
+
+.new-post-container .progress-bar::before {
+  content: attr(data-label);
+  display: flex;
+	align-items: center;
+  width: calc(var(--progress, 0));
+  height: 1.2em;
+  border-radius: 1.5em;
+  background-color: #009688;
 }
 
 #input-add-content {
