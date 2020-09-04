@@ -148,6 +148,12 @@ class AddNewPost extends React.Component {
             this.props.history.push(`/posts/${post.id}`);
           }, 3000);
         }
+        if (!post.image) {
+          this.setState({
+            ...this.state,
+            progressUploadingImage: 100
+          })
+        }
       });
     } else if (title.length > 30) {
       this.setState({
