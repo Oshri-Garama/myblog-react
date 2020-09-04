@@ -1,4 +1,4 @@
-@media screen and (min-height: 650px), (min-width: 1281px) {
+/* @media screen and (min-height: 650px), (min-width: 1281px) {
   #buttons-homepage {
     min-height: 324px;
     max-width: 50%;
@@ -10,87 +10,77 @@
   #web-title {
     font-size: 300px !important;
     margin-bottom: 6%;
-  }
+  } */
   
-  .home-container #web-subtitle {
+  /* .home-container #web-subtitle {
     margin-top: 4%;
     margin-left: 6%;
-  }
+  } */
 
-  .home-container #buttons-homepage {
+  /* .home-container #buttons-homepage {
     margin-bottom: 4.5%;
     max-width: 35% !important;
-  }
-}
+  } */
+/* } */
 
-@media screen and (min-height: 650px), (min-width: 1571px) {
-  #buttons-homepage {
+/* @media screen and (min-height: 650px), (min-width: 1571px) {
+  /* #buttons-homepage {
     max-width: 40%;
-  }
-  #web-title {
+  } */
+  /* #web-title {
     margin-bottom: 5%;
-  }
-}
+  } */
+/* }  */
 
-@media screen and (max-width: 1588px) {
-  #buttons-homepage {
+/* @media screen and (max-width: 1588px) { */
+  /* #buttons-homepage {
     min-width: 40% !important;
-  }
-}
+  } */
+/* } */
 
-@media screen and (max-width: 1300px) {
-  #buttons-homepage {
-    max-width: 80% !important;
-  }
-  #web-title {
-    font-size: 20vw !important;
-    margin-top: 4.5%;
-  }
-}
-
-@media screen and (max-height: 650px), (min-width: 1279px) {
-  .home-container #buttons-homepage {
+/* @media screen and (max-height: 650px), (min-width: 1279px) { */
+  /* .home-container #buttons-homepage {
     width: 50% !important;
-  }
-  .home-container #web-subtitle {
+  } */
+  /* .home-container #web-subtitle {
     margin-top: -1%;
-  }
-  .home-container {
+  } */
+  /* .home-container {
     background: linear-gradient(to bottom, #009688 66%, #F3FAEC 20%) !important;
-  }
-  #web-title {
+  } */
+  /* #web-title {
     margin-top: 0.5%;
     font-size: 14.5vw !important;
-  }
-}
+  } */
+/* } */
 
 /* mobile */
-@media only screen and (max-width: 500px) {
+/* @media only screen and (max-width: 500px) {
   .home-container .icon-svg {
     height: 60%;
     margin-top: 20px;
   }
-  .home-container .button-homepage {
+  /* .home-container .button-homepage {
     width: 110px;
     height: 110px;
     margin-top: 44%;
     margin-right: 10px;
-  }
-  .home-container .new-post-svg {
+  } */
+  /* .home-container .new-post-svg {
     max-height: 280px;
-  }
+  } */
   
-  .home-container #web-title {
+  /* .home-container #web-title {
     font-size: 33vw !important;
     margin-left: 50px;
     margin-top: 100px;
-  }
+  } */
   
-  .home-container #web-subtitle {
+  /* .home-container #web-subtitle {
     font-size: 20px;
     margin-top: -7%;
-  }
-}
+  } */
+/* } */
 
 .home-container {
   display: flex;
@@ -103,9 +93,8 @@
 #buttons-homepage {
   display: flex;
   justify-content: space-around;
-  height: 100%;
-  width: 55%;
-  margin-bottom: 7.6%;
+  width: 620px;
+  margin-bottom: 88px;
 }
 
 .button-homepage {
@@ -113,7 +102,7 @@
   justify-content: center;
   height: 180px;
   width: 180px;
-  border-radius: 100%;
+  border-radius: 100px;
   box-shadow: 2px 2px 2px 2px #7D9977;
   border: 1px solid green;
   background-color: rgb(234, 246, 227);
@@ -134,19 +123,32 @@
   align-items: center;
   text-align: center;
   white-space: pre-wrap;
-  width: 80%;
+  width: 1000px;
   font-family: 'Great Vibes';
   color: #f3faec;
   text-shadow: 2px 2px #7D9977 ;
-  margin-top: 3%;
-  margin-bottom: 4.5%;
+  margin-top: 50px;
+  margin-bottom: 52px;
+}
+
+@media screen and (max-width: 812px) {
+  #web-title {
+    margin-bottom: 0px;
+  }
 }
 
 #web-title {
   font-size: 190px;
   font-weight: 500;
   height: 160px;
-  margin-right: 15%;
+  width: 800px;
+  align-self: flex-start;
+}
+
+@media screen and (max-width: 812px) {
+  #web-title {
+    font-size: 150px;
+  }
 }
 
 #web-subtitle {
@@ -154,14 +156,25 @@
   font-size: 35px;
   font-weight: 500;
   align-self: flex-end;
-  margin-right: 16%;
+  margin-right: 100px;
 }
+@media screen and (max-width: 812px) {
+  #web-subtitle {
+    font-size: 30px;
+    width: 60%;
+  }
+}
+/* @media screen and (max-width: 653px) {
+  #web-subtitle {
+    font-size: 25px;
+  }
+} */
 
 .button-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 32%;
+  height: 230px;
 }
 
 .button-container .button-header-container-homepage {
