@@ -90,11 +90,24 @@
   background-repeat: no-repeat;
 }
 
+@media screen and (max-width: 599px) {
+  .home-container {
+    background: linear-gradient(to bottom, #009688 59%, #F3FAEC 20%);
+  }
+}
+
 #buttons-homepage {
   display: flex;
   justify-content: space-around;
   width: 620px;
   margin-bottom: 88px;
+  height: 225px;
+}
+
+@media screen and (max-width: 599px) {
+  #buttons-homepage {
+    width: 65%;
+  }
 }
 
 .button-homepage {
@@ -109,6 +122,13 @@
   transition-duration: 500ms;
 }
 
+@media screen and (max-width: 599px) {
+  .button-homepage {
+    width: 110px;
+    height: 110px;
+  }
+}
+
 .button-homepage:hover {
   background-color:rgb(201, 234, 194);
 }
@@ -117,24 +137,20 @@
   background-repeat: no-repeat;
 }
 
+
 #title-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   white-space: pre-wrap;
-  width: 1000px;
+  width: 1100px;
   font-family: 'Great Vibes';
   color: #f3faec;
   text-shadow: 2px 2px #7D9977 ;
   margin-top: 50px;
   margin-bottom: 52px;
-}
-
-@media screen and (max-width: 812px) {
-  #web-title {
-    margin-bottom: 0px;
-  }
+  height: 200px;
 }
 
 #web-title {
@@ -147,7 +163,25 @@
 
 @media screen and (max-width: 812px) {
   #web-title {
-    font-size: 150px;
+    font-size: 180px;
+    height: 78%;
+    align-self: flex-start;
+    width: 90%;
+  }
+}
+@media screen and (max-width: 599px) {
+  #web-title {
+    font-size: 160px;
+    height: 75%;
+    align-self: flex-start;
+    width: 90%;
+    margin-top: 3%;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  #web-title {
+    width: 93%;
   }
 }
 
@@ -156,25 +190,38 @@
   font-size: 35px;
   font-weight: 500;
   align-self: flex-end;
-  margin-right: 100px;
+  margin-right: 180px;
 }
 @media screen and (max-width: 812px) {
   #web-subtitle {
     font-size: 30px;
+    width: 50%;
+  }
+}
+@media screen and (max-width: 599px) {
+  #web-subtitle {
+    font-size: 25px;
     width: 60%;
   }
 }
-/* @media screen and (max-width: 653px) {
+
+@media screen and (max-width: 599px) {
   #web-subtitle {
-    font-size: 25px;
+    width: 50%;
   }
-} */
+}
 
 .button-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 230px;
+}
+
+@media screen and (max-width: 599px) {
+  .button-container {
+    height: 70%;
+  }
 }
 
 .button-container .button-header-container-homepage {
@@ -184,6 +231,18 @@
   color: #009688;
   text-shadow: 1px 1px rgb(53, 163, 64);
   font-family: 'Gloria Hallelujah';
+}
+
+@media screen and (max-width: 599px) {
+  .home-container .icon-svg {
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  .home-container .new-post-svg {
+    width: 150%;
+  }
 }
 
 /* @media only screen and (min-width: 1441px) {
