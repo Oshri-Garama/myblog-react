@@ -67,6 +67,9 @@
   .post-container .post-image {
     width: 50% !important;
   }
+  #recent-posts-container {
+    margin-top: 15%;
+  }
 }
 
 #all-posts-page-container {
