@@ -1,46 +1,37 @@
-@media screen and (min-height: 650px), (min-width: 1281px)  {
+/* @media screen and (min-height: 650px), (min-width: 1281px)  {
   #aboutme-container header {
     font-size: 95px !important;
     padding-top: 5%;
     padding-bottom: 4%;
   }
-}
-
-@media only screen and (max-width: 500px) {
-  #aboutme-container {
-    padding-top: 9vh;
-    background: linear-gradient(to bottom, #009688 80%, #F3FAEC 20%) !important;
-    max-height: 60vh;
-  }
-  #aboutme-container header { 
-    margin-top: 70px !important;
-    font-size: 14vw !important;
-    margin-bottom: 50px !important;
-  }
-  #aboutme-container p { 
-    width: 69% !important;
-    font-size: 2.8vw !important;
-  }
-}
+} */
 
 #aboutme-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background: linear-gradient(to bottom, #009688 65%, #F3FAEC 20%);
+  background: linear-gradient(to bottom, #009688 68%, #F3FAEC 20%);
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  height: 100vh;
+}
+@media screen and (max-width: 812px) {
+  #aboutme-container {
+    background: linear-gradient(to bottom, #009688 66%, #F3FAEC 20%);
+  }
+}
+@media screen and (max-width: 480px) {
+  #aboutme-container {
+    background: linear-gradient(to bottom, #009688 70%, #F3FAEC 20%);
+  }
 }
 
 #aboutme-container header {
   font-family: 'Great Vibes';
-  font-size: 55px;
+  font-size: 60px;
   font-weight: 500;
   height: 100px;
-  margin-top: 8%;
-  margin-bottom: -3%;
+  margin-top: 100px;
+  margin-bottom: 10px;
   color: #f3faec;
   text-shadow: 2px 2px #7D9977;
   opacity: 1;
@@ -49,16 +40,33 @@
 	animation-timing-function: ease-in;
 	animation-duration: 0.2s;
 }
+@media screen and (max-width: 812px) {
+  #aboutme-container header {
+    font-size: 45px;
+    height: 10%;
+  }
+}
+@media screen and (max-width: 599px) {
+  #aboutme-container header {
+    font-size: 35px;
+  }
+}
+@media screen and (max-width: 480px) {
+  #aboutme-container header {
+    margin-top: 35%;
+    margin-bottom: 10%;
+    font-size: 32px;
+  }
+}
 
 #aboutme-container p {
   display: flex;
   align-items: center;
   font-family: 'Kalam';
   white-space: pre-line;
-  padding: 1%;
-  margin-top: 5%;
-  height: 330px;
-  width: 400px;
+  padding: 20px;
+  height: 300px;
+  width: 350px;
   background-color: rgb(234, 246, 227);
   box-shadow: 1px 1px 1px 1px #7D9977;
   border: 1px solid green;
@@ -70,4 +78,19 @@
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
 	animation-duration: 1.2s;
+}
+
+@media screen and (max-width: 812px) {
+  #aboutme-container p {
+    height: 280px;
+    width: 320px;
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 599px) {
+  #aboutme-container p {
+    height: 260px;
+    width: 300px;
+    font-size: 14px;
+  }
 }
