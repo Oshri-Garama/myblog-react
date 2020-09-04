@@ -9,6 +9,12 @@
     min-height: 50%;
     width: 15%;
   }
+  .new-post-container .progress-bar {
+    width: 80% !important;
+  }
+  .new-post-container {
+    position: fixed;
+  }
 }
 
 .new-post-container {
