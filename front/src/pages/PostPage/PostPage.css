@@ -19,6 +19,12 @@
     margin-bottom: 10px;
 }
 
+@media screen and (max-width: 480px) {
+  .post-view-page #post-view-title {
+    font-size: 7vw;
+  }
+}
+
 .post-view-container {
   display: flex;
   padding: 12px;
@@ -38,6 +44,15 @@
 @media screen and (max-width: 812px) {
   .post-view-container #post-image-post-page {
     width: 90%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .post-view-container #post-image-post-page {
+    width: 80%;
+    align-self: flex-start;
+    margin-bottom: 0px;
+    float: none;
   }
 }
 
@@ -65,7 +80,8 @@
 
 @media screen and (max-width: 480px) {
   #comment-inputarea {
-    width: 90%;
+    width: 65%;
+    align-self: center;
   }
 }
 
@@ -203,8 +219,8 @@
 
 @media screen and (max-width: 480px) {
   .post-view-content {
-    width: 60%;
-    font-size: 12px;
+    width: 80%;
+    font-size: 20px;
   }
 }
 
@@ -222,6 +238,11 @@
 @media screen and (max-width: 812px) {
   .post-view-page #tags-container {
     width: 100%;
+  }
+}
+@media screen and (max-width: 480px) {
+  .post-view-page #tags-container {
+    margin-top: -20%;
   }
 }
 
@@ -252,6 +273,13 @@
   }
 }
 
+@media screen and (max-width: 480px) {
+  .post-view-page .tag-label {
+    width: 38%;
+    font-size: 14px;
+  }
+}
+
 .post-view-page #post-page-seperator {
   width: 820px;
 }
@@ -275,7 +303,7 @@
 
 @media screen and (max-width: 480px) {
   .post-view-page #post-page-seperator {
-    width: 47%;
+    width: 54%;
   }
 }
 
