@@ -1,37 +1,15 @@
-/* @media screen and (min-height: 650px), (min-width: 1281px) {
-  #login-container-page #login-logo-svg {
-    padding-top: 9%;
-  }
-} */
-
-/* @media screen and (min-width: 1280px) {
-  #login-container-page #login-logo-svg {
-    margin-bottom: -1%;
-  }
-} */
-
-/* mobile */
-/* @media only screen and (max-width: 500px) {
-  #login-container-page { 
-    padding-top: 9vh;
-    background: linear-gradient(to bottom, #009688 80%, #F3FAEC 20%) !important;
-    max-height: 60vh;
-  }
-  #login-container-page #login-logo-svg { 
-    padding-bottom: 2vh;
-  }
-} */
+/*Default width: 1280px*/
 
 #login-container-page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(to bottom, #009688 63%, #F3FAEC 20%);
+  background: linear-gradient(to bottom, #009688 74%, #F3FAEC 20%);
   background-repeat: no-repeat;
 }
 
 #login-container-page #login-logo-svg {
-  margin-top: 100px;
+  margin-top: 60px;
   opacity: 1;
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;
@@ -71,7 +49,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: 250px;
+  height: 240px;
 }
 
 .form-container .image-sepeartor img {
@@ -83,7 +61,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 50px;
+  height: 55px;
 }
 
 
@@ -115,9 +93,7 @@
 }
 
 #login-container-page .login-button {
-  min-height: 35px;
   width: 100px;
-  height: 50px;
   border-radius: 42%;
   font-size: 25px;
   border: none;
