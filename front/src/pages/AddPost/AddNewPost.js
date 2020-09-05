@@ -239,7 +239,7 @@ class AddNewPost extends React.Component {
               onChange={this.handleImageChange}
               readonly
             ></input>
-            {image && <img src={xbuttonSVG} title={'Click to remove picture'} onClick={this.removePicture}></img>}
+            {image && <img src={xbuttonSVG} className='x-button' title={'Click to remove picture'} onClick={this.removePicture}></img>}
           </div>
           <div className='progress-bar' style={{'--progress': `${progressUploadingImage}%`}}></div>
           <button

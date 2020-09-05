@@ -169,3 +169,8 @@
   font-size: 12px;
   color: rgb(78, 171, 148);
 }
+
+.new-post-container .x-button {
+  margin-left: 5px;
+  transform: translateY(30%);
+}

@@ -274,7 +274,7 @@ class EditPost extends React.Component {
               onChange={this.handleImageChange}
               readonly
             ></input>
-            {imageUrl && <img src={xbuttonSVG} title={'Click to remove picture'} onClick={this.removePicture}></img>}
+            {(imageUrl || image) && <img className='x-button' src={xbuttonSVG} title={'Click to remove picture'} onClick={this.removePicture}></img>}
           </div>
           <div
             className="progress-bar"
