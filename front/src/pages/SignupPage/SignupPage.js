@@ -57,8 +57,7 @@ class SignupPage extends React.Component {
           success: false,
         },
       });
-    }
-    else if (username === "" || password === "" || fullName === "") {
+    } else if (username === "" || password === "" || fullName === "") {
       this.setState({
         ...this.state,
         popup: {
@@ -82,7 +81,8 @@ class SignupPage extends React.Component {
           this.setState({
             ...this.state,
             popup: {
-              message: "Problem connecting to the server, please contact support",
+              message:
+                "Problem connecting to the server, please contact support",
               isPopupOpen: true,
               success: false,
             },
@@ -162,11 +162,11 @@ class SignupPage extends React.Component {
                 ></input>
               </div>
             </div>
+            <button id="signup-button" type="submit">
+              Sign Up
+            </button>
           </div>
         </div>
-        <button id="signup-button" type="submit">
-          Sign Up
-        </button>
       </form>
     );
   }
