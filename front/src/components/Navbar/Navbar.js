@@ -1,7 +1,6 @@
 import React from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
-import useWindowSize from '../../utils/useWindowSize'
 
 const Navbar = (props) => {
   const handleLogout = () => {

@@ -7,7 +7,6 @@ import myPostsSVG from "../../images/myPosts.svg";
 import signInSVG from "../../images/signin.svg";
 import signUpSVG from "../../images/signup.svg";
 import writerSVG from "../../images/writer.svg";
-// import useWindowSize from '../../utils/useWindowSize'
 
 const Homepage = (props) => {
 
@@ -60,8 +59,6 @@ const Homepage = (props) => {
       </div>
     );
   };
-  // const { outerWidth } = useWindowSize()
-  // console.log(outerWidth, '***')
   
   return (
     <div className="home-container">
