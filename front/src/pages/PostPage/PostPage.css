@@ -44,6 +44,7 @@
 @media screen and (max-width: 812px) {
   .post-view-container #post-image-post-page {
     width: 90%;
+    float: none;
   }
 }
 
@@ -52,7 +53,6 @@
     width: 80%;
     align-self: flex-start;
     margin-bottom: 0px;
-    float: none;
   }
 }
 
