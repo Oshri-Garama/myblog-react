@@ -113,7 +113,6 @@ class Posts extends React.Component {
     axios
       .post("/api/posts/search", { content: contentToSearch })
       .then((res) => {
-        console.log(this.state.posts.length);
         if (res.status === 200) {
           if (!res.data.length) {
             this.setState({
