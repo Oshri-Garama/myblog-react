@@ -12,7 +12,6 @@
 
 @media only screen and (max-width: 480px) { 
   .new-post-container {
-    position: fixed;
     width: 100%;
   }
 }

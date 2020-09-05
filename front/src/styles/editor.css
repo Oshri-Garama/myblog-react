@@ -19,5 +19,12 @@
 .ck-editor__editable {
   min-height: 200px !important;
   min-width: 384px;
+  max-width: 384px;
   line-height: 1.0px;
+}
+
+@media only screen and (max-width: 480px) { 
+  .ck-editor__editable {
+    line-height: 15px;
+  }
 }

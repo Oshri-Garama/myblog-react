@@ -45,11 +45,13 @@
   display: flex;
   flex-direction: column;
   width: 280px;
-  height: 550px;
+  height: 500px;
 }
+
 
 #comment-inputarea {
   height: 50px;
+  width: 280px;
   margin-bottom: 8px;
   border: none;
   background-color: transparent;
@@ -59,6 +61,12 @@
   font-size: 15px;
   transition-duration: 1000ms;
   outline: none;
+}
+
+@media screen and (max-width: 480px) {
+  #comment-inputarea {
+    width: 90%;
+  }
 }
 
 #comment-inputarea:focus {
@@ -100,6 +108,13 @@
   margin-bottom: 20px;
 }
 
+@media screen and (max-width: 480px) {
+  #post-view-comments-header {
+    align-self: flex-start;
+    margin-left: 11vw;
+  }
+}
+
 .comment-user-name {
   font-size: 20px;
   font-weight: 500;
@@ -121,11 +136,24 @@
   padding: 10px;
 }
 
+@media screen and (max-width: 480px) {
+  .comment-container {
+    width: 75%;
+  }
+}
+
 #comments-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 30px;
+  height: 365px;
+  width: 280px;
+}
+
+@media screen and (max-width: 480px) {
+  #comments-container {
+    align-items: center;
+    width: 1%;
+  }
 }
 
 #comments-container #comments-list {
@@ -140,7 +168,14 @@
   box-shadow: 1px 1px 2px 2px #7D9977;
 }
 
-
+@media screen and (max-width: 480px) {
+  #comments-container #comments-list {
+    width: 34%;
+    height: 35%;
+    margin-left: 5%;
+    align-self: flex-start;
+  }
+}
 
 
 .post-view-content {
@@ -163,6 +198,13 @@
 @media screen and (max-width: 812px) {
   .post-view-content {
     font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .post-view-content {
+    width: 60%;
+    font-size: 12px;
   }
 }
 
@@ -228,6 +270,12 @@
 @media screen and (max-width: 599px) {
   .post-view-page #post-page-seperator {
     width: 38%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .post-view-page #post-page-seperator {
+    width: 47%;
   }
 }
 
