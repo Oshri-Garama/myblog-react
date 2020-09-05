@@ -1,29 +1,31 @@
 import React from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next'
 
 const Navbar = (props) => {
   const handleLogout = () => {
     props.handleLogout();
   };
   const { isLoggedIn } = props;
+  const { t } = useTranslation();
 
   return (
     <div className="navbar-container">
       <div id="left-navbar">
         <Link className="vr-line-right" to="/">
-          Home
+          {t('home')}
         </Link>
         <Link className="vr-line-right" to="/posts">
-          All Posts
+          {t('allPosts')}
         </Link>
         {isLoggedIn && (
           <Link className="vr-line-right" to="/user/posts">
-            My Posts
+            {t('myPosts')}
           </Link>
         )}
         <Link className={isLoggedIn ? "vr-line-right mobile-vr-line-right-logged" : "vr-line-right mobile-vr-line-right"}to="/about">
-          About Me
+          {t('aboutMe')}
         </Link>
       </div>
       <div id="right-navbar">
@@ -32,17 +34,17 @@ const Navbar = (props) => {
           className="vr-line-right vr-line-left"
           to="#"
         >
-          English
+          {t('english')}
         </Link>
         {!isLoggedIn && (
           <Link className="vr-line-right" to="/signup">
-            Sign Up
+            {t('signUp')}
           </Link>
         )}
-        {!isLoggedIn && <Link to="/login">Login</Link>}
+        {!isLoggedIn && <Link to="/login">{t('login')}</Link>}
         {isLoggedIn && (
           <Link to="/" onClick={handleLogout}>
-            Logout
+            {t('logOut')}
           </Link>
         )}
       </div>
