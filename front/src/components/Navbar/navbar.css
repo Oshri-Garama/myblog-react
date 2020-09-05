@@ -1,25 +1,5 @@
 /*Default width: 1280px*/
 
-/* mobile */
-/* @media only screen and (max-width: 500px) {
-  .navbar-container a {
-    font-size: 12px;
-    width: 80px;
-  }
-  
-  .navbar-container #left-navbar {
-    width: 55%;
-  }
-  
-  .navbar-container #right-navbar {
-    width: 50%;
-  }
-
-  .navbar-container .mobile-vr-line-right {
-    border-right: 0px;
-  }
-} */
-
 .navbar-container {
   display: flex;
   position: fixed !important;
@@ -48,6 +28,13 @@
     min-width: 25%;
   }
 }
+
+@media only screen and (max-width: 599px) {
+  .navbar-container a {
+    font-size: 14px;
+  }
+}
+
 @media only screen and (max-width: 480px) {
   .navbar-container a {
     font-size: 12px;
