@@ -1,7 +1,8 @@
 import React from "react";
-import "./EditPost.css";
+import "./EditPost.css"
 import axios from "axios";
 import editSVG from "../../images/edit-logo.svg";
+import xbuttonSVG from "../../images/icons/xbutton.svg";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
 import TagsSelector from "../../components/TagsSelector/TagsSelector";
 import CKEditor from "@ckeditor/ckeditor5-react";
@@ -9,7 +10,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "../../styles/editor.css";
 import { storage } from "../../firebase";
 import { v4 as uuid } from "uuid";
-import xbuttonSVG from "../../images/icons/xbutton.svg";
 
 class EditPost extends React.Component {
   constructor(props) {
