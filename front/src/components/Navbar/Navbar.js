@@ -23,7 +23,7 @@ const Navbar = (props) => {
             My Posts
           </Link>
         )}
-        <Link className="vr-line-right mobile-vr-line-right"to="/about">
+        <Link className={isLoggedIn ? "vr-line-right mobile-vr-line-right-logged" : "vr-line-right mobile-vr-line-right"}to="/about">
           About Me
         </Link>
       </div>
