@@ -2,6 +2,7 @@ import React from "react";
 import "./AddNewPost.css";
 import axios from "axios";
 import bookSVG from "../../images/book.svg";
+import xbuttonSVG from "../../images/icons/xbutton.svg";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
 import TagsSelector from "../../components/TagsSelector/TagsSelector";
 import { Redirect } from "react-router-dom";
@@ -176,6 +177,16 @@ class AddNewPost extends React.Component {
     }
   };
 
+  removePicture = () => {
+    this.setState({
+      ...this.state,
+      post: {
+        ...this.state.post,
+        image: '',
+      }
+    })
+  }
+
   render() {
     const { isLoggedIn } = this.props;
     const { progressUploadingImage, post } = this.state;
@@ -228,6 +239,7 @@ class AddNewPost extends React.Component {
               onChange={this.handleImageChange}
               readonly
             ></input>
+            {image && <img src={xbuttonSVG} title={'Click to remove picture'} onClick={this.removePicture}></img>}
           </div>
           <div className='progress-bar' style={{'--progress': `${progressUploadingImage}%`}}></div>
           <button
