@@ -1,21 +1,4 @@
-/* mobile */
-@media only screen and (max-width: 500px) {
-  .new-post-container #create-new-post-title {
-    font-size: 9vw !important;
-    padding-top: 40px !important;
-  }
-
-  .new-post-container #icon-header-new-post {
-    min-height: 50%;
-    width: 15%;
-  }
-  .new-post-container .progress-bar {
-    width: 80% !important;
-  }
-  .new-post-container {
-    position: fixed;
-  }
-}
+/*Default width: 1280px*/
 
 .new-post-container {
   display: flex;
@@ -23,8 +6,15 @@
   align-items: center;
   opacity: 1;
   background-color: #f3faec;
-  background-attachment: fixed;
+  height: 740px;
   background-repeat: no-repeat;
+}
+
+@media only screen and (max-width: 480px) { 
+  .new-post-container {
+    position: fixed;
+    width: 100%;
+  }
 }
 
 .new-post-container #create-new-post-title {
@@ -37,15 +27,21 @@
   font-family: "Kalam";
   color: #f3faec;
   text-shadow: 2px 2px #7d9977;
-  font-size: 70px;
-  padding-top: 4%;
+  font-size: 65px;
+  padding-top: 50px;
   font-weight: 500;
-  margin-bottom: 1%;
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 480px) { 
+  .new-post-container #create-new-post-title {
+    font-size: 40px;
+  }
 }
 
 .new-post-container #icon-header-new-post {
-  margin-bottom: 1%;
-  width: 16%;
+  margin-bottom: 20px;
+  width: 80px;
 }
 
 .new-post-container #new-post-form-container {
@@ -74,15 +70,13 @@
   font-weight: 500;
   text-shadow: 2px 2px rgb(221, 243, 199);
   transition-duration: 500ms;
-  margin-bottom: 4%;
 }
 
 .new-post-container #create-post-button:hover {
   background-color: rgb(222, 240, 205);
 }
 
-#input-add-title,
-#input-add-img {
+#input-add-title {
   width: 400px;
   height: 20px;
   margin-bottom: 15px;
@@ -90,9 +84,14 @@
 }
 
 .new-post-container .image-addition-input {
-  margin-top: 2%;
-  margin-bottom: 2%;
+  margin-top: 10px;
   position: relative;
+}
+
+@media only screen and (max-width: 480px) { 
+  .new-post-container .image-addition-input {
+    margin-bottom: 2%;
+  }
 }
 
 .new-post-container .upload-pic-label {
@@ -122,7 +121,7 @@
 }
 
 .new-post-container .progress-bar {
-  width: 100%;
+  width: 405px;
   height: 1.2em;
   background-color: #8fc3be;
   border-radius: 1.5em;
@@ -146,8 +145,7 @@
 }
 
 .new-post-container #input-add-title,
-#input-add-content,
-#input-add-img {
+#input-add-content {
   border: none;
   background-color: transparent;
   border-bottom: 2px solid rgb(78, 171, 148);
