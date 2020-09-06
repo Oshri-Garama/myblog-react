@@ -65,6 +65,8 @@ const LoginPage = (props) => {
             success: false,
           });
           formRef.current.reset();
+          setUserame('')
+          setPassword('')
         }
       });
   };
@@ -126,7 +128,7 @@ const LoginPage = (props) => {
   const { message, success } = popup;
   const type = success ? "success" : "failed";
   
-  
+
   return (
     <form id="login-container-page" onSubmit={handleLogin} ref={formRef}>
       <AlertMessage message={message} type={type} />
