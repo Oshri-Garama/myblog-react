@@ -92,3 +92,21 @@
   align-items: center;
   border-left: 1px #009688 ridge;
 }
+
+.languages-container {
+  display: flex;
+}
+
+.transparent {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.languages-container .hebrew-language-selected path {
+  fill: rgb(93, 92, 92) !important;
+}
+
+.languages-container .english-language-selected polygon {
+  fill: rgb(93, 92, 92) !important;
+}

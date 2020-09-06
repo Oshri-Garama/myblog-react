@@ -2,6 +2,8 @@ import React from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next'
+import {ReactComponent as EnglishIcon} from '../../images/icons/english.svg'
+import {ReactComponent as HebrewIcon} from '../../images/icons/hebrew.svg'
 
 const Navbar = (props) => {
   const handleLogout = () => {
@@ -29,8 +31,11 @@ const Navbar = (props) => {
         </Link>
       </div>
       <div id="right-navbar">
+        <div className='languages-container'>
+          <button className='transparent' type='submit'><EnglishIcon className='english-language-selected'/></button>
+          <button className='transparent' type='submit'><HebrewIcon className='hebrew-language-selected'/></button>
+        </div>
         <Link
-          id="change-language-link"
           className="vr-line-right vr-line-left"
           to="#"
         >
