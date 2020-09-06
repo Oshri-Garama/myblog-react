@@ -66,7 +66,7 @@ class Post extends React.Component {
               {title}
             </Link>
           </div>
-          <img className='post-image' src={imageUrl} alt="" />
+          {imageUrl && <img className='post-image' src={imageUrl} alt="" />}
           <div className={imageUrl ? "post-content min-content-lines" : "post-content"}>{fromHTMLtoString(`${content}`)}</div>
         </div>
         <div className="published-time">

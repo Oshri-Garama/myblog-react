@@ -1,79 +1,5 @@
 /*Default width: 1280px*/
 
-/* mobile */
-/* @media only screen and (max-width: 500px) {
-  #all-posts-page-container #recent-posts-title {
-    font-size: 9vw !important;
-    padding-top: 40px !important;
-  }
-  #all-posts-page-container .row-flex {
-    width: 45% !important;
-    flex-direction: column;
-    min-height: 50px !important;
-  }
-
-  #all-posts-page-container .search-input {
-    height: 15px !important;
-    width: 80px !important;
-  }
-  #all-posts-page-container .search-button {
-    width: 50px !important;
-    height: 20px !important;
-    font-size: 2vw !important;
-    align-self: center;
-  }
-
-  #all-posts-page-container .tag-search-header {
-    font-size: 3vw !important;
-  }
-
-  #all-posts-page-container div.ReactTags__tagInput {
-    height: 20px !important;
-    width: 100px !important;
-  }
-  #all-posts-page-container input.ReactTags__tagInputField {
-    height: 20px !important;
-    width: 100px !important;
-  }
-  .post-container {
-    width: 50% !important
-  }
-  .post-container .delete-post-icon {
-    min-width: 45px !important;
-  }
-
-  #all-posts-page-container .search-by-content-mobile {
-    width: 50% !important;
-  }
-  #all-posts-page-container .search-header-mobile {
-    align-self: center !important;
-  }
-  #all-posts-page-container #tag-selector-search {
-    width: 50% !important;
-  }
-
-  .post-container .post-buttons-container {
-    height: 34px;
-  }
-  .post-container .edit-post-icon {
-    width: 32px;
-    margin-top: 7px !important;
-  }
-  .post-container .delete-post-icon {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
-    margin-top: 20%;
-  }
-  .post-container .post-image {
-    width: 50% !important;
-  }
-  #recent-posts-container {
-    margin-top: 15%;
-  }
-} */
-
 #all-posts-page-container {
   display: flex;
   flex-direction: column;
@@ -295,7 +221,9 @@
 }
 
 .post-container .post-image {
-  width: 150px;
+  max-width: 150px;
+  max-height: 150px;
+  width: auto;
   height: auto;
 }
 
