@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next'
@@ -10,7 +10,15 @@ const Navbar = (props) => {
     props.handleLogout();
   };
   const { isLoggedIn } = props;
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState(i18n.language || 'en')
+
+  const changeLanguage = (selectedLanguage) => {
+    if (selectedLanguage !== language) {
+      i18n.changeLanguage(selectedLanguage)
+      setLanguage(selectedLanguage)
+    }
+  }
 
   return (
     <div className="navbar-container">
@@ -32,8 +40,8 @@ const Navbar = (props) => {
       </div>
       <div id="right-navbar">
         <div className='languages-container'>
-          <button className='transparent' type='submit'><EnglishIcon className='english-language-selected'/></button>
-          <button className='transparent' type='submit'><HebrewIcon className='hebrew-language-selected'/></button>
+          <button className='transparent' type='submit' onClick={() => changeLanguage('en')}><EnglishIcon className={language === 'en' ?'english-language-selected' : ''}/></button>
+          <button className='transparent' type='submit' onClick={() => changeLanguage('he')}><HebrewIcon className={language !== 'en' ? 'hebrew-language-selected' : '' }/></button>
         </div>
         <Link
           className="vr-line-right vr-line-left"
