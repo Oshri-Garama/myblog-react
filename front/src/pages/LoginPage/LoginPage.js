@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./LoginPage.css";
 import axios from "axios";
 import loginSVG from "../../images/signin.svg";
@@ -68,8 +68,8 @@ const LoginPage = (props) => {
         }
       });
   };
-
-  const closePopupIfOpen = () => {
+  
+  useEffect(() => {
     if (popup.isPopupOpen) {
       setTimeout(() => {
         setPopup({
@@ -78,7 +78,7 @@ const LoginPage = (props) => {
         });
       }, 4000);
     }
-  };
+  }, [popup])
 
   const renderBasedOnLanguage = () => {
     const language = i18n.language;
@@ -93,40 +93,40 @@ const LoginPage = (props) => {
         <input
           className="field-decoration"
           type="text"
-          placeholder={t('usernamePlaceholder')}
+          placeholder={t("usernamePlaceholder")}
           onChange={handleUserNameChange}
-          dir={language === 'he' ? "rtl" : "ltr"}
+          dir={language === "he" ? "rtl" : "ltr"}
         ></input>
         <input
           className="field-decoration"
           type="password"
-          placeholder={t('passwordPlaceholder')}
+          placeholder={t("passwordPlaceholder")}
           onChange={handlePasswordChange}
-          dir={language === 'he' ? "rtl" : "ltr"}
+          dir={language === "he" ? "rtl" : "ltr"}
         ></input>
       </div>
     );
-    if (language === 'he') {
+    if (language === "he") {
       return (
-        <div className='fields-container fields-container-hebrew'>
+        <div className="fields-container fields-container-hebrew">
           {inputsJSX}
           {labelsJSX}
         </div>
-      )
-    }
-    else {
+      );
+    } else {
       return (
-        <div className='fields-container'>
+        <div className="fields-container">
           {labelsJSX}
           {inputsJSX}
         </div>
-      )
+      );
     }
   };
 
   const { message, success } = popup;
   const type = success ? "success" : "failed";
-  closePopupIfOpen();
+  
+  
   return (
     <form id="login-container-page" onSubmit={handleLogin} ref={formRef}>
       <AlertMessage message={message} type={type} />
@@ -134,7 +134,7 @@ const LoginPage = (props) => {
       <div className="form-container">
         <div className="image-sepeartor">
           <img src={loginSVG} />
-            {renderBasedOnLanguage()}
+          {renderBasedOnLanguage()}
           <button className="login-button" type="submit">
             {t("login")}
           </button>
