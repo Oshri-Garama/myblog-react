@@ -4,7 +4,7 @@ import axios from "axios";
 import loginSVG from "../../images/signin.svg";
 import loginLogoSVG from "../../images/login-logo.svg";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from "react-i18next";
 
 const LoginPage = (props) => {
   const [username, setUserame] = useState("");
@@ -15,7 +15,7 @@ const LoginPage = (props) => {
     success: false,
   });
   const formRef = useRef(null);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const handleUserNameChange = (event) => {
     setUserame(event.target.value);
@@ -35,7 +35,7 @@ const LoginPage = (props) => {
     }
     if (username === "" || password === "") {
       setPopup({
-        message: "Please provide a valid input",
+        message: t("invalidInput"),
         isPopupOpen: true,
         success: false,
       });
@@ -53,14 +53,14 @@ const LoginPage = (props) => {
       .catch((err) => {
         if (err.response.status === 404) {
           setPopup({
-            message: "Problem connecting to the server, please contact support",
+            message: t("connectToBackendError"),
             isPopupOpen: true,
             success: false,
           });
           console.log(err, "Couldn't connect to database");
         } else if (err.response.status === 401) {
           setPopup({
-            message: "The username or the password you provided is incorrect",
+            message: t("loginIncorrectDetails"),
             isPopupOpen: true,
             success: false,
           });
@@ -80,6 +80,50 @@ const LoginPage = (props) => {
     }
   };
 
+  const renderBasedOnLanguage = () => {
+    const language = i18n.language;
+    const labelsJSX = (
+      <div className="labels-container">
+        <div>{t("username")}</div>
+        <div>{t("password")}</div>
+      </div>
+    );
+    const inputsJSX = (
+      <div id="inputs-container">
+        <input
+          className="field-decoration"
+          type="text"
+          placeholder={t('usernamePlaceholder')}
+          onChange={handleUserNameChange}
+          dir={language === 'he' ? "rtl" : "ltr"}
+        ></input>
+        <input
+          className="field-decoration"
+          type="password"
+          placeholder={t('passwordPlaceholder')}
+          onChange={handlePasswordChange}
+          dir={language === 'he' ? "rtl" : "ltr"}
+        ></input>
+      </div>
+    );
+    if (language === 'he') {
+      return (
+        <div className='fields-container fields-container-hebrew'>
+          {inputsJSX}
+          {labelsJSX}
+        </div>
+      )
+    }
+    else {
+      return (
+        <div className='fields-container'>
+          {labelsJSX}
+          {inputsJSX}
+        </div>
+      )
+    }
+  };
+
   const { message, success } = popup;
   const type = success ? "success" : "failed";
   closePopupIfOpen();
@@ -90,28 +134,9 @@ const LoginPage = (props) => {
       <div className="form-container">
         <div className="image-sepeartor">
           <img src={loginSVG} />
-          <div className="fields-container">
-            <div className="labels-container">
-              <div>User name:</div>
-              <div>Password:</div>
-            </div>
-            <div id="inputs-container">
-              <input
-                className="field-decoration"
-                type="text"
-                placeholder="Type here your user name..."
-                onChange={handleUserNameChange}
-              ></input>
-              <input
-                className="field-decoration"
-                type="password"
-                placeholder="Type here your password..."
-                onChange={handlePasswordChange}
-              ></input>
-            </div>
-          </div>
+            {renderBasedOnLanguage()}
           <button className="login-button" type="submit">
-            Login
+            {t("login")}
           </button>
         </div>
       </div>

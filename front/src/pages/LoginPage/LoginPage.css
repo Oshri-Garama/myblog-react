@@ -44,6 +44,10 @@
   width: 245px;
 }
 
+.form-container .fields-container-hebrew {
+  width: 258px;
+}
+
 .form-container .image-sepeartor {
   display: flex;
   flex-direction: column;
