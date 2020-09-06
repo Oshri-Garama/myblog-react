@@ -121,13 +121,17 @@
   margin-bottom: 10px;
 }
 
-#signup-form-container #signup-fields-container {
+#signup-form-container .signup-fields-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 20px;
   margin-top: 5px;
   min-width: 250px;
+}
+
+#signup-form-container .signup-fields-container-hebrew {
+  width: 258px;
 }
 
 #signup-form-container #signup-labels-container {
