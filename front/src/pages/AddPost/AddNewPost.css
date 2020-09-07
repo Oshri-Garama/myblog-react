@@ -54,7 +54,7 @@
   animation-duration: 1s;
 }
 
-.new-post-container #create-post-button {
+.new-post-container .create-post-button {
   margin-top: 20px;
   border: none;
   width: 100px;
@@ -71,7 +71,7 @@
   transition-duration: 500ms;
 }
 
-.new-post-container #create-post-button:hover {
+.new-post-container .create-post-button:hover {
   background-color: rgb(222, 240, 205);
 }
 
@@ -109,6 +109,10 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+#new-post-form-container .upload-pic-label-hebrew {
+  font-size: 14px;
 }
 
 .new-post-container input[type="file"] {

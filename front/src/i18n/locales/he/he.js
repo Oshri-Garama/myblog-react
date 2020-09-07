@@ -51,5 +51,10 @@ module.exports = {
     commentSuccess: "התגובה שלך תופיע בראשית התגובות",
     toLogin: "להתחבר",
     toSignup: "להירשם",
+    // Add New Post page
+    createPost: 'יצירת פוסט',
+    uploadPicture: 'העלאת תמונה',
+    titlePlaceholder: 'כתוב את כותרת הפוסט כאן...',
+    addNewPostTitle: 'צור פוסט חדש'
   },
 };

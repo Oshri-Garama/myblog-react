@@ -48,5 +48,10 @@ module.exports = {
     commentPlaceholder: "Leave a comment...",
     emptyCommentError: "Comment can not be empty",
     commentSuccess: "Your comment should be on the top",
+    // Add New Post page
+    createPost: 'Create Post',
+    uploadPicture: 'Upload Picture',
+    titlePlaceholder: 'Post title goes here...',
+    addNewPostTitle: 'Create New Post'
   },
 };
