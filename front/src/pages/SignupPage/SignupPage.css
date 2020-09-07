@@ -8,11 +8,11 @@
   flex-direction: column;
   align-items: center;
   height: 623px;
-  background: linear-gradient(to bottom, #009688 66%, #F3FAEC 20%);
+  background: linear-gradient(to bottom, #009688 400px, #F3FAEC 350px);
   background-repeat: no-repeat;
 }
 
-@media only screen and (max-width: 1024px) { 
+/* @media only screen and (max-width: 1024px) { 
   #signup-page-container {
     background: linear-gradient(to bottom, #009688 64%, #F3FAEC 20%);
   }
@@ -32,11 +32,23 @@
 
 @media only screen and (max-width: 572px) { 
   #signup-page-container {
-    background: linear-gradient(to bottom, #009688 64%, #F3FAEC 20%);
+    background: linear-gradient(to bottom, #009688 380px, #F3FAEC 350px);
+  }
+} */
+
+@media only screen and (max-width: 738px) { 
+  #signup-page-container {
+    background: linear-gradient(to bottom, #009688 67%, #F3FAEC 20%);
   }
 }
 
-#signup-page-container #signup-title {
+@media only screen and (max-width: 656px) { 
+  #signup-page-container {
+    background: linear-gradient(to bottom, #009688 65%, #F3FAEC 20%);
+  }
+}
+
+.signup-title {
   font-size: 50px;
   font-weight: 500;
   height: 100px;
@@ -52,25 +64,30 @@
 }
 
 @media only screen and (max-width: 738px) { 
-  #signup-page-container #signup-title {
-    margin-bottom: -5%;
+  .signup-title {
     margin-top: 12%;
     font-size: 40px;
   }
 }
 
-.sign-up-hebrew-title {
-  font-size: 40px !important;
+#signup-page-container .sign-up-hebrew-title {
+  font-size: 40px;
   direction: rtl;
 }
 
 @media only screen and (max-width: 1024px) { 
-  .sign-up-hebrew-title {
-    font-size: 38px !important;
+  #signup-page-container .sign-up-hebrew-title {
+    font-size: 38px;
   }
 }
 
-#signup-page-container #signup-description {
+@media only screen and (max-width: 480px) { 
+  #signup-page-container .sign-up-hebrew-title {
+    font-size: 35px;
+  }
+}
+
+.signup-description {
   white-space: pre-line;
   text-align: center;
   color: #f3faec;
@@ -86,13 +103,13 @@
 	animation-duration: 1s;
 }
 @media only screen and (max-width: 1024px) { 
-  #signup-page-container #signup-description {
+  .signup-description {
     font-size: 18px;
   }
 }
 
 @media only screen and (max-width: 738px) { 
-  #signup-page-container #signup-description {
+  .signup-description {
     font-size: 14px;
   }
 }
