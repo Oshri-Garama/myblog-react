@@ -155,33 +155,6 @@ const SignupPage = (props) => {
         <div id="signup-image-sepeartor">
           <img src={signupSVG} />
           {renderBasedOnLanguage()}
-          {/* <div id="signup-fields-container"> */}
-            {/* <div id="signup-labels-container">
-              <div>{t('fullName')}</div>
-              <div>{t('username')}</div>
-              <div>{t('password')}</div>
-            </div> */}
-            {/* <div id="signup-inputs-container">
-              <input
-                className="field-decoration"
-                type="text"
-                placeholder={t('fullNamePlaceholder')}
-                onChange={handleFullNameChange}
-              ></input>
-              <input
-                className="field-decoration"
-                type="text"
-                placeholder={t('usernamePlaceholder')}
-                onChange={handleUserNameChange}
-              ></input>
-              <input
-                className="field-decoration"
-                type="password"
-                placeholder={t('passwordPlaceholder')}
-                onChange={handlePasswordChange}
-              ></input>
-            </div> */}
-          {/* </div> */}
           <button id="signup-button" type="submit">
             {t('signUp')}
           </button>
