@@ -9,7 +9,6 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
 import parse from "html-react-parser";
 import { useTranslation } from "react-i18next";
-import { lang } from "moment";
 
 
 const PostPage = (props) => {
