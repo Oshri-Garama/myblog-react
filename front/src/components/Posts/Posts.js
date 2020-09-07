@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Posts.css";
 import { Link, Redirect } from "react-router-dom";
 import axios from "axios";
@@ -8,86 +8,66 @@ import TagsSelector from "../TagsSelector/TagsSelector";
 const DISPLAY_NONE = { display: "none" };
 const DISPLAY_BLOCK = { display: "block" };
 
-class Posts extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      posts: [],
-      pathname: this.props.location.pathname,
-      tags: [],
-      isEmptyFiltered: false,
-      contentToSearch: "",
-      searchByContent: false,
-    };
-    this._mounted = false;
-  }
+const Posts = (props) => {
+  const [posts, setPosts] = useState([])
+  const [tags, setTags] = useState([])
+  const [pathname, setPathname] = useState(props.location.pathname)
+  const [isEmptyFiltered, setIsEmptyFiltered] = useState(false)
+  const [searchByContent, setSearchByContent] = useState(false)
+  const [contentToSearch, setContentToSearch] = useState("")
 
-  getAllPosts = (pathname) => {
+  const getAllPosts = (pathname) => {
     axios
       .get(`/api/${pathname}`, { withCredentials: true })
       .then((res) => {
         if (res.status === 200) {
-          this.setState({
-            posts: res.data,
-          });
+          setPosts(res.data)
         }
       })
       .catch((error) => console.log(error, "Couldn't load posts"));
   };
 
-  componentDidMount = () => {
-    const { pathname } = this.props.location;
-    this.setState({
-      ...this.state,
-      pathname: pathname,
-    });
-    this.getAllPosts(pathname);
-  };
+  useEffect(() => {
+    const { pathname } = props.location;
+    setPathname(pathname)
+    getAllPosts(pathname);
+  }, [])
 
-  componentWillReceiveProps = (newProps) => {
-    const { pathname } = this.props.location;
-    if (newProps.location.pathname !== pathname) {
-      this.getAllPosts(newProps.location.pathname);
+  useEffect(() => {
+    const newPathname = props.location.pathname;
+    if (newPathname !== pathname) {
+      getAllPosts(newPathname);
+      setPathname(newPathname)
     }
-  };
+  }, [props.location.pathname])
 
-  getSelectedTags = (tags) => {
-    this.setState({
-      ...this.state,
-      tags: tags,
-    });
-    this.filterPosts(tags);
-  };
-
-  filterPosts = (tags) => {
-    const { pathname } = this.props.location;
+  const filterPosts = (tags) => {
+    // const { pathname } = props.location;
     if (!tags.length) {
-      this.getAllPosts(pathname);
+      getAllPosts(pathname);
     } else {
       axios.post("/api/posts/filter", tags).then((res) => {
         if (res.status === 200) {
           if (!res.data.length) {
-            this.setState({
-              ...this.state,
-              posts: res.data,
-              isEmptyFiltered: true,
-            });
+            setPosts(res.data)
+            setIsEmptyFiltered(true)
           } else {
-            this.setState({
-              ...this.state,
-              posts: res.data,
-              isEmptyFiltered: false,
-            });
+            setPosts(res.data)
+            setIsEmptyFiltered(false)
           }
         }
       });
     }
   };
 
-  renderPosts = () => {
-    const { pathname } = this.props.location;
-    const { posts } = this.state;
-    const { userId, isLoggedIn } = this.props;
+  const getSelectedTags = (tags) => {
+    setTags(tags)
+    filterPosts(tags);
+  };
+
+  const renderPosts = () => {
+    // const { pathname } = this.props.location;
+    const { userId, isLoggedIn } = props;
     const postJSX = posts.map((post) => {
       return (
         <Post
@@ -100,7 +80,7 @@ class Posts extends React.Component {
           published={post.published}
           imageUrl={post.imageUrl}
           userLoggedInId={isLoggedIn ? userId : null}
-          getAllPosts={this.getAllPosts}
+          getAllPosts={getAllPosts}
           pathname={pathname}
         />
       );
@@ -108,51 +88,37 @@ class Posts extends React.Component {
     return postJSX;
   };
 
-  handleOnSearch = () => {
-    const { contentToSearch } = this.state;
+  const handleOnSearch = () => {
     axios
       .post("/api/posts/search", { content: contentToSearch })
       .then((res) => {
         if (res.status === 200) {
           if (!res.data.length) {
-            this.setState({
-              ...this.state,
-              posts: res.data,
-              isEmptyFiltered: true,
-            });
+            setPosts(res.data)
+            setIsEmptyFiltered(true)
           } else {
-            this.setState({
-              ...this.state,
-              posts: res.data,
-              isEmptyFiltered: false,
-            });
+            setPosts(res.data)
+            setIsEmptyFiltered(false)
           }
         }
       })
       .catch((error) => console.log(error, "Couldn't search posts"));
   };
 
-  onChangeContent = (event) => {
-    this.setState({
-      ...this.state,
-      contentToSearch: event.target.value,
-    });
+  const onChangeContent = (event) => {
+    setContentToSearch(event.target.value)
   };
 
-  setSearchMethod = (event) => {
-    const { pathname } = this.props.location;
-    this.setState({
-      ...this.state,
-      searchByContent: event.target.checked,
-      content: '',
-      tags: [],
-      isEmptyFiltered: false
-    });
-    this.getAllPosts(pathname)
+  const setSearchMethod = (event) => {
+    // const { pathname } = props.location;
+    setSearchByContent(event.target.checked)
+    setContentToSearch('')
+    setTags([])
+    setIsEmptyFiltered(false)
+    getAllPosts(pathname)
   };
 
-  renderSearchMethod = () => {
-    const { searchByContent, tags, isEmptyFiltered } = this.state;
+  const renderSearchMethod = () => {
     const header = searchByContent
       ? "Switch to filter using hashtags"
       : "Switch to search by content";
@@ -163,9 +129,9 @@ class Posts extends React.Component {
             <input
               className="search-input"
               type="text"
-              onChange={this.onChangeContent}
+              onChange={onChangeContent}
             ></input>
-            <button className="search-button" onClick={this.handleOnSearch}>
+            <button className="search-button" onClick={handleOnSearch}>
               Search
             </button>
           </div>
@@ -173,7 +139,7 @@ class Posts extends React.Component {
           <div id="tag-selector-search">
             <TagsSelector
               action="search"
-              getSelectedTags={this.getSelectedTags}
+              getSelectedTags={getSelectedTags}
               tags={tags}
               isEmptyFiltered={isEmptyFiltered}
             />
@@ -181,7 +147,7 @@ class Posts extends React.Component {
         )}
         <div className="switch-search-container">
           <label className="switch-search-method">
-            <input type="checkbox" onChange={this.setSearchMethod} />
+            <input type="checkbox" onChange={setSearchMethod} />
             <span className="slider round"></span>
           </label>
           <header className="tag-search-header">{header}</header>
@@ -190,18 +156,16 @@ class Posts extends React.Component {
     );
   };
 
-  render() {
-    const { pathname } = this.props.location;
-    const { isLoggedIn } = this.props;
+  // const { pathname } = props.location;
+    const { isLoggedIn } = props;
     if (pathname === "/user/posts" && !isLoggedIn)
       return <Redirect to="/posts" />;
-    const { isEmptyFiltered } = this.state;
     const headerTitle = pathname === "/posts" ? "Recent Posts" : "My Posts";
 
     return (
       <div id="all-posts-page-container">
         <header id="recent-posts-title">{headerTitle}</header>
-        {this.renderSearchMethod()}
+        {renderSearchMethod()}
         <div
           style={isLoggedIn ? DISPLAY_BLOCK : DISPLAY_NONE}
           id="add-new-post-container"
@@ -211,13 +175,12 @@ class Posts extends React.Component {
           </Link>
           <header id="recent-posts-button-header">New Post</header>
         </div>
-        <div id="recent-posts-container">{this.renderPosts()}</div>
+        <div id="recent-posts-container">{renderPosts()}</div>
         {isEmptyFiltered && (
           <header id="no-results-header">No results found</header>
         )}
       </div>
     );
-  }
 }
 
 export default Posts;
