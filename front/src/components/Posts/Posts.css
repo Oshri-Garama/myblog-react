@@ -85,7 +85,7 @@
   border-radius: 50%;
 }
 
-#all-posts-page-container #recent-posts-title {
+.recent-posts-title {
   background-color: #009688;
   display: flex;
   align-items: center;
@@ -102,9 +102,13 @@
 }
 
 @media only screen and (max-width: 480px) { 
-  #all-posts-page-container #recent-posts-title {
+  .recent-posts-title {
     font-size: 40px;
   }
+}
+
+#all-posts-page-container .recent-posts-title-hebrew {
+  font-size: 50px;
 }
 
 #all-posts-page-container #tag-selector-search {

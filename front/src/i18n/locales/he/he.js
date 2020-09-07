@@ -33,7 +33,7 @@ module.exports = {
     noResultsFound: "לא נמצאו תוצאות",
     recentPostsHeader: "פוסטים אחרונים",
     search: "חיפוש",
-    switchToFilterSearch: "hashtags החלף לחיפוש",
-    switchToContentSearch: "החלף כדי לחפש תוכן",
+    switchToFilterSearch: "החלף לחיפוש לפי תגים",
+    switchToContentSearch: "החלף לחיפוש תוכן",
   },
 };

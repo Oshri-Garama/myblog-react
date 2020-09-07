@@ -19,7 +19,7 @@ const Posts = (props) => {
   const [contentToSearch, setContentToSearch] = useState("");
   const [isLoggedIn, setLoggedIn] = useState(props.loggedIn);
   const [userId, setUserId] = useState(props.userId);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const getAllPosts = (pathname) => {
     axios
@@ -164,7 +164,7 @@ const Posts = (props) => {
 
   return (
     <div id="all-posts-page-container">
-      <header id="recent-posts-title">{headerTitle}</header>
+      <header className={i18n.language === 'he' ? "recent-posts-title recent-posts-title-hebrew" : "recent-posts-title"}>{headerTitle}</header>
       {renderSearchMethod()}
       <div
         style={isLoggedIn ? DISPLAY_BLOCK : DISPLAY_NONE}
