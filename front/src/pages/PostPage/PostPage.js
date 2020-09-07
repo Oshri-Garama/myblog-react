@@ -9,6 +9,8 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
 import parse from "html-react-parser";
 import { useTranslation } from "react-i18next";
+import { lang } from "moment";
+
 
 const PostPage = (props) => {
   const [id] = useState(props.match.params.id);
@@ -23,6 +25,7 @@ const PostPage = (props) => {
     isPopupOpen: false,
     success: false,
   });
+  const { t, i18n } = useTranslation()
 
   const formRef = useRef(null);
   const comp = useRef(null);
@@ -64,7 +67,7 @@ const PostPage = (props) => {
         .then((res) => {
           if (res.status === 200) {
             setPopup({
-              message: "Your comment should be on the top",
+              message: t('commentSuccess'),
               isPopupOpen: true,
               success: true,
             });
@@ -75,7 +78,7 @@ const PostPage = (props) => {
         });
     } else {
       setPopup({
-        message: "Comment can not be empty",
+        message: t('emptyCommentError'),
         isPopupOpen: true,
         success: false,
       });
@@ -117,7 +120,7 @@ const PostPage = (props) => {
 
   const { message, success, isPopupOpen } = popup;
   const type = success ? "success" : "failed";
-
+ 
   return (
     <div className="post-view-page">
       <AlertMessage message={message} type={type} />
@@ -135,11 +138,12 @@ const PostPage = (props) => {
           ref={formRef}
         >
           <textarea
-            id="comment-inputarea"
-            placeholder="Leave a comment..."
+            className="comment-inputarea"
+            placeholder={t('commentPlaceholder')}
             onChange={handleCommentChange}
             disabled={!isLoggedIn}
-          ></textarea>
+            dir={i18n.language === "he" ? "rtl" : "ltr"}
+            ></textarea>
           <button
             id="comment-button"
             disabled={(!isLoggedIn || isPopupOpen) && success}
@@ -149,7 +153,7 @@ const PostPage = (props) => {
           <div id="comments-container">
             {!isLoggedIn && (
               <section id="comment-unlogged-error">
-                To comment you must{" "}
+                {t('toCommentYouMust')}{" "}
                 <Link
                   className="comment-section-link"
                   to={{
@@ -159,9 +163,9 @@ const PostPage = (props) => {
                     },
                   }}
                 >
-                  login
+                  {i18n.language === "he" ? t('toLogin') : t('login')}
                 </Link>{" "}
-                OR{" "}
+                {t('or')}{" "}
                 <Link
                   className="comment-section-link"
                   to={{
@@ -171,11 +175,11 @@ const PostPage = (props) => {
                     },
                   }}
                 >
-                  sign up
+                  {i18n.language === "he" ? t('toSignup') : t('signUp')}
                 </Link>
               </section>
             )}
-            <header id="post-view-comments-header">Comments</header>
+            <header id="post-view-comments-header">{t('comments')}</header>
             <div id="comments-list" ref={comp}>
               <Comments comments={comments} />
             </div>

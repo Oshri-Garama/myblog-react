@@ -64,7 +64,7 @@
 }
 
 
-#comment-inputarea {
+.comment-inputarea {
   height: 50px;
   width: 280px;
   margin-bottom: 8px;
@@ -79,17 +79,17 @@
 }
 
 @media screen and (max-width: 480px) {
-  #comment-inputarea {
+  .comment-inputarea {
     width: 65%;
     align-self: center;
   }
 }
 
-#comment-inputarea:focus {
+.comment-inputarea:focus {
   border-bottom: 2px solid rgb(106, 221, 192);
 }
 
-#comment-inputarea::placeholder{
+.comment-inputarea::placeholder{
   font-weight: 500;
   font-size: 14px;
   color: rgb(78, 171, 148)
@@ -310,7 +310,7 @@
 .post-view-page #comment-unlogged-error {
   color: red;
   font-weight: 800;
-  font-size: 15px;
+  font-size: 14px;
   margin-top: -30px;
   margin-bottom: 10px;
 }

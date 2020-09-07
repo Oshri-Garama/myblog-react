@@ -42,5 +42,14 @@ module.exports = {
     days: "ימים",
     by: "ע״י",
     deletePostConfirmation: "האם אתה בטוח שברצונך למחוק את הפוסט?",
+    // Post page
+    or: "או",
+    toCommentYouMust: "כדי להגיב אתה צריך",
+    comments: "תגובות",
+    commentPlaceholder: "כתוב תגובה...",
+    emptyCommentError: "תגובה אינה יכולה להיות ריקה",
+    commentSuccess: "התגובה שלך תופיע בראשית התגובות",
+    toLogin: "להתחבר",
+    toSignup: "להירשם",
   },
 };

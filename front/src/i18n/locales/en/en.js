@@ -41,5 +41,12 @@ module.exports = {
     daysAgo: "days ago",
     by: "by",
     deletePostConfirmation: "Are you sure you want to delete this post?",
+    // Post page
+    or: "OR",
+    toCommentYouMust: "To comment you must",
+    comments: "Comments",
+    commentPlaceholder: "Leave a comment...",
+    emptyCommentError: "Comment can not be empty",
+    commentSuccess: "Your comment should be on the top",
   },
 };
