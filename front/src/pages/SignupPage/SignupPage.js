@@ -147,8 +147,8 @@ const SignupPage = (props) => {
   return (
     <form id="signup-page-container" onSubmit={handleSignup} ref={formRef}>
       <AlertMessage message={message} type={type} />
-      <header id="signup-title">{t('signUpTitle')}</header>
-      <section id="signup-description">
+      <header id="signup-title" className={i18n.language === 'he' && 'sign-up-hebrew-title'}>{t('signUpTitle')}</header>
+      <section id="signup-description" className={i18n.language === 'he' && 'sign-up-hebrew-description'}>
         {t('signUpSubTitle')}
       </section>
       <div id="signup-form-container">
