@@ -10,6 +10,16 @@ body, html {
   background-color: #F3FAEC;
 }
 
+
+@media only screen and (max-width: 480px) { 
+  body, html {
+    overflow-x: hidden;
+  }
+  body {
+    position: relative;
+  }
+}
+
 .ps__rail-x {
   opacity: 0.6 !important;
 }
