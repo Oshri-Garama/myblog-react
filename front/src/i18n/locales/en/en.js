@@ -28,6 +28,12 @@ module.exports = {
     usernameMaxLength: "Username must be 10 letters max",
     // About Me page
     aboutMeTitle: "Welcome To My Blog Application!",
-    aboutMeDesc: 'Welcome to my blog application!\nMy name is Oshri Garama, I live in Israel, in Tel Aviv.\nI love technology and I have a BS.c degree in Computer Science from the "IDC", Herzliya,\nToday I am working as a Full Stack Developer and QA at "Pick A Pier" company, which provides a technology solution for the marina industry.\nI have created this app as part of full stack development\'s course in the IDC, where I learned alot about:\nReact, Javascript, MySQL, Python, CSS'
+    aboutMeDesc: 'Welcome to my blog application!\nMy name is Oshri Garama, I live in Israel, in Tel Aviv.\nI love technology and I have a BS.c degree in Computer Science from the "IDC", Herzliya,\nToday I am working as a Full Stack Developer and QA at "Pick A Pier" company, which provides a technology solution for the marina industry.\nI have created this app as part of full stack development\'s course in the IDC, where I learned alot about:\nReact, Javascript, MySQL, Python, CSS',
+    // Posts page
+    noResultsFound: "No results found",
+    recentPostsHeader: "Recent Posts",
+    search: "Search",
+    switchToFilterSearch: "Switch to filter using hashtags",
+    switchToContentSearch: "Switch to search by content",
   },
 };
