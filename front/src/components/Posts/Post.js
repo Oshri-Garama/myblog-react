@@ -1,37 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import deleteSVG from "../../images/icons/delete.svg";
 import editSVG from "../../images/icons/edit.svg";
 import moment from "moment";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { fromHTMLtoString } from '../../utils/utils'
+import { useTranslation } from "react-i18next";
 
+const Post = (props) => {
+  const {
+    id,
+    userLoggedInId,
+    author,
+    authorId,
+    title,
+    content,
+    imageUrl,
+    published,
+  } = props;
 
-class Post extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: props.id || "",
-      author: props.author || "",
-      content: props.content || "",
-      published: props.published || "",
-      imageUrl: props.imageUrl || "",
-    };
-  }
-  getFormattedDate = (date) => {
+  const { t, i18n } = useTranslation()
+
+  const getFormattedDate = (date) => {
     const dateObj = moment.utc(new Date(date)).format("YYYY-MM-DD");
     return dateObj;
   };
 
-  handleDelete = () => {
-    const answer = window.confirm("Are you sure you want to delete this post?");
+  const publishedDate = getFormattedDate(published);
+  const daysOfPublished = moment().diff(publishedDate, "days");
+
+  const handleDelete = () => {
+    const answer = window.confirm(t('deletePostConfirmation'));
     if (!answer) return;
-    const { id, pathname } = this.props;
     axios
       .delete("/api/posts", { data: {post_id: id} })
       .then((res) => {
         if (res.status === 200) {
-          setTimeout(this.props.getAllPosts(pathname), 300);
+          setTimeout(props.getAllPosts(props.pathname), 300);
         }
       })
       .catch((err) => {
@@ -44,62 +49,48 @@ class Post extends React.Component {
       });
   };
 
-  render() {
-    const {
-      id,
-      userLoggedInId,
-      author,
-      authorId,
-      title,
-      content,
-      imageUrl,
-      published,
-    } = this.props;
-    const publishedDate = this.getFormattedDate(published);
-    const daysOfPublished = moment().diff(publishedDate, "days");
-    
-    return (
-      <div className="post-container">
-        <div className="post-content-container">
-          <div className="post-title-container">
-            <Link className="post-title" to={`/posts/${id}`}>
-              {title}
-            </Link>
-          </div>
-          {imageUrl && <img className='post-image' src={imageUrl} alt="" />}
-          <div className={imageUrl ? "post-content min-content-lines" : "post-content"}>{fromHTMLtoString(`${content}`)}</div>
+  
+  return (
+    <div className="post-container">
+      <div className="post-content-container">
+        <div className="post-title-container">
+          <Link className="post-title" to={`/posts/${id}`}>
+            {title}
+          </Link>
         </div>
-        <div className="published-time">
-          Published{" "}
-          {daysOfPublished === 0 ? "today" : `${daysOfPublished} days ago`} by{" "}
-          {author}
-        </div>
-        {userLoggedInId && userLoggedInId === authorId && (
-          <div className="post-buttons-container">
-            <Link
-              to={{
-                pathname: `/posts/edit/${id}`,
-                state: {
-                  id: id,
-                  title: title,
-                  content: content,
-                  imageUrl: imageUrl,
-                },
-              }}
-              className='edit-post-icon'
-            >
-              <img style={{width: '100%'}} src={editSVG} />
-            </Link>
-            <div className="delete-post-container">
-              <button className="delete-post-icon" onClick={this.handleDelete}>
-                <img style={{width: '100%'}} src={deleteSVG} />
-              </button>
-            </div>
-          </div>
-        )}
+        {imageUrl && <img className='post-image' src={imageUrl} alt="" />}
+        <div className={imageUrl ? "post-content min-content-lines" : "post-content"}>{fromHTMLtoString(`${content}`)}</div>
       </div>
-    );
-  }
+      <div className={i18n.language === 'he' ? "published-time published-time-hebrew" : "published-time"}>
+        {t('published')}{" "}
+        {daysOfPublished === 0 ? t('today') : i18n.language === 'he' ? `${t('before')} ${daysOfPublished} ${t('days')}` : `${daysOfPublished} ${t('daysAgo')}`} {t('by')}{" "}
+        {author}
+      </div>
+      {userLoggedInId && userLoggedInId === authorId && (
+        <div className="post-buttons-container">
+          <Link
+            to={{
+              pathname: `/posts/edit/${id}`,
+              state: {
+                id: id,
+                title: title,
+                content: content,
+                imageUrl: imageUrl,
+              },
+            }}
+            className='edit-post-icon'
+          >
+            <img style={{width: '100%'}} src={editSVG} />
+          </Link>
+          <div className="delete-post-container">
+            <button className="delete-post-icon" onClick={handleDelete}>
+              <img style={{width: '100%'}} src={deleteSVG} />
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Post

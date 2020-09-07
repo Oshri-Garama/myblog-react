@@ -35,5 +35,11 @@ module.exports = {
     search: "Search",
     switchToFilterSearch: "Switch to filter using hashtags",
     switchToContentSearch: "Switch to search by content",
+    // Single post view
+    published: "Published",
+    today: "today",
+    daysAgo: "days ago",
+    by: "by",
+    deletePostConfirmation: "Are you sure you want to delete this post?",
   },
 };

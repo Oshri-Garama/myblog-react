@@ -354,6 +354,10 @@
   }
 }
 
+.published-time-hebrew {
+  direction: rtl;
+}
+
 #all-posts-page-container #add-new-post-container #recent-posts-button-header {
   align-self: flex;
   align-self: center;

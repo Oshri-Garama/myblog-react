@@ -35,5 +35,12 @@ module.exports = {
     search: "חיפוש",
     switchToFilterSearch: "החלף לחיפוש לפי תגים",
     switchToContentSearch: "החלף לחיפוש תוכן",
+    // Single post view
+    published: "פורסם",
+    today: "היום",
+    before: "לפני",
+    days: "ימים",
+    by: "ע״י",
+    deletePostConfirmation: "האם אתה בטוח שברצונך למחוק את הפוסט?",
   },
 };
