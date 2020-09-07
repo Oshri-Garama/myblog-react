@@ -6,8 +6,7 @@ div.ReactTags__tags {
 
 #all-posts-page-container div.ReactTags__tagInput {
   outline: none;
-  align-self: flex-start;
-  width: 200px;
+  width: 202px;
   border: 1px solid rgb(78, 171, 148);
   box-shadow: 1px 1px 1px 1px #7D9977;
 }
