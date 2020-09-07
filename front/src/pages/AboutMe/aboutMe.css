@@ -19,7 +19,7 @@
   }
 }
 
-#aboutme-container header {
+#aboutme-container .about-me-title {
   font-size: 55px;
   font-weight: 500;
   height: 100px;
@@ -35,44 +35,44 @@
 }
 
 @media screen and (max-width: 812px) {
-  #aboutme-container header {
+  #aboutme-container .about-me-title {
     font-size: 42px;
     height: 10%;
   }
 }
 @media screen and (max-width: 599px) {
-  #aboutme-container header {
+  #aboutme-container .about-me-title {
     font-size: 35px;
   }
 }
 @media screen and (max-width: 480px) {
-  #aboutme-container header {
+  #aboutme-container .about-me-title {
     margin-top: 35%;
     margin-bottom: 10%;
     font-size: 32px;
   }
 }
 
-.about-me-hebrew-title {
-  font-size: 45px !important;
+#aboutme-container .about-me-title.about-me-hebrew-title {
+  font-size: 45px;
   direction: rtl;
 }
 
 @media screen and (max-width: 812px) {
-  .about-me-hebrew-title {
-    font-size: 40px !important;
+  #aboutme-container .about-me-title.about-me-hebrew-title {
+    font-size: 40px;
   }
 }
 
 @media screen and (max-width: 689px) {
-  .about-me-hebrew-title {
-    font-size: 35px !important;
+  #aboutme-container .about-me-title.about-me-hebrew-title {
+    font-size: 35px;
   }
 }
 
 @media screen and (max-width: 599px) {
-  .about-me-hebrew-title {
-    font-size: 28px !important;
+  #aboutme-container .about-me-title.about-me-hebrew-title {
+    font-size: 28px;
   }
 }
 
