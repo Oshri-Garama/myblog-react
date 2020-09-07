@@ -18,7 +18,7 @@ const Posts = (props) => {
   const [searchByContent, setSearchByContent] = useState(false);
   const [contentToSearch, setContentToSearch] = useState("");
   const [isLoggedIn, setLoggedIn] = useState(props.loggedIn);
-  const [userId, setUserId] = useState(props.userId);
+  const [userId] = useState(props.userId);
   const { t, i18n } = useTranslation();
 
   const getAllPosts = (pathname) => {
