@@ -19,7 +19,6 @@ const Post = (props) => {
     published,
   } = props;
 
-  const { t, i18n } = useTranslation()
 
   const getFormattedDate = (date) => {
     const dateObj = moment.utc(new Date(date)).format("YYYY-MM-DD");
@@ -28,6 +27,7 @@ const Post = (props) => {
 
   const publishedDate = getFormattedDate(published);
   const daysOfPublished = moment().diff(publishedDate, "days");
+  const { t, i18n } = useTranslation();
 
   const handleDelete = () => {
     const answer = window.confirm(t('deletePostConfirmation'));
@@ -48,8 +48,8 @@ const Post = (props) => {
         }
       });
   };
-
   
+
   return (
     <div className="post-container">
       <div className="post-content-container">
