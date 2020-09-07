@@ -21,24 +21,24 @@ const Navbar = (props) => {
   };
 
   return (
-    <div className="navbar-container">
+    <div className={i18n.language === "he" ? "navbar-container navbar-container-hebrew" : "navbar-container"}>
       <div id="left-navbar">
         <Link className="vr-line-right" to="/">
           {t("home")}
         </Link>
-        <Link className="vr-line-right" to="/posts">
+        <Link className={i18n.language === "en" ? (isLoggedIn ? "vr-line-right" : "")  : "vr-line-right"} to="/posts">
           {t("allPosts")}
         </Link>
         {isLoggedIn && (
-          <Link className="vr-line-right" to="/user/posts">
+          <Link className={isLoggedIn ? (i18n.language === "he") ? "vr-line-right" : "" : "vr-line-right"} to="/user/posts">
             {t("myPosts")}
           </Link>
         )}
         <Link
           className={
             isLoggedIn
-              ? "vr-line-right mobile-vr-line-right-logged"
-              : "vr-line-right mobile-vr-line-right"
+              ? "vr-line-right vr-line-left mobile-vr-line-right-logged"
+              : "vr-line-right vr-line-left mobile-vr-line-right"
           }
           to="/about"
         >
@@ -48,7 +48,7 @@ const Navbar = (props) => {
       <div id="right-navbar">
         <div className="languages-container">
           <button
-            className={language === "en" ? "selected-en" : "transparent"}
+            className={language === "en" ? "selected-en mobile-en-icon" : "transparent mobile-en-icon"}
             type="submit"
             onClick={() => changeLanguage("en")}
           >
@@ -57,7 +57,7 @@ const Navbar = (props) => {
             />
           </button>
           <button
-            className={language !== "en" ? "selected-he" : "transparent"}
+            className={language !== "en" ? "selected-he mobile-he-icon" : "transparent mobile-he-icon"}
             type="submit"
             onClick={() => changeLanguage("he")}
           >
@@ -73,7 +73,7 @@ const Navbar = (props) => {
         )}
         {!isLoggedIn && <Link to="/login">{t("login")}</Link>}
         {isLoggedIn && (
-          <Link to="/" onClick={handleLogout}>
+          <Link className='vr-line-left' to="/" onClick={handleLogout}>
             {t("logOut")}
           </Link>
         )}

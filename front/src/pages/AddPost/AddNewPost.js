@@ -15,12 +15,10 @@ import { useTranslation } from "react-i18next";
 
 
 const AddNewPost = (props) => {
-  const [id, setId] = useState("");
   const [isLoggedIn] = useState(props.isLoggedIn);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [author, setAuthor] = useState("");
   const [tags, setTags] = useState([]);
   const [image, setImage] = useState("");
   const [popup, setPopup] = useState({
@@ -30,6 +28,8 @@ const AddNewPost = (props) => {
   });
   const [progressUploadingImage, setProgressUploadingImage] = useState(0);
   const { t, i18n } = useTranslation()
+  const [language, setLanguage] = useState(i18n.language);
+  const [refresh, setRefresh] = useState(false);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -140,6 +140,13 @@ const AddNewPost = (props) => {
   const removePicture = () => {
     setImage("")
   };
+
+  useEffect(() => {
+    if (language !== i18n.language) {
+      setLanguage(i18n.language)
+    }
+  },[language, i18n.language, refresh])
+
 
     if (!isLoggedIn) return <Redirect to="/" />;
     const { message, success } = popup;

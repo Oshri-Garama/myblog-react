@@ -12,6 +12,16 @@
   box-shadow: 1px 1px 1px 1px #afadad;
 }
 
+.navbar-container-hebrew {
+  direction: rtl;
+}
+
+@media only screen and (max-width: 840px) {
+  .navbar-container-hebrew a {
+    font-size: 15px;
+  }
+}
+
 .navbar-container a {
   color: #009688;
   text-decoration: none;
@@ -35,10 +45,23 @@
   }
 }
 
+@media only screen and (max-width: 679px) {
+  .navbar-container-hebrew a {
+    font-size: 11px;
+  }
+}
+
 @media only screen and (max-width: 480px) {
   .navbar-container a {
-    font-size: 12px;
-    min-width: 32.5%;
+    font-size: 11px;
+    min-width: 26%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .navbar-container-hebrew a {
+    font-family: "Arial";
+    font-size: 11px;
   }
 }
 
@@ -67,22 +90,6 @@
   justify-content: center;
   align-items: center;
   border-right: 1px #009688 ridge;
-}
-
-@media only screen and (max-width: 480px) {
-  .navbar-container .mobile-vr-line-right {
-    border-right: none;
-    min-width: 33.5%;
-    width: 33.5%;
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  .navbar-container .mobile-vr-line-right-logged {
-    border-right: none;
-    min-width: 30%;
-    width: 30%;
-  }
 }
 
 
@@ -128,4 +135,27 @@
   color: #7D9977;
   box-shadow: 0px 0px 0px 1px #009688;
   animation: anim-shadow .3s forwards;
+}
+
+@media only screen and (max-width: 480px) {
+  .mobile-he-icon svg {
+    width: 38px;
+    height: 53px;
+  }
+  .mobile-he-icon {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .mobile-en-icon svg {
+    width: 39px;
+    height: 48px;
+  }
+  .mobile-en-icon {
+    margin-right: 0px;
+    padding-left: 4%;
+    padding-right: 4%;
+  }
 }
