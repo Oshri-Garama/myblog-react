@@ -261,6 +261,7 @@ const AddOrEditPost = (props) => {
             type="text"
             placeholder={t('titlePlaceholder')}
             onChange={handleTitleChange}
+            // readonly is for mobile, makes keyboard not open automatically
             readonly
             value={title}
             dir={i18n.language === "he" ? 'rtl' : 'ltr'}
@@ -300,6 +301,7 @@ const AddOrEditPost = (props) => {
               id="upload"
               accept="image/*"
               onChange={handleImageChange}
+              // readonly is for mobile, makes keyboard not open automatically
               readonly
             ></input>
             {(image || imageUrl) && (
