@@ -81,12 +81,6 @@ const PostPage = (props) => {
             formRef.current.reset();
           }
         });
-    } else {
-      setPopup({
-        message: t('emptyCommentError'),
-        isPopupOpen: true,
-        success: false,
-      });
     }
   };
 
@@ -151,7 +145,7 @@ const PostPage = (props) => {
             ></textarea>
           <button
             id="comment-button"
-            disabled={(!isLoggedIn || isPopupOpen) && success}
+            disabled={((!isLoggedIn || isPopupOpen) && success) || !comment}
           >
             <img id="comment-icon" src={commentSVG} />
           </button>

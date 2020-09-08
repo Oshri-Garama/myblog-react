@@ -47,7 +47,6 @@ module.exports = {
     toCommentYouMust: "כדי להגיב אתה צריך",
     comments: "תגובות",
     commentPlaceholder: "כתוב תגובה...",
-    emptyCommentError: "תגובה אינה יכולה להיות ריקה",
     commentSuccess: "התגובה שלך תופיע בראשית התגובות",
     toLogin: "להתחבר",
     toSignup: "להירשם",

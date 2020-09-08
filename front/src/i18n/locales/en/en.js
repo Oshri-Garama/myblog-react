@@ -50,7 +50,6 @@ module.exports = {
     toCommentYouMust: "To comment you must",
     comments: "Comments",
     commentPlaceholder: "Leave a comment...",
-    emptyCommentError: "Comment can not be empty",
     commentSuccess: "Your comment should be on the top",
     // Add New Post page
     createPost: "Create Post",
