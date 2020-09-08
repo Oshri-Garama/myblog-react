@@ -29,8 +29,8 @@ const AddNewPost = (props) => {
   const [progressUploadingImage, setProgressUploadingImage] = useState(0);
   const { t, i18n } = useTranslation()
   const [language, setLanguage] = useState(i18n.language);
-  const [refresh, setRefresh] = useState(false);
 
+  
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
