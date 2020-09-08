@@ -181,8 +181,7 @@ const AddOrEditPost = (props) => {
     }
   },[language, i18n.language])
 
-  const editPost = (imageUrl) => {
-    console.log(imageUrl, 'imageUrl edit')
+  const editPost = (newImageUrl) => {
     const post = {
       content: content,
       imageUrl: imageUrl || "",
@@ -190,7 +189,7 @@ const AddOrEditPost = (props) => {
       tags: tags,
       id: props.location.state.id
     }
-    if (imageUrl) {
+    if (newImageUrl) {
       post.imageUrl = imageUrl;
     }
     if (title && content && title.length <= 30) {
@@ -246,151 +245,6 @@ const AddOrEditPost = (props) => {
     }
   };
 
-  // const renderNewPostPage = () => {
-  //   const { message, success } = popup;
-  //   const type = success ? "success" : "failed";
-  //   return (
-  //     <form className="new-post-container" onSubmit={onSubmit}>
-  //       <AlertMessage message={message} type={type} />
-  //       <header id="create-new-post-title">{t('addNewPostTitle')}</header>
-  //       <div id="new-post-form-container">
-  //         <img id="icon-header-new-post" src={bookSVG} />
-  //         <input
-  //           id="input-add-title"
-  //           type="text"
-  //           placeholder={t('titlePlaceholder')}
-  //           onChange={handleTitleChange}
-  //           readonly
-  //           dir={i18n.language === "he" ? 'rtl' : 'ltr'}
-  //         ></input>
-  //         <div id="ck-editor">
-  //           <CKEditor
-  //             editor={ClassicEditor}
-  //             config={{
-  //               removePlugins: [
-  //                 "List",
-  //                 "Table",
-  //                 "MediaEmbed",
-  //                 "BlockQuote",
-  //                 "Indent",
-  //                 "ImageUpload",
-  //               ],
-  //             }}
-  //             onChange={(event, editor) => {
-  //               const data = editor.getData();
-  //               {
-  //                 handleContentChange(data);
-  //               }
-  //             }}
-  //           />
-  //         </div>
-  //         <TagsSelector getSelectedTags={getSelectedTags} />
-  //         <div className="image-addition-input">
-  //           <label className={i18n.language === "he" ? "upload-pic-label upload-pic-label-hebrew" : "upload-pic-label"} for="upload">
-  //             {image ? image.name : t('uploadPicture')}
-  //           </label>
-  //           <input
-  //             type="file"
-  //             id="upload"
-  //             accept="image/*"
-  //             onChange={handleImageChange}
-  //             readonly
-  //           ></input>
-  //           {image && (
-  //             <img
-  //               src={xbuttonSVG}
-  //               className="x-button"
-  //               title={"Click to remove picture"}
-  //               onClick={removePicture}
-  //             ></img>
-  //           )}
-  //         </div>
-  //         <div
-  //           className="progress-bar"
-  //           style={{ "--progress": `${progressUploadingImage}%` }}
-  //         ></div>
-  //         <button
-  //           className="create-post-button"
-  //           type="submit"
-  //           disabled={success}
-  //         >
-  //           {t('createPost')}
-  //         </button>
-  //       </div>
-  //     </form>
-  //   );
-  // }
-
-  // const renderEditPostPage = () => {
-  //   const { message, success } = popup;
-  //   const type = success ? "success" : "failed";
-
-  //   return (
-  //     <form className="new-post-container" onSubmit={onSubmit}>
-  //       <AlertMessage message={message} type={type} />
-  //       <header id="create-new-post-title">{t('editPostTitle')}</header>
-  //       <div id="new-post-form-container" className="edit-post-container">
-  //         <img id="edit-post-logo" src={editSVG} />
-  //         <input
-  //           id="input-add-title"
-  //           value={title}
-  //           type="text"
-  //           placeholder={t('titlePlaceholder')}
-  //           onChange={handleTitleChange}
-  //           dir={i18n.language === "he" ? 'rtl' : 'ltr'}
-  //         ></input>
-  //         <div id="ck-editor">
-  //           <CKEditor
-  //             data={content}
-  //             editor={ClassicEditor}
-  //             config={{
-  //               removePlugins: [
-  //                 "List",
-  //                 "Table",
-  //                 "MediaEmbed",
-  //                 "BlockQuote",
-  //                 "Indent",
-  //                 "ImageUpload",
-  //               ],
-  //             }}
-  //             onChange={(event, editor) => {
-  //               const data = editor.getData();
-  //               {
-  //                 handleContentChange(data);
-  //               }
-  //             }}
-  //           />
-  //         </div>
-  //         {renderTagSelector()}
-  //         <div className="image-addition-input">
-  //           <label className={i18n.language === "he" ? "upload-pic-label upload-pic-label-hebrew" : "upload-pic-label"} for="upload">
-  //             {image ? image.name : !imageUrl ? t('uploadPicture') : t('editPicture')}
-  //           </label>
-  //           <input
-  //             type="file"
-  //             id="upload"
-  //             accept="image/*"
-  //             onChange={handleImageChange}
-  //             readonly
-  //           ></input>
-  //           {(imageUrl || image) && <img className='x-button' src={xbuttonSVG} title={'Click to remove picture'} onClick={removePicture}></img>}
-  //         </div>
-  //         <div
-  //           className="progress-bar"
-  //           style={{ "--progress": `${progressUploadingImage}%` }}
-  //         ></div>
-  //         <button
-  //           className="create-post-button"
-  //           type="submit"
-  //           disabled={success}
-  //         >
-  //           {t('updatePost')}
-  //         </button>
-  //       </div>
-  //     </form>
-  //   );
-  // }
-
 
     if (!isLoggedIn) return <Redirect to="/" />;
     const { message, success } = popup;
@@ -435,7 +289,7 @@ const AddOrEditPost = (props) => {
           </div>
           {renderTagSelector()}
           <div className="image-addition-input">
-            <label className={i18n.language === "he" ? "upload-pic-label upload-pic-label-hebrew" : "upload-pic-label"} for="upload">
+            <label className={i18n.language === "he" ? "upload-pic-label upload-pic-label-hebrew" : "upload-pic-label"} htmlFor="upload">
               {isNewPost ? (image ? image.name : t('uploadPicture')) : (image ? image.name : !imageUrl) ? t('uploadPicture') : t('editPicture')}
             </label>
             <input
@@ -468,13 +322,6 @@ const AddOrEditPost = (props) => {
         </div>
       </form>
     );
-    // if (isNewPost) {
-    //   return renderNewPostPage()
-    // }
-    // else {
-    //   return renderEditPostPage()
-    // }
-    
 };
 
 export default AddOrEditPost;
