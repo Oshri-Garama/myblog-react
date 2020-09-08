@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import "./AddNewPost.css";
+import "./EditPost.css"
 import axios from "axios";
 import bookSVG from "../../images/book.svg";
+import editSVG from "../../images/edit-logo.svg";
 import xbuttonSVG from "../../images/icons/xbutton.svg";
 import AlertMessage from "../../components/AlertMessage/AlertMessage";
 import TagsSelector from "../../components/TagsSelector/TagsSelector";
@@ -11,10 +14,9 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "../../styles/editor.css";
 import { storage } from "../../firebase";
 import { v4 as uuid } from "uuid";
-import { useTranslation } from "react-i18next";
 
 
-const AddNewPost = (props) => {
+const AddOrEditPost = (props) => {
   const [isLoggedIn] = useState(props.isLoggedIn);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
@@ -29,8 +31,11 @@ const AddNewPost = (props) => {
   const [progressUploadingImage, setProgressUploadingImage] = useState(0);
   const { t, i18n } = useTranslation()
   const [language, setLanguage] = useState(i18n.language);
+  const [location] = useState(props.location.state);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isNewPost, setIsNewPost] = useState(true);
 
-  
+
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -45,7 +50,7 @@ const AddNewPost = (props) => {
     }
   };
 
-  const postNew = (newImageUrl) => {
+  const newPost = (newImageUrl) => {
     const post = {
       content: content,
       imageUrl: imageUrl,
@@ -113,12 +118,22 @@ const AddNewPost = (props) => {
             .child(`${randomString}-${image.name}`)
             .getDownloadURL()
             .then((url) => {
-              postNew(url);
+              if (!location || (!location && !location.id)) {
+                newPost(url);
+              }
+              else {
+                editPost(url);
+              }
             });
         }
       );
     } else {
-      postNew();
+      if (!location || (!location && !location.id)) {
+        newPost();
+      }
+      else {
+        editPost();
+      }
     }
   };
 
@@ -133,6 +148,24 @@ const AddNewPost = (props) => {
     }
   }, [popup]);
 
+  useEffect(() => {
+    if (props && props.location && props.location.state) {
+      setIsNewPost(false)
+      const { id } = props.location.state
+      axios.get(`/api/posts/${id}`).then(res => {
+        if (res.status === 200) {
+          const { content, title, imageUrl } = res.data.post;
+          const { tags } = res.data;
+          setTags(tags)
+          setContent(content)
+          setTitle(title)
+          setImageUrl(imageUrl)
+          setIsLoading(false)
+        }
+      })
+    }
+  }, []);
+
   const getSelectedTags = (tags) => {
     setTags(tags)
   };
@@ -145,10 +178,70 @@ const AddNewPost = (props) => {
     if (language !== i18n.language) {
       setLanguage(i18n.language)
     }
-  },[language, i18n.language, refresh])
+  },[language, i18n.language])
 
+  const editPost = (imageUrl) => {
+    const post = {
+      content: content,
+      imageUrl: imageUrl || "",
+      title: title,
+      tags: tags,
+      id: props.location.state.id
+    }
+    if (imageUrl) {
+      post.imageUrl = imageUrl;
+    }
+    if (title && content && title.length <= 30) {
+      axios.put("/api/posts", post).then((res) => {
+        if (res.status === 200) {
+          post.published = res.data.post.published;
+          post.author = res.data.post.author;
+          setPopup({
+            message: "Post updated successfully",
+            isPopupOpen: true,
+            success: true,
+          })
+          setTimeout(() => {
+            props.history.push(`/posts/${post.id}`);
+          }, 3000);
+        }
+      });
+    } else if (post.title.length > 30) {
+      setPopup({
+        message: "Title must be 30 letters max",
+        isPopupOpen: true,
+        success: false,
+      })
+    } else {
+      setPopup({
+        message: "Title and Content are required",
+        isPopupOpen: true,
+        success: false,
+      })
+    }
+  };
 
-    if (!isLoggedIn) return <Redirect to="/" />;
+  const renderTagSelector = () => {
+    if (tags.length) {
+      return (
+        <TagsSelector
+          getSelectedTags={getSelectedTags}
+          action="update"
+          tags={tags}
+        />
+      );
+    } else if (tags.length === 0 && !isLoading) {
+      return (
+        <TagsSelector
+          getSelectedTags={getSelectedTags}
+          action="update"
+          tags={[]}
+        />
+      );
+    }
+  };
+
+  const renderNewPostPage = () => {
     const { message, success } = popup;
     const type = success ? "success" : "failed";
     return (
@@ -221,6 +314,86 @@ const AddNewPost = (props) => {
         </div>
       </form>
     );
+  }
+
+  const renderEditPostPage = () => {
+    const { message, success } = popup;
+    const type = success ? "success" : "failed";
+
+    return (
+      <form className="new-post-container" onSubmit={onSubmit}>
+        <AlertMessage message={message} type={type} />
+        <header id="create-new-post-title">Edit Your Post</header>
+        <div id="new-post-form-container" className="edit-post-container">
+          <img id="edit-post-logo" src={editSVG} />
+          <input
+            id="input-add-title"
+            value={title}
+            type="text"
+            placeholder="Post title goes here..."
+            onChange={handleTitleChange}
+          ></input>
+          <div id="ck-editor">
+            <CKEditor
+              data={content}
+              editor={ClassicEditor}
+              config={{
+                removePlugins: [
+                  "List",
+                  "Table",
+                  "MediaEmbed",
+                  "BlockQuote",
+                  "Indent",
+                  "ImageUpload",
+                ],
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                {
+                  handleContentChange(data);
+                }
+              }}
+            />
+          </div>
+          {renderTagSelector()}
+          <div className="image-addition-input">
+            <label className="upload-pic-label" for="upload">
+              {image ? image.name : !imageUrl ? "Upload Picture" : "Edit Picture"}
+            </label>
+            <input
+              type="file"
+              id="upload"
+              accept="image/*"
+              onChange={handleImageChange}
+              readonly
+            ></input>
+            {(imageUrl || image) && <img className='x-button' src={xbuttonSVG} title={'Click to remove picture'} onClick={removePicture}></img>}
+          </div>
+          <div
+            className="progress-bar"
+            style={{ "--progress": `${progressUploadingImage}%` }}
+          ></div>
+          <button
+            className="create-post-button"
+            type="submit"
+            disabled={success}
+          >
+            Update Post
+          </button>
+        </div>
+      </form>
+    );
+  }
+
+
+    if (!isLoggedIn) return <Redirect to="/" />;
+    if (isNewPost) {
+      return renderNewPostPage()
+    }
+    else {
+      return renderEditPostPage()
+    }
+    
 };
 
-export default AddNewPost;
+export default AddOrEditPost;

@@ -5,16 +5,13 @@ import Navbar from '../components/Navbar/Navbar'
 import Homepage from "../pages/Homepage/Homepage";
 import AboutMe from "../pages/AboutMe/AboutMe";
 import PostPage from "../pages/PostPage/PostPage";
-import AddNewPost from "../pages/AddPost/AddNewPost";
-import EditPost from "../pages/EditPost/EditPost";
+import AddOrEditPost from "../pages/AddOrEditPost/AddOrEditPost";
 import axios from "axios";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import SignupPage from "../pages/SignupPage/SignupPage";
 import loader from '../images/loader.svg'
 import Posts from "./Posts/Posts";
 
-// const port = '5000';
-// const baseUrl = `http://ec2-54-209-175-208.compute-1.amazonaws.com:${port}`;
 const initialState = {
   posts: [],
   userId: null,
@@ -99,15 +96,9 @@ class App extends React.Component {
           <Switch>
             <Route path="/about" component={AboutMe}></Route>
             <Route
-              path="/posts/new"
+              path={["/posts/new", "/posts/edit/:id"]}
               render={(props) => (
-                <AddNewPost {...props} isLoggedIn={isLoggedIn} />
-              )}
-            ></Route>
-            <Route
-              path="/posts/edit/:id"
-              render={(props) => (
-                <EditPost {...props} />
+                <AddOrEditPost {...props} isLoggedIn={isLoggedIn} />
               )}
             ></Route>
             <Route
