@@ -267,6 +267,8 @@ const AddOrEditPost = (props) => {
           ></input>
           <div id="ck-editor">
             <CKEditor
+            // key makes it re-render when page is changing
+              key={language}
               data={content}
               editor={ClassicEditor}
               config={{
@@ -278,6 +280,7 @@ const AddOrEditPost = (props) => {
                   "Indent",
                   "ImageUpload",
                 ],
+                language: language
               }}
               onChange={(event, editor) => {
                 const data = editor.getData();
