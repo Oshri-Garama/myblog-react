@@ -323,15 +323,16 @@ const AddOrEditPost = (props) => {
     return (
       <form className="new-post-container" onSubmit={onSubmit}>
         <AlertMessage message={message} type={type} />
-        <header id="create-new-post-title">Edit Your Post</header>
+        <header id="create-new-post-title">{t('editPostTitle')}</header>
         <div id="new-post-form-container" className="edit-post-container">
           <img id="edit-post-logo" src={editSVG} />
           <input
             id="input-add-title"
             value={title}
             type="text"
-            placeholder="Post title goes here..."
+            placeholder={t('titlePlaceholder')}
             onChange={handleTitleChange}
+            dir={i18n.language === "he" ? 'rtl' : 'ltr'}
           ></input>
           <div id="ck-editor">
             <CKEditor
@@ -357,8 +358,8 @@ const AddOrEditPost = (props) => {
           </div>
           {renderTagSelector()}
           <div className="image-addition-input">
-            <label className="upload-pic-label" for="upload">
-              {image ? image.name : !imageUrl ? "Upload Picture" : "Edit Picture"}
+            <label className={i18n.language === "he" ? "upload-pic-label upload-pic-label-hebrew" : "upload-pic-label"} for="upload">
+              {image ? image.name : !imageUrl ? t('uploadPicture') : t('editPicture')}
             </label>
             <input
               type="file"
@@ -378,7 +379,7 @@ const AddOrEditPost = (props) => {
             type="submit"
             disabled={success}
           >
-            Update Post
+            {t('updatePost')}
           </button>
         </div>
       </form>

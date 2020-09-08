@@ -10,17 +10,20 @@ module.exports = {
     newPost: "New Post",
     myPosts: "My Posts",
     logOut: "Logout",
-    english: 'English',
+    english: "English",
     invalidInput: "Please provide a valid input",
-    connectToBackendError: "Problem connecting to the server, please contact support",
-    loginIncorrectDetails: "The username or the password you provided is incorrect",
+    connectToBackendError:
+      "Problem connecting to the server, please contact support",
+    loginIncorrectDetails:
+      "The username or the password you provided is incorrect",
     username: "Username:",
     usernamePlaceholder: "Type your username here...",
     password: "Password:",
     passwordPlaceholder: "Type your password here...",
     // Sign Up page
     signUpTitle: "Start Your Journey Now!",
-    signUpSubTitle: "In Writee, you can write every single memory that you experienced through your life\nAs a member you will have the ability to share posts in public and read other's memories\nSo what are you waiting for?",
+    signUpSubTitle:
+      "In Writee, you can write every single memory that you experienced through your life\nAs a member you will have the ability to share posts in public and read other's memories\nSo what are you waiting for?",
     fullName: "Full Name:",
     fullNamePlaceholder: "Type here your full name...",
     signUp: "Sign Up",
@@ -28,7 +31,8 @@ module.exports = {
     usernameMaxLength: "Username must be 10 letters max",
     // About Me page
     aboutMeTitle: "Welcome To My Blog Application!",
-    aboutMeDesc: 'Welcome to my blog application!\nMy name is Oshri Garama, I live in Israel, in Tel Aviv.\nI love technology and I have a BS.c degree in Computer Science from the "IDC", Herzliya,\nToday I am working as a Full Stack Developer and QA at "Pick A Pier" company, which provides a technology solution for the marina industry.\nI have created this app as part of full stack development\'s course in the IDC, where I learned alot about:\nReact, Javascript, MySQL, Python, CSS',
+    aboutMeDesc:
+      'Welcome to my blog application!\nMy name is Oshri Garama, I live in Israel, in Tel Aviv.\nI love technology and I have a BS.c degree in Computer Science from the "IDC", Herzliya,\nToday I am working as a Full Stack Developer and QA at "Pick A Pier" company, which provides a technology solution for the marina industry.\nI have created this app as part of full stack development\'s course in the IDC, where I learned alot about:\nReact, Javascript, MySQL, Python, CSS',
     // Posts page
     noResultsFound: "No results found",
     recentPostsHeader: "Recent Posts",
@@ -49,9 +53,13 @@ module.exports = {
     emptyCommentError: "Comment can not be empty",
     commentSuccess: "Your comment should be on the top",
     // Add New Post page
-    createPost: 'Create Post',
-    uploadPicture: 'Upload Picture',
-    titlePlaceholder: 'Post title goes here...',
-    addNewPostTitle: 'Create New Post'
+    createPost: "Create Post",
+    uploadPicture: "Upload Picture",
+    titlePlaceholder: "Post title goes here...",
+    addNewPostTitle: "Create New Post",
+    // Edit Post Page
+    editPostTitle: "Edit Your Post",
+    editPicture: "Edit Picture",
+    updatePost: "Update Post",
   },
 };

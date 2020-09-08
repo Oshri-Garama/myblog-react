@@ -55,6 +55,10 @@ module.exports = {
     createPost: 'יצירת פוסט',
     uploadPicture: 'העלאת תמונה',
     titlePlaceholder: 'כתוב את כותרת הפוסט כאן...',
-    addNewPostTitle: 'צור פוסט חדש'
+    addNewPostTitle: 'צור פוסט חדש',
+    // Edit Post Page
+    editPostTitle: "ערוך את הפוסט שלך",
+    editPicture: "ערוך תמונה",
+    updatePost: "עדכן פוסט",
   },
 };
