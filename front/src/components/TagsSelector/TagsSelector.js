@@ -28,6 +28,7 @@ class TagsSelector extends React.Component {
 
   componentDidMount = () => {
     const { tags } = this.props
+    if (!tags) return;
     axios
       .get("/api/tags")
       .then((res) => {
