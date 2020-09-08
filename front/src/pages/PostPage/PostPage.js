@@ -14,7 +14,13 @@ import { useTranslation } from "react-i18next";
 const PostPage = (props) => {
   const [id] = useState(props.match.params.id);
   const [isLoggedIn] = useState(props.isLoggedIn);
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState({
+    content: "",
+    imageUrl: "",
+    title: "",
+    tags: [],
+    comments: [],
+  });
   const [comment, setComment] = useState("");
   const [username] = useState(props.username);
   const [comments, setComments] = useState([]);
