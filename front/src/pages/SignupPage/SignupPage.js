@@ -109,18 +109,21 @@ const SignupPage = (props) => {
                 type="text"
                 placeholder={t('fullNamePlaceholder')}
                 onChange={handleFullNameChange}
+                dir={i18n.language === "he" ? "rtl" : "ltr"}
               ></input>
               <input
                 className="field-decoration"
                 type="text"
                 placeholder={t('usernamePlaceholder')}
                 onChange={handleUserNameChange}
+                dir={i18n.language === "he" ? "rtl" : "ltr"}
               ></input>
               <input
                 className="field-decoration"
                 type="password"
                 placeholder={t('passwordPlaceholder')}
                 onChange={handlePasswordChange}
+                dir={i18n.language === "he" ? "rtl" : "ltr"}
               ></input>
             </div>
     );
