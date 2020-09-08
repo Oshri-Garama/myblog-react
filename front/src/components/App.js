@@ -11,6 +11,7 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import SignupPage from "../pages/SignupPage/SignupPage";
 import loader from "../images/loader.svg";
 import Posts from "./Posts/Posts";
+import { useTranslation } from "react-i18next";
 
 const App = (props) => {
   const [posts, setPosts] = useState([]);
@@ -20,6 +21,8 @@ const App = (props) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { i18n } = useTranslation();
+  const [language, setLanguage] = useState(i18n.language || "en");  
 
   const handleSignup = (details) => {
     setFullName(details.fullName);
@@ -68,6 +71,12 @@ const App = (props) => {
       }
     });
   }, []);
+
+    useEffect(() => {
+    const prevLanguage = localStorage.getItem('language') || 'en';
+    setLanguage(prevLanguage);
+    i18n.changeLanguage(prevLanguage);
+  }, [])
 
   if (isLoading)
     return (

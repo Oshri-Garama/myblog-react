@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./navbar.css";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -20,12 +20,6 @@ const Navbar = (props) => {
       localStorage.setItem('language', selectedLanguage);
     }
   };
-
-  useEffect(() => {
-    const prevLanguage = localStorage.getItem('language');
-    setLanguage(prevLanguage);
-    i18n.changeLanguage(prevLanguage);
-  }, [])
 
   return (
     <div className={i18n.language === "he" ? "navbar-container navbar-container-hebrew" : "navbar-container"}>
