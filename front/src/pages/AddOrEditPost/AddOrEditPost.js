@@ -45,7 +45,6 @@ const AddOrEditPost = (props) => {
 
   const handleImageChange = (event) => {
     if (event.target.files[0]) {
-      console.log('check')
       setImage(event.target.files[0]);
     }
   };
@@ -67,7 +66,7 @@ const AddOrEditPost = (props) => {
           post.id = res.data.post.id;
           post.author = res.data.post.author;
           setPopup({
-            message: "Post saved successfully",
+            message: t('postSavedSuccess'),
             isPopupOpen: true,
             success: true,
           })
@@ -81,13 +80,13 @@ const AddOrEditPost = (props) => {
       });
     } else if (title.length > 30) {
       setPopup({
-        message: "Title must be 30 letters max",
+        message: t('titleMaxLetters'),
         isPopupOpen: true,
         success: false,
       })
     } else {
       setPopup({
-        message: "Title and Content are required",
+        message: t('titleAndContentRequired'),
         isPopupOpen: true,
         success: false,
       })
@@ -111,6 +110,7 @@ const AddOrEditPost = (props) => {
         },
         (error) => {
           console.log(error);
+          setPopup()
         },
         () => {
           storage
@@ -198,7 +198,7 @@ const AddOrEditPost = (props) => {
           post.published = res.data.post.published;
           post.author = res.data.post.author;
           setPopup({
-            message: "Post updated successfully",
+            message: t('postUpdatedSucess'),
             isPopupOpen: true,
             success: true,
           })
@@ -209,13 +209,13 @@ const AddOrEditPost = (props) => {
       });
     } else if (post.title.length > 30) {
       setPopup({
-        message: "Title must be 30 letters max",
+        message: t("titleMaxLetters"),
         isPopupOpen: true,
         success: false,
       })
     } else {
       setPopup({
-        message: "Title and Content are required",
+        message: t("titleAndContentRequired"),
         isPopupOpen: true,
         success: false,
       })

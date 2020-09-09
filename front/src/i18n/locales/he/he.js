@@ -55,9 +55,13 @@ module.exports = {
     uploadPicture: 'העלאת תמונה',
     titlePlaceholder: 'כתוב את כותרת הפוסט כאן...',
     addNewPostTitle: 'צור פוסט חדש',
+    titleAndContentRequired: "אנא מלא כותרת ותוכן",
+    titleMaxLetters: "כותרת יכולה להכיל עד 30 תווים",
+    postSavedSuccess: "הפוסט נשמר בהצלחה",
     // Edit Post Page
     editPostTitle: "ערוך את הפוסט שלך",
     editPicture: "ערוך תמונה",
     updatePost: "עדכן פוסט",
+    postUpdatedSucess: "הפוסט התעדכן בהצלחה",
   },
 };
