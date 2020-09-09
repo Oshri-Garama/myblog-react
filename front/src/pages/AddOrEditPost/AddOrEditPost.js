@@ -93,7 +93,7 @@ const AddOrEditPost = (props) => {
     }
   };
 
-  const onSubmit = async (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
     if (image && title && content && title.length <= 30) {
       const randomString = uuid();

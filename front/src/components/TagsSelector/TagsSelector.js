@@ -23,25 +23,35 @@ class TagsSelector extends React.Component {
         message: null,
         isPopupOpen: false,
       },
+      mounted: true
     };
   }
 
   componentDidMount = () => {
     const { tags } = this.props
-    axios
-      .get("/api/tags")
-      .then((res) => {
-        if (res.status === 200) {
-          this.setState({
-            ...this.state,
-            suggestions: res.data,
-            tags: tags || []
-          });
-        }
-        this.filterSuggestions()
-      })
-      .catch((error) => console.log(error, "Couldn't get suggestions tags"));
+    if (this.state.mounted) {
+      axios
+        .get("/api/tags")
+        .then((res) => {
+          if (res.status === 200) {
+            this.setState({
+              ...this.state,
+              suggestions: res.data,
+              tags: tags || []
+            });
+          }
+          this.filterSuggestions()
+        })
+        .catch((error) => console.log(error, "Couldn't get suggestions tags"));
+    }
   };
+
+  componentWillUnmount = () => {
+    this.setState({
+      ...this.state,
+      mounted: false
+    })
+  }
 
   handleAddTag = (tag) => {
     const { tags } = this.state
