@@ -58,11 +58,12 @@ module.exports = {
     addNewPostTitle: "Create New Post",
     titleAndContentRequired: "Title and Content are required",
     titleMaxLetters: "Title must be 30 letters max",
-    postSavedSuccess: "Post updated successfully",
+    postSavedSuccess: "Post saved successfully",
     // Edit Post Page
     editPostTitle: "Edit Your Post",
     editPicture: "Edit Picture",
     updatePost: "Update Post",
     postUpdatedSucess: "Post updated successfully",
+    problemUploadingPic: "Currently can not uploading pic, sorry",
   },
 };
