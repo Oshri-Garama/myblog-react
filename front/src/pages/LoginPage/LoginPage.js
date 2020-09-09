@@ -15,6 +15,7 @@ const LoginPage = (props) => {
     success: false,
   });
   const formRef = useRef(null);
+  const mountedRef = useRef(true);
   const { t, i18n } = useTranslation();
 
   const handleUserNameChange = (event) => {
@@ -74,13 +75,19 @@ const LoginPage = (props) => {
   useEffect(() => {
     if (popup.isPopupOpen) {
       setTimeout(() => {
-        setPopup({
-          isPopupOpen: false,
-          message: null,
-        });
+        if (mountedRef.current) {
+          setPopup({
+            isPopupOpen: false,
+            message: null,
+          });
+        }
       }, 4000);
     }
   }, [popup])
+
+  useEffect(() => {
+    return () => mountedRef.current = false;
+  }, [])
 
   const renderBasedOnLanguage = () => {
     const language = i18n.language;

@@ -35,6 +35,7 @@ const PostPage = (props) => {
   const formRef = useRef(null);
   const comp = useRef(null);
   const ps = useRef(null);
+  const mountedRef = useRef(true);
 
   const fetchPostPage = () => {
     axios
@@ -93,13 +94,19 @@ const PostPage = (props) => {
   useEffect(() => {
     if (popup.isPopupOpen) {
       setTimeout(() => {
-        setPopup({
-          isPopupOpen: false,
-          message: null,
-        });
+        if (mountedRef.current) {
+          setPopup({
+            isPopupOpen: false,
+            message: null,
+          });
+        }
       }, 4000);
     }
-  }, [popup]);
+  }, [popup])
+
+  useEffect(() => {
+    return () => mountedRef.current = false;
+  }, [])
 
   const renderTags = () => {
     const tagsJSX = tags.map((tag) => {

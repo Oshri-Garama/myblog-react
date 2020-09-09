@@ -16,6 +16,7 @@ const SignupPage = (props) => {
     success: false,
   });
   const formRef = useRef(null);
+  const mountedRef = useRef(true);
   const { t, i18n } = useTranslation();
 
   const handleFullNameChange = (event) => {
@@ -85,13 +86,19 @@ const SignupPage = (props) => {
   useEffect(() => {
     if (popup.isPopupOpen) {
       setTimeout(() => {
-        setPopup({
-          isPopupOpen: false,
-          message: null,
-        });
+        if (mountedRef.current) {
+          setPopup({
+            isPopupOpen: false,
+            message: null,
+          });
+        }
       }, 4000);
     }
-  }, [popup]);
+  }, [popup])
+
+  useEffect(() => {
+    return () => mountedRef.current = false;
+  }, [])
 
   const renderBasedOnLanguage = () => {
     const language = i18n.language;
