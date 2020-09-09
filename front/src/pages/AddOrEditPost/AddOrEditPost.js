@@ -110,7 +110,11 @@ const AddOrEditPost = (props) => {
         },
         (error) => {
           console.log(error);
-          setPopup()
+          setPopup({
+            message: t('problemUploadingPic'),
+            isPopupOpen: true,
+            success: false,
+          })
         },
         () => {
           storage

@@ -63,5 +63,6 @@ module.exports = {
     editPicture: "ערוך תמונה",
     updatePost: "עדכן פוסט",
     postUpdatedSucess: "הפוסט התעדכן בהצלחה",
+    problemUploadingPic: "מצטערים, כרגע אין אפשרות להעלות תמונות",
   },
 };
