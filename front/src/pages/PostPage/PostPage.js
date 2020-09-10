@@ -87,7 +87,7 @@ const PostPage = (props) => {
 
   const renderPostImage = () => {
     if (post.imageUrl)
-      return <img id="post-image-post-page" src={post.imageUrl} />;
+      return <img className={i18n.language === "he" ? "post-image-post-page post-image-hebrew" : "post-image-post-page "} src={post.imageUrl} />;
     return null;
   };
 
@@ -121,7 +121,7 @@ const PostPage = (props) => {
 
   const renderContent = () => {
     const contentParsedToString = parse(`${post.content}`);
-    return <div className="post-view-content">{contentParsedToString}</div>;
+    return <div className={i18n.language === "he" ? "post-view-content post-view-content-hebrew" : "post-view-content"}>{contentParsedToString}</div>;
   };
 
   const { message, success, isPopupOpen } = popup;
@@ -131,7 +131,7 @@ const PostPage = (props) => {
     <div className="post-view-page">
       <AlertMessage message={message} type={type} />
       <header id="post-view-title">{post.title}</header>
-      <div className="post-view-container">
+      <div className={i18n.language === "he" ? "post-view-container post-view-container-hebrew" : "post-view-container"}>
         <div id="post-page-seperator">
           {renderPostImage()}
           {renderContent()}
