@@ -152,7 +152,7 @@ const PostPage = (props) => {
             ></textarea>
           <button
             id="comment-button"
-            disabled={((!isLoggedIn || isPopupOpen) && success) || !comment}
+            disabled={((!isLoggedIn || isPopupOpen) && success) || (!comment && isLoggedIn)}
           >
             <img id="comment-icon" src={commentSVG} />
           </button>
