@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import "firebase/storage"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC3gYQOThfonXR841PtF1f4VnqOUpcGpr0",
+  apiKey: "",
   authDomain: "writee-blog.firebaseapp.com",
   databaseURL: "https://writee-blog.firebaseio.com",
   projectId: "writee-blog",
