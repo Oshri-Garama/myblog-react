@@ -4,6 +4,9 @@ import { useTranslation } from "react-i18next";
 import linkedinSVG from '../../images/icons/linkedin.svg'
 import githubSVG from '../../images/icons/github.svg'
 
+const LINKEDIN_URL = 'https://il.linkedin.com/in/oshri-garama-00a301196'
+const GITHUB_URL = 'https://github.com/Oshri-Garama/myblog-react'
+
 const AboutMe = () => {
   const { t, i18n } = useTranslation();
 
@@ -14,8 +17,12 @@ const AboutMe = () => {
         {t('aboutMeDesc')}
       </p>
       <div className='aboutme-ctas'>
-        <img className='linkedin-icon' src={linkedinSVG}/>
-        <img src={githubSVG}/>
+        <a href={LINKEDIN_URL} target={"_blank"}>
+          <img className='linkedin-icon' src={linkedinSVG}/>
+        </a>
+        <a href={GITHUB_URL} target={"_blank"}>
+          <img src={githubSVG}/>
+        </a>
       </div>
     </div>
   )
