@@ -23,8 +23,7 @@
   font-size: 55px;
   font-weight: 500;
   height: 100px;
-  margin-top: 100px;
-  margin-bottom: 10px;
+  margin-top: 75px;
   color: #f3faec;
   text-shadow: 2px 2px #7D9977;
   opacity: 1;
@@ -95,6 +94,17 @@
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
 	animation-duration: 1.2s;
+}
+
+#aboutme-container .aboutme-ctas {
+  display: flex;
+  height: 70px;
+  width: 400px;
+  justify-content: flex-end;
+}
+
+#aboutme-container .linkedin-icon {
+  margin-right: 5px;
 }
 
 .about-me-hebrew-text {
