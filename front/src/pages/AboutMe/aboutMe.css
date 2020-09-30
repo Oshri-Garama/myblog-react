@@ -103,8 +103,21 @@
   justify-content: flex-end;
 }
 
+@media screen and (max-width: 812px) {
+  #aboutme-container .aboutme-ctas  {
+    width: 370px;
+  }
+}
+
+@media screen and (max-width: 599px) {
+  #aboutme-container .aboutme-ctas  {
+    width: 350px;
+  }
+}
+
 #aboutme-container .linkedin-icon {
   margin-right: 5px;
+  margin-top: 1px;
 }
 
 .about-me-hebrew-text {
