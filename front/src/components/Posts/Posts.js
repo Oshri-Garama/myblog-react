@@ -124,7 +124,7 @@ const Posts = (props) => {
       ? t("switchToFilterSearch")
       : t("switchToContentSearch");
     return (
-      <div id="search-filter-container">
+      <div className={i18n.language === 'he' ? "search-filter-container hebrew-dir" : "search-filter-container"}>
         {searchByContent ? (
           <div id="tag-selector-search">
             <input

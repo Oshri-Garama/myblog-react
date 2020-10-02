@@ -131,7 +131,7 @@
   text-shadow: 0.5px 0.5px #7D9977;
 }
 
-#all-posts-page-container #search-filter-container {
+#all-posts-page-container .search-filter-container {
   display: flex;
   color: #009688;
   height: 80px;
@@ -142,6 +142,10 @@
 	animation-timing-function: ease-in;
 	animation-duration: 1s;
 } 
+
+#all-posts-page-container .hebrew-dir {
+  direction: rtl;
+}
 
 #all-posts-page-container .search-by-content-container {
   display: flex;
