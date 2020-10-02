@@ -70,15 +70,15 @@
 
 #title-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   text-align: center;
+  justify-content: center;
   white-space: pre-wrap;
   width: 1100px;
   font-family: 'Great Vibes';
   color: #f3faec;
   text-shadow: 2px 2px #7D9977 ;
-  margin-top: 50px;
+  margin-top: 60px;
   margin-bottom: 52px;
   height: 200px;
 }
@@ -91,26 +91,23 @@
 }
 
 #web-title {
-  font-size: 190px;
+  font-size: 160px;
   font-weight: 500;
   height: 160px;
   width: 800px;
-  align-self: flex-start;
 }
 
 @media screen and (max-width: 812px) {
   #web-title {
-    font-size: 180px;
+    font-size: 125px;
     height: 78%;
-    align-self: flex-start;
     width: 90%;
   }
 }
 @media screen and (max-width: 599px) {
   #web-title {
-    font-size: 160px;
+    font-size: 100px;
     height: 75%;
-    align-self: flex-start;
     width: 93%;
     margin-top: 3%;
   }
@@ -118,40 +115,10 @@
 
 @media screen and (max-width: 480px) {
   #web-title {
-    width: 70%;
-    font-size: 120px;
-    height: 57%;
+    min-width: 120%;
+    font-size: 80px;
+    height: 60%;
     align-self: center;
-    margin-right: 50%;
-  }
-}
-
-#web-subtitle {
-  font-family: 'Kalam';
-  font-size: 35px;
-  font-weight: 500;
-  align-self: flex-end;
-  margin-right: 180px;
-}
-@media screen and (max-width: 812px) {
-  #web-subtitle {
-    font-size: 30px;
-    width: 50%;
-  }
-}
-@media screen and (max-width: 599px) {
-  #web-subtitle {
-    font-size: 25px;
-    width: 50%;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  #web-subtitle {
-    width: 100%;
-    font-size: 25px;
-    align-self: flex-start;
-    margin-left: 20%;
   }
 }
 

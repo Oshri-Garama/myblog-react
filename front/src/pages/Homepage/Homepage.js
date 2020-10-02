@@ -65,8 +65,7 @@ const Homepage = (props) => {
   return (
     <div className="home-container">
       <div id="title-container">
-        <header id="web-title">Writee</header>
-        <header id="web-subtitle">Memories Don't Last Forever</header>
+        <header id="web-title">Pick a Blog</header>
       </div>
       {props.isLoggedIn ? renderUserHomepage() : renderGuestHomepage()}
     </div>
