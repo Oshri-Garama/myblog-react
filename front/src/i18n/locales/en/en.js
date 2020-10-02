@@ -30,9 +30,9 @@ module.exports = {
     usernameExists: "Username exists, please choose another one",
     usernameMaxLength: "Username must be 10 letters max",
     // About Me page
-    aboutMeTitle: "Welcome To My Blog Application!",
+    aboutMeTitle: "Welcome To My Blog!",
     aboutMeDesc:
-      'Welcome to my blog application!\nMy name is Oshri Garama, I live in Israel, in Tel Aviv.\nI love technology and I have a BS.c degree in Computer Science from the "IDC", Herzliya,\nToday I am working as a Full Stack Developer and QA at "Pick A Pier" company, which provides a technology solution for the marina industry.\nI have created this app as part of full stack development\'s course in the IDC, where I learned alot about:\nReact, Javascript, MySQL, Python, CSS',
+      'Welcome to my blog!\nMy name is Oshri Garama, I live in Tel Aviv, Israel.\nI love technology and I have bachelor degree in Computer Science from the Interdisciplinary Center, Herzliya.\nToday I am working as a Full Stack Developer at "Pick A Pier" company, which provides a technology solution for the maritime industry.\nI have created this blog as part of full stack development course at the IDC, covering:\nReact, Javascript, MySQL, Python, CSS',
     // Posts page
     noResultsFound: "No results found",
     recentPostsHeader: "Recent Posts",
