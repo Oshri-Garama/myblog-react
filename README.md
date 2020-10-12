@@ -60,7 +60,7 @@ last mandatory tasks
 Extra:
 1. Didn't learn hooks in the course, and decided to learn by myself, then I changed all of the functions to work with hooks.
 2. Possibility to change the langauge in the blog using I18n.next: support for Hebrew, English.
-3. Possiblity to insert image to blog.
+3. Possiblity to insert image to blog using Firebase stroage.
 4. Multi tag search
 5. Blog looks and functions in most of the common screen sizes.
 
