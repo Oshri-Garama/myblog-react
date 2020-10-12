@@ -62,6 +62,7 @@ Extra:
 2. Possibility to change the langauge in the blog using I18n.next: support for Hebrew, English.
 3. Possiblity to insert image to blog.
 4. Multi tag search
+5. Blog looks and functions in most of the common screen sizes.
 
 
 
