@@ -23,7 +23,7 @@ module.exports = {
     // Sign Up page
     signUpTitle: "Start Your Journey Now!",
     signUpSubTitle:
-      "In Writee, you can write every single memory that you experienced through your life\nAs a member you will have the ability to share posts in public and read other's memories\nSo what are you waiting for?",
+      "Here you can write every single memory that you experienced through your life\nAs a member you will have the ability to share posts in public and read other's memories\nSo what are you waiting for?",
     fullName: "Full Name:",
     fullNamePlaceholder: "Type here your full name...",
     signUp: "Sign Up",
