@@ -62,11 +62,11 @@ const App = (props) => {
           return setIsLoading(false);
         } else {
           setIsLoggedIn(true);
-          setIsLoading(false);
           setUsername(res.data.username);
           setFullName(res.data.fullName);
           setUserId(res.data.userId);
           setIsAdmin(res.data.isAdmin);
+          setIsLoading(false);
         }
       }
     });
