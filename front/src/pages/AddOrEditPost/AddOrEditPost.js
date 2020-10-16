@@ -186,7 +186,7 @@ const AddOrEditPost = (props) => {
     }
   }, [language, i18n.language]);
 
-  const editPost = (newImageUrl) => {
+  const editPost = newImageUrl => {
     const post = {
       content: content,
       imageUrl: imageUrl || "",
@@ -195,7 +195,7 @@ const AddOrEditPost = (props) => {
       id: props.location.state.id,
     };
     if (newImageUrl) {
-      post.imageUrl = imageUrl;
+      post.imageUrl = newImageUrl;
     }
     if (title && content && title.length <= 30) {
       axios.put("/api/posts", post).then((res) => {
