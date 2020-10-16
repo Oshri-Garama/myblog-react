@@ -13,7 +13,7 @@ import loader from "../images/loader.svg";
 import Posts from "./Posts/Posts";
 import { useTranslation } from "react-i18next";
 
-const App = (props) => {
+const App = () => {
   const [posts, setPosts] = useState([]);
   const [userId, setUserId] = useState(null);
   const [username, setUsername] = useState(null);
@@ -29,6 +29,7 @@ const App = (props) => {
     setIsAdmin(details.isAdmin);
     setUserId(details.userId);
     setUsername(details.username);
+    setIsLoggedIn(true);
   };
 
   const handleLogin = (data) => {
