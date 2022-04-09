@@ -15,7 +15,7 @@
     "i18next": "^19.7.0",
     "i18next-browser-languagedetector": "^6.0.1",
     "js-cookie": "^2.2.1",
-    "moment": "^2.26.0",
+    "moment": "^2.29.2",
     "perfect-scrollbar": "^1.5.0",
     "react": "^16.13.1",
     "react-dnd": "5.0.0",
